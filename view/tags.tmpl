@@ -1,7 +1,7 @@
     <div class=center>
     [% FOREACH l IN ['a'..'z'] %]
         [% IF letter != l %]
-            <a href="?view=tags&letter=[% l %]">[% l %]</a>
+            <a href="/tags/?letter=[% l %]">[% l %]</a>
         [% ELSE %]
             [% l %]
         [% END %]
@@ -11,7 +11,7 @@
         <tr>
         [% FOREACH tag IN tag_list %]
             <td>
-                <a href="?view=tag&tag_id=[% tag.tag_id %]">[% tag.tag %]</a>
+                <a href="/tag/?tag_id=[% tag.tag_id %]">[% tag.tag %]</a>
             </td>
     [% UNLESS loop.count mod 10 %]
         </tr>

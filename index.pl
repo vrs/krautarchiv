@@ -374,7 +374,7 @@ sub show_file {
         return;
     }
     
-    $file->{path} = "$file_folder/$file->{path}"; 
+    $file->{path} = "/$file_folder/$file->{path}"; 
     $vars->{file} = $file;
     $vars->{post_list} = $db->get_file_info_by_file_id($file_id);
     $vars->{tag_list} = $db->get_tag_list_by_file_id($file_id);

@@ -1,23 +1,23 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Krautarchiv</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>Krautarchiv-Testinstanz</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
     </head>
     <body>
         <div class="center">
             <p>
             [% FOREACH board_list %]
-                <a href="?view=board&board_id=[% board_id %]">[% board %]</a>([% thread_count %])
+                <a href="/board/?board_id=[% board_id %]">[% board %]</a>([% thread_count %])
             [% END %]
             </p>
             <p> 
-                <a href=?view=top_ten&type=files>Top 10 Images</a>
-                <a href=?view=top_ten&type=subjects>Top 10 Subjects</a>
-                <a href=?view=show_files>Show Files</a>
-                <a href=?view=tags>Tags</a>
-                <a href=?view=stats>Statistics</a>
-                <form class="search" action="/" method="GET">
-                    <input type="hidden" name="view" value="search" />
+                <a href=/top_ten/?type=files>Top 10 Images</a>
+                <a href=/top_ten/?type=subjects>Top 10 Subjects</a>
+                <a href=/show_files/>Show Files</a>
+                <a href=/tags/>Tags</a>
+                <a href=/stats/>Statistics</a>
+                <form class="search" action="/search/" method="GET">
                     <input type="text" name="s" />
                     <input type="submit" value="Search" />
                 </form>

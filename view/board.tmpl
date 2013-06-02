@@ -1,12 +1,12 @@
     <div class="margin">
-        Sort: <a href="?view=board&board_id=[% board_id %]&order=0">Newest</a>
-        <a href="?view=board&board_id=[% board_id %]&order=1">Most Comments</a>
+        Sort: <a href="/board/?board_id=[% board_id %]&order=0">Newest</a>
+        <a href="/board/?board_id=[% board_id %]&order=1">Most Comments</a>
     </div>
     [% FOREACH thread IN thread_list %]
     <table class=thread>
         <tr class=head>
             <td>
-                <a href="?view=thread&thread_id=[% thread.thread_id %]&board_id=[% thread.board_id %]">[% thread.thread_id %]</a> | 
+                <a href="/thread/?thread_id=[% thread.thread_id %]&board_id=[% thread.board_id %]">[% thread.thread_id %]</a> | 
                 <span class=subject>[% thread.subject %]</span> | 
                 <span class=username>[% thread.user %]</span> | [% thread.date %]
             </td>
@@ -18,9 +18,8 @@
                 [% file.thumb %]
                 <div><a href="javascript:{}" onclick="document.getElementById('delete_file_form_[% file.file_id %]').submit();">Delete</a></div>
                 </div>
-                <form id="delete_file_form_[% file.file_id %]" action="" method="POST" style="display:inline;">
+                <form id="delete_file_form_[% file.file_id %]" action="/board/" method="POST" style="display:inline;">
                     <input type="hidden" name="action" value="delete_file" />
-                    <input type="hidden" name="view" value="board" />
                     <input type="hidden" name="board_id" value="[% thread.board_id %]" />
                     <input type="hidden" name="file_id" value="[% file.file_id %]" />
                 </form>
@@ -39,13 +38,13 @@
     [% END %]
     <div class=margin>
     [% IF page %]
-        <a href="?view=board&board_id=[% board_id %]&page=[% prev_page %]&order=[% order %]">PREV</a>&nbsp;
+        <a href="/board/?board_id=[% board_id %]&page=[% prev_page %]&order=[% order %]">PREV</a>&nbsp;
     [% END %]
     [% FOREACH p IN page_list %]
-        <a href="?view=board&board_id=[% board_id %]&page=[% p %]&order=[% order %]">[% p %]</a>&nbsp;
+        <a href="/board/?board_id=[% board_id %]&page=[% p %]&order=[% order %]">[% p %]</a>&nbsp;
     [% END %]
     [% IF page < (max_pages - 1) %]
-        <a href="?view=board&board_id=[% board_id %]&page=[% next_page %]&order=[% order %]">NEXT</a>
+        <a href="/board/?board_id=[% board_id %]&page=[% next_page %]&order=[% order %]">NEXT</a>
     [% END %]
         <p>
             [% total_threads %] Threads([% time %] seconds)

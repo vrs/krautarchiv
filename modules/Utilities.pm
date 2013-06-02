@@ -20,7 +20,7 @@ sub create_file_link {
 
     if($path =~ /\.(mp3)|(ogg)$/) {
         return "<audio controls=\"controls\" class=thumbnail>".
-               "<source src=\"$path\" type=\"audio/mp3\" /></audio>";
+               "<source src=\"/$path\" type=\"audio/mp3\" /></audio>";
     } elsif($path =~ /\.swf$/) {
         return "<object data=\"$path\" type=\"application/x-shockwave-flash\">".
                "<param name=\"movie\" value=\"$path\"></object><br />".
@@ -34,10 +34,10 @@ sub create_file_link {
     } elsif($path =~ /\.psd/) {
         return "<a href=$path><img class=thumbnail src=\"static/Photoshop_logo.svg\" /></a>";
     } elsif($path =~ /\.gif$/) {
-        return "<a href=?view=show_file&file_id=$file_id><img class=thumbnail src=$path /></a>";
+        return "<a href=/show_file/?file_id=$file_id><img class=thumbnail src=\"/$path\" /></a>";
     } else {
         my $thumbnail = create_thumbnail($path,$file_folder,$thumb_folder);
-        return "<a href=?view=show_file&file_id=$file_id><img class=thumbnail src=$thumbnail /></a>";
+        return "<a href=/show_file/?file_id=$file_id><img class=thumbnail src=\"/$thumbnail\" /></a>";
     }
 }
 

@@ -6,7 +6,7 @@
                 <ul class=postlist>
                 [% FOREACH b IN file.board_list %]
                     <li>
-                        <a href="?view=board&board_id=[% b.board_id %]">[% b.board %]</a>/<a href="?view=thread&board_id=[% b.board_id %]&thread_id=[% b.thread_id %]">[% b.thread_id %]</a>/<a href="?view=thread&board_id=[% b.board_id %]&thread_id=[% b.thread_id %]#[% b.post_id %]">[% b.post_id %]</a>/
+                        <a href="/board/?board_id=[% b.board_id %]">[% b.board %]</a>/<a href="/thread/?board_id=[% b.board_id %]&thread_id=[% b.thread_id %]">[% b.thread_id %]</a>/<a href="/thread/?board_id=[% b.board_id %]&thread_id=[% b.thread_id %]#[% b.post_id %]">[% b.post_id %]</a>/
                         [% b.filename %]
                     </li>
                 [% END %]

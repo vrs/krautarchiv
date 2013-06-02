@@ -3,9 +3,9 @@
         <ul class=postlist>
         [% FOREACH post IN post_list %]
             <li>
-                <a href="?view=board&board_id=[% post.board_id %]">[% post.board %]</a>/
-                <a href="?view=thread&board_id=[% post.board_id %]&thread_id=[% post.thread_id %]">[% post.thread_id %]</a>/
-                <a href="?view=thread&board_id=[% post.board_id %]&thread_id=[% post.thread_id %]#[% post.post_id %]">[% post.post_id %]</a>/ 
+                <a href="/board/?board_id=[% post.board_id %]">[% post.board %]</a>/
+                <a href="/thread/?board_id=[% post.board_id %]&thread_id=[% post.thread_id %]">[% post.thread_id %]</a>/
+                <a href="/thread/?board_id=[% post.board_id %]&thread_id=[% post.thread_id %]#[% post.post_id %]">[% post.post_id %]</a>/ 
                 [% post.filename %]
             </li>
         [% END %]
