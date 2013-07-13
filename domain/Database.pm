@@ -226,7 +226,7 @@ sub get_thread {
 
     my $sth = $self->{dbh}->prepare("SELECT `posts_rowid`,`board_id`,`thread_id`,
                                             `post_id`,`subject`,`user`,`date`,
-                                            `text`,`file_id`,`path`,`md5`
+                                            `text`,`file_id`,`path`,`md5`,`filename`
                                      FROM `posts`
                                      LEFT JOIN `post_files` USING(`posts_rowid`)
                                      LEFT JOIN `files` USING(`file_id`)
@@ -240,7 +240,8 @@ sub get_thread {
     my $current_posts_rowid = -1;
     while(my ($posts_rowid, $board_id, $thread_id,
               $post_id, $subject, $user, $date,
-              $text, $file_id, $path,$md5) = $sth->fetchrow) {
+              $text, $file_id, $path,$md5, $filename) = $sth->fetchrow) {
+        $date =~ s/...$//; # <time> element
         if($current_posts_rowid != $posts_rowid) {
             $current_posts_rowid = $posts_rowid;
             $file_list = _new_array();
@@ -255,7 +256,7 @@ sub get_thread {
                                file_list => $file_list});
         }
         if($file_id) {
-            push(@{$file_list}, { file_id => $file_id, path => $path, md5 => $md5 });
+            push(@{$file_list}, { file_id => $file_id, path => $path, md5 => $md5, filename => $filename });
         }
     }
     
