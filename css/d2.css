@@ -1,0 +1,163 @@
+html {
+    margin: 0;
+    background: #EEEEEE;
+}
+body { 
+    margin: 0 1em;
+    font-family: sans-serif;
+    font-size: 80%;
+    word-wrap: break-word;
+}
+
+nav {
+    overflow: hidden;
+    background: #BBBBDD;
+    padding: 0 1em;
+    margin: 0 -1em;
+}
+ul.menu {
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+.menu.right {
+    float: right;
+}
+.menu li {
+    margin: 0;
+    display: inline-block;
+}
+nav a {
+    display: block;
+    padding: 0.5em;
+}
+
+.banner {
+    text-align: center;
+    margin: 1em;
+}
+
+.page_head h1 {
+    text-align: center;
+}
+
+.thread {
+}
+.thread_head {
+    margin: 0;
+    padding: 0.25em 0.5em;
+    background: #BBBBDD;
+}
+.thread_OP {
+}
+.thread_OP .bullet {
+    display: none;
+}
+.thread_OP .post {
+    margin-left: 0;
+}
+.thread_reply {
+    margin: 0.5em 0;
+}
+.bullet {
+    float: left;
+    margin-top: 0.5em;
+}
+.bullet a:hover, .bullet a:focus {
+    background: #FFFFFF;
+}
+.post {
+    margin-left: 2em;
+    background: #AAAACC;
+    padding: 0.5em;
+    display: table;
+}
+.post header {
+}
+.post_files {
+    margin: 0 0 0.5em -0.5em;
+    display: table;
+    border-spacing: 0.5em 0;
+    position: relative;
+}
+.post_files.unary {
+    float: left;
+    margin-right: 1em;
+}
+.post_files.multiple {
+    margin-top: 0.5em;
+}
+figure {
+    background: #9999BB;
+    display: table-cell;
+}
+figure:hover, figure:focus {
+    background: #BBBBDD;
+}
+figure:hover .metadata, figure:focus .metadata {
+    visibility: visible;
+}
+figcaption {
+}
+.filename a {
+    display: block;
+    padding: 0.5em;
+}
+.thumbnail {
+    display: block;
+    padding: 0 0.5em 0.5em;
+}
+.thumbnail img {
+    display: block;
+    max-height: 200px;
+}
+.metadata {
+    position: absolute;
+    top: 100%;
+    padding: 0.5em;
+    background: inherit;
+    margin-top: 0.5em;
+    visibility: hidden;
+}
+.post_text {
+    margin: 0.5em;
+}
+.thread h1 {
+    color: #CC3333;
+}
+.post h1 {
+    display: inline;
+}
+
+.delete {
+    text-align: right;
+}
+footer {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+    color: #222299;
+}
+a:visited {
+    color: #992222;
+}
+a:hover, a:focus {
+    background: #EEEEEE;
+}
+.spoiler {
+    background: #000000;
+    color: #000000;
+}
+.spoiler:hover, .spoiler:focus {
+    background: #000000;
+    color: #FFFFFF;
+}
+.quote {
+    color: #077;
+}
+.postername { 
+    color: #3333CC;
+    font-weight: bold;
+}

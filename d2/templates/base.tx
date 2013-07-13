@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title><: block title -> { "d2 default" } :></title>
+
+<link rel="stylesheet" type="text/css" href="/css/d2.css">
+
+<!--<script type="text/javascript" src="/js/moo.js"></script>-->
+<!-- todo RSS -->
+
+</head>
+<body>
+
+<header class=page_head>
+    <nav>
+: include boards
+        <ul class="menu right">
+            <li><a href="/news">News</a></li>
+            <li><a href="/rules">Regeln</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/irc">IRC</a></li>
+            <li><a href="http://schuchtel.net/mwiki/index.php/Hauptseite">Wiki</a></li>
+            <li><a href="/donations">Spenden</a></li>
+        </ul>
+    </nav>
+
+    <div class="banner">
+        <a href="/board/<: $board :>/">
+:#            <img src="/banner/<: $board :>" alt="banner">
+            <img src="/banner/silkroadbanner.png" alt="banner">
+        </a>
+    </div>
+    <h1>/<: $board :>/ &ndash; Restaurant at the End of the Universe</h1>
+</header>
+<hr>
+
+: block content -> { }
+
+<hr>
+<footer>
+<p>Powered by a modded <a href="https://github.com/krautchan/krautarchiv">krautarchiv</a> (d2).
+
+<nav>
+: include boards
+</nav>
+</footer>
+
+</body>
+</html>
