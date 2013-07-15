@@ -1,23 +1,19 @@
               <figure tabindex=0>
-                  <figcaption>
-                      <div class="filename">
-                          <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>"><: $f.filename :></a>
-                      </div>
-:#                  <div class="file_info" id="file_info_<: $f.md5 :>">
-:#                      <!-- filename -->
-:#                      <!-- metadata -->
-:#                  </div>
-:#                  <div class="filesize">
-:#                      $filesize
-:#                  </div>
-                  </figcaption>
+                  <div class="filename">
+                      <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>"><: $f.filename :></a>
+                  </div>
                   <div class="thumbnail">
 :#                      <a tabindex=-1 target="_blank" href="/show_file/?file_id=<: $f.file_id :>">
                           <img src="/thumb/img/<: $f.path :>" alt="FIXME" />
 :#                      </a>
                   </div>
-                  <div class="metadata">
-                  <b>Filename:</b> <: $f.filename :><br>
-                  <b>Metadata:</b> FIXME
-                  </div>
+:#                  <div class="filesize">
+:#                      $filesize
+:#                  </div>
+                  <figcaption>
+                      <div class="metadata">
+                      <b>Filename:</b> <: $f.filename :><br>
+                      <b>Metadata:</b> FIXME
+                      </div>
+                  </figcaption>
               </figure>

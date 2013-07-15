@@ -5,12 +5,19 @@
 : override content -> {
 : include postform
 <form id="delform" action="/b/wakaba.pl" method="post">
-<article id="thread_<: $thread :>" class="thread">
-: for $post_list -> $p {
-: include post { p => $p }
-: }
+: for $thread_list -> $t {
+<article id="thread_<: $t.post_id :>" class="thread stub">
+<div class="thread_tools">
+    [<a href="/board/<: $board :>/thread/<: $t.post_id :>">Antworten</a>] (TODO proper vertical alignment)
+</div>
+: include post { p => $t }
 </article>
+<div class="omittedposts"><: $t.total_answers :> Post(s).</div>
+TODO other posts
+<hr>
+: }
 <div class="page_tools">
+: include pages
     <div class="delete">
         <input type="hidden" name="task" value="delete">
         <input type="hidden" name="parent" value="<: $post :>">

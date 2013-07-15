@@ -66,3 +66,29 @@ sub show_thread {
 
     print $tx->render('thread.tx', $vars);
 }
+
+
+sub show_board {
+    my ($cgi,$db,$vars) = @_;
+    my $page = $cgi->param('page') || 0;
+
+    my $order = 0;
+    my $limit = 6;
+    my $offset = $page * $limit;
+
+    my $thread_list = $db->get_thread_list(1,$order,$limit,$offset);
+
+    $vars->{total_threads} = $db->get_total_threads(1);
+    my $max_pages = ceil($vars->{total_threads} / $limit);
+    my @page_list = (0..($max_pages - 1));
+
+    $vars->{page} = $cgi->escapeHTML($page);
+    $vars->{prev_page} = $page - 1;
+    $vars->{next_page} = $page + 1;
+    $vars->{max_pages} = $max_pages;
+    $vars->{page_list} = \@page_list;
+    $vars->{thread_list} = $thread_list;
+    $vars->{board_list} = $db->get_board_list();
+
+    print $tx->render('board.tx', $vars);
+}

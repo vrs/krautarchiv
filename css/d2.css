@@ -14,6 +14,7 @@ nav {
     background: #BBBBDD;
     padding: 0 1em;
     margin: 0 -1em;
+    line-height: 1em;
 }
 ul.menu {
     margin: 0;
@@ -48,6 +49,9 @@ nav a {
     padding: 0.25em 0.5em;
     background: #BBBBDD;
 }
+.thread_head:empty {
+    padding: 0;
+}
 .thread_OP {
 }
 .thread_OP .bullet {
@@ -55,6 +59,11 @@ nav a {
 }
 .thread_OP .post {
     margin-left: 0;
+    display: block;
+}
+.thread_tools {
+    float: right;
+    padding: 0.5em;
 }
 .thread_reply {
     margin: 0.5em 0;
@@ -66,11 +75,20 @@ nav a {
 .bullet a:hover, .bullet a:focus {
     background: #FFFFFF;
 }
+.omittedposts {
+    margin: 0.5em 0 0.5em 2em;
+    color: #888888;
+}
 .post {
     margin-left: 2em;
     background: #AAAACC;
     padding: 0.5em;
     display: table;
+}
+.post:after {
+    content: "";
+    display: block;
+    clear: both;
 }
 .post header {
 }
@@ -98,10 +116,13 @@ figure:hover .metadata, figure:focus .metadata {
     visibility: visible;
 }
 figcaption {
+    background: inherit;
 }
 .filename a {
     display: block;
     padding: 0.5em;
+    /*temporary*/
+    max-width: 200px;
 }
 .thumbnail {
     display: block;
@@ -118,6 +139,8 @@ figcaption {
     background: inherit;
     margin-top: 0.5em;
     visibility: hidden;
+    z-index: 1;
+    /*box-shadow: 1px 1px 0 0 #313370;*/
 }
 .post_text {
     margin: 0.5em;
@@ -129,16 +152,27 @@ figcaption {
     display: inline;
 }
 
+.page_tools {
+    overflow: hidden;
+}
+.page_tools nav {
+    margin: 0;
+    float: left;
+}
 .delete {
-    text-align: right;
+    float:right;
 }
 footer {
     text-align: center;
 }
 
+a {
+    font-weight: bold;
+}
 a:link {
     text-decoration: none;
     color: #222299;
+    font-weight: normal;
 }
 a:visited {
     color: #992222;
