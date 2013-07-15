@@ -1,0 +1,3 @@
+improvements to the parser:
+-links with nofollow+noreferrer
+-subsections divided by >>123 <=> paragraphs instead of <br>
