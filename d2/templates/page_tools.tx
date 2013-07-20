@@ -1,0 +1,14 @@
+    <div class="page_actions">
+        <input type="hidden" name="parent" value="<: $post :>">
+        <label for="task1">
+            <input type="radio" name="task" id="task1" value="delete">
+            delete
+        </label>
+        <input type="password" name="password" size=8 placeholder="password">
+        <label for="task2">
+            <input type="radio" name="task" id="task2" value="report">
+            report
+        </label>
+        <input type="text" name="password" size=8 placeholder="reason">
+        <input value="Go!" type="submit">
+    </div>

@@ -31,18 +31,18 @@ while(my $cgi = new CGI::Fast) {
 
 sub main {
     my ($cgi) = shift;
-    my $thread = $cgi->param('thread') || "";
+    my $thread_id = $cgi->param('thread') || "";
     my $board = $cgi->param('board') || "none";
     my $post = $cgi->param('post') || "";
     my $view = $post ? "show_post" :
-        $thread ? "show_thread" :
+        $thread_id ? "show_thread" :
         "show_board";
 
     my $db = Database->new("$data_folder/data.db");
 
     my $vars = {
         post => $post,
-        thread => $thread,
+        thread_id => $thread_id,
         board => $board,
     };
 
@@ -54,19 +54,18 @@ sub main {
 
 sub show_post {
     my ($cgi, $db, $vars) = @_;
-    
+
     print $tx->render('post.tx', $vars);
 }
 
 sub show_thread {
     my ($cgi, $db, $vars) = @_;
 
-    $vars->{post_list} = $db->get_thread(1,$vars->{thread});
+    $vars->{post_list} = $db->get_thread(1,$vars->{thread_id});
     $vars->{board_list} = $db->get_board_list();
 
     print $tx->render('thread.tx', $vars);
 }
-
 
 sub show_board {
     my ($cgi,$db,$vars) = @_;
@@ -76,7 +75,7 @@ sub show_board {
     my $limit = 6;
     my $offset = $page * $limit;
 
-    my $thread_list = $db->get_thread_list(1,$order,$limit,$offset);
+    my $thread_list = $db->get_thread_stubs(1,$limit,$offset);
 
     $vars->{total_threads} = $db->get_total_threads(1);
     my $max_pages = ceil($vars->{total_threads} / $limit);

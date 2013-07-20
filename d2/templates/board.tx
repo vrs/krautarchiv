@@ -1,29 +1,25 @@
 : cascade base
 : override title -> {
-: $board ~ '/' ~ $thread
+: $board ~ '/' ~ $thread_id
 : }
 : override content -> {
-: include postform
+    : include postform
 <form id="delform" action="/b/wakaba.pl" method="post">
-: for $thread_list -> $t {
-<article id="thread_<: $t.post_id :>" class="thread stub">
-<div class="thread_tools">
-    [<a href="/board/<: $board :>/thread/<: $t.post_id :>">Antworten</a>] (TODO proper vertical alignment)
-</div>
-: include post { p => $t }
+    : for $thread_list.values() -> $thread {
+<article id="thread_<: $thread.post_list.0.post_id :>" class="thread stub">
+        : for $thread.post_list -> $t {
+            : include post { p => $t };
+            : if $~t == 0 && $thread.post_count {
+<div class="omittedposts"><: $thread.post_count :> post(s)<: if $thread.file_count { ", " ~ $thread.file_count ~ " file(s)" } :>
+not shown.</div>
+            : }
+        : }
 </article>
-<div class="omittedposts"><: $t.total_answers :> Post(s).</div>
-TODO other posts
 <hr>
-: }
+    : }
 <div class="page_tools">
-: include pages
-    <div class="delete">
-        <input type="hidden" name="task" value="delete">
-        <input type="hidden" name="parent" value="<: $post :>">
-        <input type="password" name="password" placeholder="password">
-        <input value="delete" type="submit">
-    </div>
+    : include pages
+    : include page_tools
 </div>
 </form>
 : }

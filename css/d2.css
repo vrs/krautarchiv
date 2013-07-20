@@ -43,11 +43,14 @@ nav a {
 }
 
 .thread {
+    margin-bottom: 2em;
+}
+.stub {
 }
 .thread_head {
     margin: 0;
     padding: 0.25em 0.5em;
-    background: #BBBBDD;
+    background: #9999BB;
 }
 .thread_head:empty {
     padding: 0;
@@ -60,32 +63,72 @@ nav a {
 .thread_OP .post {
     margin-left: 0;
     display: block;
+    padding-bottom: 0.01em;
 }
-.thread_tools {
+.post_tools {
+    display: block;
     float: right;
-    padding: 0.5em;
 }
+.post_tools span {
+    display: inline-block;
+    margin-left: 1em;
+}
+span.link_reply::before {
+    content: "» "
+}
+span.js::before {
+    content: "÷ "
+}
+
 .thread_reply {
     margin: 0.5em 0;
 }
+
 .bullet {
     float: left;
-    margin-top: 0.5em;
+    line-height: 1em;
+}
+.bullet a {
+    display: block;
+    padding: 1em 0;
 }
 .bullet a:hover, .bullet a:focus {
     background: #FFFFFF;
 }
+
 .omittedposts {
     margin: 0.5em 0 0.5em 2em;
     color: #888888;
 }
+
+input[name=delete] {
+    display: none;
+    float: left;
+    clear: left;
+    margin-top: 0.5em;
+}
+input[name=delete]:checked {
+    display: block;
+}
+.thread label {
+    line-height: 1em;
+    display: block;
+    padding: 1em;
+    cursor: pointer;
+}
+.thread_head label {
+    padding: 0.5em;
+}
+.thread label:empty {
+    display: none;
+}
+
 .post {
     margin-left: 2em;
     background: #AAAACC;
-    padding: 0.5em;
     display: table;
 }
-.post:after {
+.post::after {
     content: "";
     display: block;
     clear: both;
@@ -93,7 +136,7 @@ nav a {
 .post header {
 }
 .post_files {
-    margin: 0 0 0.5em -0.5em;
+    margin-bottom: 1em;
     display: table;
     border-spacing: 0.5em 0;
     position: relative;
@@ -103,7 +146,6 @@ nav a {
     margin-right: 1em;
 }
 .post_files.multiple {
-    margin-top: 0.5em;
 }
 figure {
     background: #9999BB;
@@ -143,10 +185,11 @@ figcaption {
     /*box-shadow: 1px 1px 0 0 #313370;*/
 }
 .post_text {
-    margin: 0.5em;
+    margin: 0 1em 1em;
 }
 .thread h1 {
     color: #CC3333;
+    padding: 0;
 }
 .post h1 {
     display: inline;
@@ -159,8 +202,8 @@ figcaption {
     margin: 0;
     float: left;
 }
-.delete {
-    float:right;
+.page_actions {
+    float: right;
 }
 footer {
     text-align: center;

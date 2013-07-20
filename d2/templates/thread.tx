@@ -1,22 +1,18 @@
 : cascade base
 : override title -> {
-: $board ~ '/' ~ $thread
+: $board ~ '/' ~ $thread_id
 : }
 : override content -> {
 : include postform
 <form id="delform" action="/b/wakaba.pl" method="post">
-<article id="thread_<: $thread :>" class="thread">
+<article id="thread_<: $thread_id :>" class="thread">
 : for $post_list -> $p {
 : include post { p => $p }
 : }
 </article>
+<hr>
 <div class="page_tools">
-    <div class="delete">
-        <input type="hidden" name="task" value="delete">
-        <input type="hidden" name="parent" value="<: $post :>">
-        <input type="password" name="password" placeholder="password">
-        <input value="delete" type="submit">
-    </div>
+: include page_tools
 </div>
 </form>
 : }

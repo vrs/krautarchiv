@@ -9,31 +9,47 @@
     <div class="bullet">
         <a href="/board/l/thread/<: $p.thread_id :>#<: $p.post_id :>">&gt;&gt;</a>
     </div>
+    <input type="checkbox" name="delete" id="<: $delete :>" value="<: $p.post_id :>">
     <div class="post">
         <header>
-            <input type="checkbox" name="delete" id="<: $delete :>" value="<: $p.post_id :>">
 :# I'd prefer to get rid of the if and instead make a distinction between thread topic and post topic
-: if !$isop {
-            <h1><label for="<: $delete :>"><: $p.subject | mark_raw :></label></h1>
-: }
-            <label for="<: $delete :>">
+        : if !$isop {
+            <h1><label tabindex=0 for="<: $delete :>"><: $p.subject | mark_raw :></label></h1>
+        : }
+            <label tabindex=0 for="<: $delete :>">
                 <span class="postername"><: $p.user :></span>
 :# http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-time-element
                 <time><: $p.date :></time>
-            </label>
             <span class="reflink">
                 <a href="/board/l/thread/<: $p.thread_id :>#i<: $p.post_id :>">Nr. <: $p.post_id :></a> 
             </span>
+        : if $isop {
+            <span class="post_tools thread_tools">
+                <span class="link_reply"><a href="/board/<: $board :>/thread/<: $p.thread_id :>">Antworten</a></span>
+                <span class="link_collapse js"><a href="#collapse_<:$p.thread_id:>">Minimieren</a></span>
+                <span class="link_hide js"><a href="#hide_<:$p.thread_id:>">Ausblenden</a></span>
+                <span class="link_watch js"><a href="#watch_<:$p.thread_id:>">Verfolgen</a></span>
+                TODO icons
+            </span>
+        : } else {
+            <span class="post_tools">
+                <span class="link_collapse js"><a href="#collapse_<:$p.thread_id:>">Minimieren</a></span>
+                <span class="link_hide js"><a href="#hide_<:$p.thread_id:>">Ausblenden</a></span>
+                TODO icons
+            </span>
+        : }
+            </label>
         </header>
         <div class="post_body">
-: if $p.file_list.size() == 1 {
+        : if $p.file_list.size() == 0 {
+        : } else if $p.file_list.size() == 1 {
             <div class="post_files unary">
-: } else {
+        : } else {
             <div class="post_files multiple">
-: }
-: for $p.file_list -> $file {
-: include file { f => $file }
-: }
+        : }
+        : for $p.file_list -> $file {
+            : include file { f => $file }
+        : }
             </div>
             <div class="post_text">
 :# "You'd better avoid to use this function. Instead, you should use the mark_raw() subroutine in programs, which you can import from Text::Xslate::Util."
@@ -42,10 +58,6 @@
 : $p.text | mark_raw
 
 </section>
-:# also, I'd like to separate posts in sections (via postlinks, >>foo)
-:# refer to posts via >>123.2 or >>123.heading or >>uniquetitle.heading (but with numbers in the background)
-:# and give people subheadings (h2)
-:# yes this is useful, for example for an advanced context.js
             </div>
         </div>
     </div>

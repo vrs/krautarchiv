@@ -1,6 +1,6 @@
               <figure tabindex=0>
                   <div class="filename">
-                      <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>"><: $f.filename :></a>
+                      <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>"><: $f.filename | mark_raw :></a>
                   </div>
                   <div class="thumbnail">
 :#                      <a tabindex=-1 target="_blank" href="/show_file/?file_id=<: $f.file_id :>">

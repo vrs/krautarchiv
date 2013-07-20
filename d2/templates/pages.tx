@@ -14,6 +14,6 @@
             <li><a rel=next href="/board/<: $board :>/page/<: $next_page :>/">Next</a></li>
 : }
             |
-            <li><a href="/board/<: $board :>/catalog">Catalog</a></li>
+            <li><a href="/catalog/<: $board :>/">Catalog</a></li>
         </ul>
     </nav>
