@@ -1,3 +1,58 @@
+done:
+thread view
+board view
+
+
 improvements to the parser:
 -links with nofollow+noreferrer
 -subsections divided by >>123 <=> paragraphs instead of <br>
+-refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
+-and give people subheadings (h2)
+-:focus for spoilers
+
+
+Interfacefragen:
+wie bestimmte Postfunktionen anbieten? also jene, die mit einem klick funktionieren sollen
+Länderbälle?
+setting: zeige keine namen/überschriften/bilder
+
+
+Bilder:
+ggf nochmal links/dateinamen überdenken?
+
+
+JS:
+load quote link: add >>, then rewrite url
+vad är detta
+tooltips
+context.js
+hide/hide replies
+inline image expansion
+post expansion
+thread expansion?
+modformular als erweiterung des report/löschformulars
+    position:fixed, bottom:0
+Quickreply?
+Spells?
+    filter: ganz weg, stub, highlight, remove images, assign custom class, custom JS
+    hide by: OP/name/trip/words/filenames/hashes/detectors
+shipainter-ersatz?
+custom CSS
+refresh -> highlight changes (catalog & board)
+rebind f5
+hiding in catalog
+thread stats, page a thread is on
+endless scroll?
+keyboard navigation (n/p threads, j/k posts, ctrl+return = open, etc)?
+
+
+Formular:
+validation (würg)
+captcha
+mark text -> quote
+
+
+backend:
+catalog
+overboard
+overboard catalog
