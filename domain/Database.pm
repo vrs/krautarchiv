@@ -492,11 +492,87 @@ sub get_thread_list {
                                  file_list => $file_list});
         }
         if($file_id) {
-            push(@{$file_list}, { file_id => $file_id, path => $path, md5 => $md5 });
+            push(@{$file_list}, { file_id => $file_id, path => $path, md5 => $md5, filename => $filename });
         }
     }
     
     return \@thread_list;
+}
+
+sub get_thread_stubs {
+    my $self = shift;
+    my $board_id = shift || croak("need board_id");
+    my $limit = shift || -1;
+    my $offset = shift || 0;
+
+    my $sth_1;
+
+    $sth_1 = $self->{dbh}->prepare("SELECT COUNT(distinct `posts_rowid`) AS `pcount`,
+            COUNT(distinct `file_id`) AS `fcount`,
+            `thread_id` AS `tid`,
+            MAX(`post_id`) as `last`
+        FROM `posts`
+        LEFT JOIN `post_files` USING(`posts_rowid`)
+        WHERE `board_id` = ?
+        GROUP BY `thread_id`
+        ORDER by `last` DESC
+        LIMIT ?
+        OFFSET ?;");
+    $sth_1->execute($board_id,$limit,$offset);
+
+    my %threads;
+    my $current_posts_rowid = -1;
+    while(my ($pcount, $fcount, $tid, $last) = $sth_1->fetchrow) {
+        $threads{$tid} = {
+            post_count => $pcount,
+            file_count => $fcount};
+    }
+
+    #fuck this shit
+    my $sth_2 = $self->{dbh}->prepare("SELECT thread_id, post_id,
+            subject, user, date, text,
+            file_id, path, md5, filename
+        FROM posts
+        LEFT JOIN `post_files` USING(`posts_rowid`)
+        LEFT JOIN `files` USING(`file_id`)
+        WHERE board_id = ?
+            AND (post_id IN (" . join (",", keys %threads) . ")
+            OR post_id IN (SELECT post_id FROM posts WHERE thread_id = "
+            . join (" ORDER BY post_id DESC LIMIT 3) OR post_id IN (SELECT post_id FROM posts WHERE thread_id = ", keys %threads)
+            . " ORDER BY post_id DESC LIMIT 3))
+        ORDER BY thread_id, post_id");
+
+    $sth_2->execute($board_id);
+
+    my $file_list;
+    my $current_thread = -1;
+    my $current_post = -1;
+    while(my ($tid, $pid, $subject, $user, $date, $text, $file_id, $path, $md5, $filename) = $sth_2->fetchrow) {
+        if($current_thread != $tid) {
+            $current_thread = $tid;
+            $threads{$tid}{post_list} = ();
+        }
+        if($current_post != $pid) {
+            $current_post = $pid;
+            $file_list = _new_array();
+            $date =~ s/...$//; # <time> element
+            push(@{$threads{$tid}{post_list}}, {
+                 thread_id => $tid,
+                 post_id => $pid,
+                 subject => $subject,
+                 user => $user,
+                 date => $date,
+                 text => $text,
+                 file_list => $file_list});
+            $threads{$tid}{post_count}--;
+        }
+        if($file_id) {
+            push(@{$file_list}, { file_id => $file_id, path => $path, md5 => $md5, filename => $filename });
+            $threads{$tid}{file_count}--;
+        }
+    }
+
+    return \%threads;
 }
 
 sub get_file_list {
