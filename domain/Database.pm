@@ -437,11 +437,11 @@ sub get_thread_list {
     my $offset = shift || 0;
 
     my $sth_1;
-    
+
     if($order) {
         $sth_1 = $self->{dbh}->prepare("SELECT `c`,`posts_rowid`,`bid`,`tid`,`post_id`,
                                                `subject`,`user`,`date`,`text`,`file_id`,
-                                               `path`,`md5`
+                                               `path`,`md5`,`filename`
                                         FROM ( SELECT COUNT(*) AS `c`,
                                                      `thread_id` AS `tid`,
                                                      `board_id` AS `bid`
@@ -456,7 +456,7 @@ sub get_thread_list {
     } else {
         $sth_1 = $self->{dbh}->prepare("SELECT `c`,`posts_rowid`,`bid`,`tid`,`post_id`,
                                                `subject`,`user`,`date`,`text`,`file_id`,
-                                               `path`,`md5`
+                                               `path`,`md5`,`filename`
                                         FROM ( SELECT COUNT(*) AS `c`,
                                                      `thread_id` AS `tid`,
                                                      `board_id` AS `bid`
@@ -476,10 +476,11 @@ sub get_thread_list {
     my $file_list;
     my $current_posts_rowid = -1;
     while(my ($count, $posts_rowid, $board_id, $thread_id, $post_id,
-              $subject, $user, $date, $text, $file_id, $path, $md5) = $sth_1->fetchrow) {
+              $subject, $user, $date, $text, $file_id, $path, $md5, $filename) = $sth_1->fetchrow) {
         if($current_posts_rowid != $posts_rowid) {
             $current_posts_rowid = $posts_rowid;
             $file_list = _new_array();
+            $date =~ s/...$//; # <time> element
             push(@thread_list, { total_answers => $count,
                                  posts_rowid => $posts_rowid,
                                  board_id => $board_id,
