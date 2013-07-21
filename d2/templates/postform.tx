@@ -1,3 +1,71 @@
 <div class="postarea">
-TODO postform
+<form id=postform action=/post>
+<div style="display: none">
+    <input name="email" type="text">
+    <input name="e-mail" type="text">
+    <input name="subject" type="text">
+    <input name="name" type="text">
+    <textarea name="comment"></textarea>
+    <textarea name="text"></textarea>
+</div>
+<input type=hidden name=board value="<: $board :>">
+: if $thread_id {
+<input type=hidden name=thread value="<: $thread_id :>">
+: }
+
+<div class=postform_inputs>
+
+    <div class=row_subject>
+        <div> <label for=postform_subject>Subject</label> </div>
+        <div> <input type=text name=postform_subject id=postform_subject placeholder=optional> </div>
+    </div>
+
+    <div class=row_name>
+        <div> <label for=postform_name>Name</label> </div>
+        <div> <input type=text name=postform_name id=postform_name placeholder="optional, name#trip##securetrip"> </div>
+    </div>
+
+    <div class=row_sage>
+        <div> <label for=postform_sage>Sage</label> </div>
+        <div> <input type=checkbox id=postform_sage name=postform_sage> </div>
+    </div>
+
+    <div class=row_password>
+        <div> <label for=postform_password>Password</label> </div>
+        <div> <input type=password id=postform_password name=postform_password placeholder="optional, used for post deletion"> </div>
+    </div>
+
+    <div>
+    <div>
+    TODO 
+    </div>
+    <div>
+    shipainter, captcha, extra functions
+    </div>
+    </div>
+</div>
+
+<div class=postform_commentbox>
+
+    <div class=row_comment>
+        <div> <label for=postform_comment>Comment</label> </div>
+        <div> <textarea cols=80 rows=6 wrap=soft id=postform_comment name=postform_comment></textarea> </div>
+    </div>
+
+    <div class=row_files>
+        <div> <label for=postform_files>Files (max. 4)</label> </div>
+        <div> <input type=file multiple id=postform_files name=postform_files> </div>
+    </div>
+
+    <div class=row_submit>
+        <div> <label for=submit>Submit</label> </div>
+        <div> <input type=submit value="Submit"> </div>
+    </div>
+
+</div>
+
+<div class=postform_messages>
+</div>
+
+</form>
 </div>

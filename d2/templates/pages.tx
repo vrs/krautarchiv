@@ -1,19 +1,18 @@
     <nav class="pages">
         <ul class="menu">
 : if $prev_page >= 0 {
-            <li><a rel=prev href="/board/<: $board :>/page/<: $prev_page :>/">Previous</a></li>
+            <li class="pages_prev"><a rel=prev href="/board/<: $board :>/page/<: $prev_page :>/">Previous</a></li>
 : }
 : for $page_list -> $pagenum {
 : if $page == $pagenum {
-            <li><a><: $pagenum :></a></li>
+            <li class="pages_num"><a><: $pagenum :></a></li>
 : } else {
-            <li><a href="/board/<: $board :>/page/<: $pagenum :>/"><: $pagenum :></a></li>
+            <li class="pages_num"><a href="/board/<: $board :>/page/<: $pagenum :>/"><: $pagenum :></a></li>
 : }
 : }
 : if $next_page < $max_pages {
-            <li><a rel=next href="/board/<: $board :>/page/<: $next_page :>/">Next</a></li>
+            <li class="pages_next"><a rel=next href="/board/<: $board :>/page/<: $next_page :>/">Next</a></li>
 : }
-            |
-            <li><a href="/catalog/<: $board :>/">Catalog</a></li>
+            <li class="pages_catalog"><a rel=alternate href="/catalog/<: $board :>/">Catalog</a></li>
         </ul>
     </nav>

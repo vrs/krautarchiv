@@ -9,6 +9,54 @@ body {
     word-wrap: break-word;
 }
 
+.empty {
+    display: none;
+}
+input {
+    font-size: 1em;
+}
+textarea {
+    font-size: 1.25em;
+}
+input[type=text], input[type=password] {
+    height: 1em;
+}
+input[type=text], input[type=password], textarea {
+    border: 1px solid #313370;
+    padding: 0.5em;
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+    border-color: #AAAACC;
+    background: #ffd;
+}
+a {
+    font-weight: bold;
+    height: 1em;
+}
+a:link {
+    text-decoration: none;
+    color: #222299;
+    font-weight: normal;
+}
+a:visited {
+    color: #992222;
+}
+a:hover, a:focus {
+    background: #EEEEEE;
+}
+
+.spoiler {
+    background: #000000;
+    color: #000000;
+}
+.spoiler:hover, .spoiler:focus {
+    background: #000000;
+    color: #FFFFFF;
+}
+.quote {
+    color: #077;
+}
+
 nav {
     overflow: hidden;
     background: #BBBBDD;
@@ -26,7 +74,8 @@ ul.menu {
 }
 .menu li {
     margin: 0;
-    display: inline-block;
+    display: block;
+    float: left;
 }
 nav a {
     display: block;
@@ -36,6 +85,76 @@ nav a {
 .banner {
     text-align: center;
     margin: 1em;
+}
+
+.postarea {
+}
+#postform {
+    display: table;
+    margin: 0 auto;
+}
+
+.postarea label {
+    display: block;
+    padding: 0.5em;
+    height: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    background: #313370;
+    border: 1px solid #313370;
+}
+.postarea textarea, .postform_commentbox label, .postarea input {
+    margin: 2px 0;
+    display: block;
+}
+
+.postform_inputs, .postform_commentbox {
+    float: left;
+    display: table;
+}
+.postform_inputs div, .postform_commentbox div {
+    display: table-row;
+}
+.postform_inputs div div, .postform_commentbox div div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.postform_inputs label {
+    margin: 1px 0px;
+}
+.postform_inputs input {
+    margin-right: 0.5em;
+}
+.postform_inputs input {
+    width: 20em;
+    border-left-width: 0;
+}
+.row_sage input {
+    margin-left: 0.5em;
+}
+
+.postform_commentbox .row_comment div {
+    display: table-row;
+}
+.row_files {
+    float: left;
+}
+.row_files input {
+    margin-left: 0.5em;
+}
+.row_submit {
+    float: right;
+}
+.row_submit label {
+    visibility: hidden;
+    width: 0;
+    height: 1em;
+    padding: 0.5em 0;
+}
+
+.postform_messages {
+    clear: both;
 }
 
 .page_head h1 {
@@ -63,7 +182,6 @@ nav a {
 .thread_OP .post {
     margin-left: 0;
     display: block;
-    padding-bottom: 0.01em;
 }
 .post_tools {
     display: block;
@@ -135,6 +253,19 @@ input[name=delete]:checked {
 }
 .post header {
 }
+.postername { 
+    color: #3333CC;
+    font-weight: bold;
+}
+.thread h1 {
+    font-size: 1.5em;
+    color: #CC3333;
+    padding: 0;
+}
+.post h1 {
+    display: inline;
+}
+
 .post_files {
     margin-bottom: 1em;
     display: table;
@@ -146,6 +277,9 @@ input[name=delete]:checked {
     margin-right: 1em;
 }
 .post_files.multiple {
+}
+.post_files.empty {
+    display: none;
 }
 figure {
     background: #9999BB;
@@ -184,15 +318,10 @@ figcaption {
     z-index: 1;
     /*box-shadow: 1px 1px 0 0 #313370;*/
 }
+
 .post_text {
-    margin: 0 1em 1em;
-}
-.thread h1 {
-    color: #CC3333;
-    padding: 0;
-}
-.post h1 {
-    display: inline;
+    margin: 0 1em;
+    padding-bottom: 1em;
 }
 
 .page_tools {
@@ -202,39 +331,15 @@ figcaption {
     margin: 0;
     float: left;
 }
+.pages_catalog {
+    border-left: solid 1px gray;
+}
+.pages_next {
+    border-right: solid 1px gray;
+}
 .page_actions {
     float: right;
 }
 footer {
     text-align: center;
-}
-
-a {
-    font-weight: bold;
-}
-a:link {
-    text-decoration: none;
-    color: #222299;
-    font-weight: normal;
-}
-a:visited {
-    color: #992222;
-}
-a:hover, a:focus {
-    background: #EEEEEE;
-}
-.spoiler {
-    background: #000000;
-    color: #000000;
-}
-.spoiler:hover, .spoiler:focus {
-    background: #000000;
-    color: #FFFFFF;
-}
-.quote {
-    color: #077;
-}
-.postername { 
-    color: #3333CC;
-    font-weight: bold;
 }

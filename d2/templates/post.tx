@@ -42,6 +42,7 @@
         </header>
         <div class="post_body">
         : if $p.file_list.size() == 0 {
+            <div class="post_files empty">
         : } else if $p.file_list.size() == 1 {
             <div class="post_files unary">
         : } else {
