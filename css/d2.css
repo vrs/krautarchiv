@@ -186,16 +186,38 @@ nav a {
 .post_tools {
     display: block;
     float: right;
+    margin-left: 1em;
 }
 .post_tools span {
     display: inline-block;
-    margin-left: 1em;
+}
+span.text {
+    margin-right: 1em;
 }
 span.link_reply::before {
     content: "» "
 }
 span.js::before {
     content: "÷ "
+}
+span.icon {
+    margin: 0;
+}
+span.icon * {
+    display: block;
+}
+span.icon::before {
+    content: "";
+}
+
+span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursive {
+    display: none;
+}
+.hidden span.link_show, .hidden span.link_show_recursive, .hidden span.link_kill, .hidden span.link_kill_recursive {
+    display: inline-block;
+}
+.hidden span.link_hide, .hidden span.link_hide_recursive {
+    display: none;
 }
 
 .thread_reply {
