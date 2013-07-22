@@ -17,6 +17,7 @@ input {
 }
 textarea {
     font-size: 1.25em;
+    margin: 0;
 }
 input[type=text], input[type=password] {
     height: 1em;
@@ -26,7 +27,6 @@ input[type=text], input[type=password], textarea {
     padding: 0.5em;
 }
 input[type=text]:focus, input[type=password]:focus, textarea:focus {
-    border-color: #AAAACC;
     background: #ffd;
 }
 a {
@@ -88,6 +88,7 @@ nav a {
 }
 
 .postarea {
+    margin-bottom: 2em;
 }
 #postform {
     display: table;
@@ -103,25 +104,26 @@ nav a {
     background: #313370;
     border: 1px solid #313370;
 }
-.postarea textarea, .postform_commentbox label, .postarea input {
-    margin: 2px 0;
-    display: block;
-}
 
 .postform_inputs, .postform_commentbox {
     float: left;
+    position: relative;
+}
+
+.postform_inputs {
     display: table;
+    border-spacing: 0 0.25em;
 }
-.postform_inputs div, .postform_commentbox div {
+.postform_inputs div {
     display: table-row;
+    border-spacing: 0;
 }
-.postform_inputs div div, .postform_commentbox div div {
+.postform_inputs div div {
     display: table-cell;
     vertical-align: middle;
 }
 
 .postform_inputs label {
-    margin: 1px 0px;
 }
 .postform_inputs input {
     margin-right: 0.5em;
@@ -134,23 +136,29 @@ nav a {
     margin-left: 0.5em;
 }
 
-.postform_commentbox .row_comment div {
+.postform_commentbox > div {
+    margin-top: 0.25em;
+}
+.row_captcha, .row_files {
     display: table-row;
 }
-.row_files {
-    float: left;
+.row_captcha div, .row_files div, .row_submit div {
+    display: table-cell;
+    vertical-align: middle;
+}
+.row_captcha * { /* wtf */
+    vertical-align: middle;
 }
 .row_files input {
     margin-left: 0.5em;
 }
 .row_submit {
-    float: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 .row_submit label {
     visibility: hidden;
-    width: 0;
-    height: 1em;
-    padding: 0.5em 0;
 }
 
 .postform_messages {

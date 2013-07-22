@@ -17,22 +17,22 @@
 
     <div class=row_subject>
         <div> <label for=postform_subject>Subject</label> </div>
-        <div> <input type=text name=postform_subject id=postform_subject placeholder=optional> </div>
+        <div> <input tabindex=2 type=text name=postform_subject id=postform_subject placeholder=optional> </div>
     </div>
 
     <div class=row_name>
         <div> <label for=postform_name>Name</label> </div>
-        <div> <input type=text name=postform_name id=postform_name placeholder="optional, name#trip##securetrip"> </div>
+        <div> <input tabindex=2 type=text name=postform_name id=postform_name placeholder="optional, name#trip##securetrip"> </div>
     </div>
 
     <div class=row_sage>
         <div> <label for=postform_sage>Sage</label> </div>
-        <div> <input type=checkbox id=postform_sage name=postform_sage> </div>
+        <div> <input tabindex=2 type=checkbox id=postform_sage name=postform_sage> </div>
     </div>
 
     <div class=row_password>
         <div> <label for=postform_password>Password</label> </div>
-        <div> <input type=password id=postform_password name=postform_password placeholder="optional, used for post deletion"> </div>
+        <div> <input tabindex=2 type=password id=postform_password name=postform_password placeholder="optional, used for post deletion"> </div>
     </div>
 
     <div>
@@ -40,7 +40,7 @@
     TODO 
     </div>
     <div>
-    shipainter, captcha, extra functions
+    shipainter, extra functions
     </div>
     </div>
 </div>
@@ -49,17 +49,25 @@
 
     <div class=row_comment>
         <div> <label for=postform_comment>Comment</label> </div>
-        <div> <textarea cols=80 rows=6 wrap=soft id=postform_comment name=postform_comment></textarea> </div>
+        <div> <textarea tabindex=1 cols=80 rows=6 wrap=soft id=postform_comment name=postform_comment></textarea> </div>
+    </div>
+
+    <div class=row_captcha>
+        <div> <label for=postform_captcha>Captcha</label> </div>
+        <div>
+            <input tabindex=1 type=text name=postform_captcha id=postform_captcha>
+            <img src="/static/captcha-example.png" alt="">
+        </div>
     </div>
 
     <div class=row_files>
         <div> <label for=postform_files>Files (max. 4)</label> </div>
-        <div> <input type=file multiple id=postform_files name=postform_files> </div>
+        <div> <input tabindex=2 type=file multiple id=postform_files name=postform_files> </div>
     </div>
 
     <div class=row_submit>
-        <div> <label for=submit>Submit</label> </div>
-        <div> <input type=submit value="Submit"> </div>
+        <div> <label for=submit></label> </div>
+        <div> <input tabindex=1 type=submit value="Submit"> </div>
     </div>
 
 </div>
