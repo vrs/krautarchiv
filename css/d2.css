@@ -9,6 +9,9 @@ body {
     word-wrap: break-word;
 }
 
+hr {
+    clear: both;
+}
 .empty {
     display: none;
 }
@@ -108,11 +111,11 @@ nav a {
 .postform_inputs, .postform_commentbox {
     float: left;
     position: relative;
+    border-spacing: 0 0.25em;
 }
 
 .postform_inputs {
     display: table;
-    border-spacing: 0 0.25em;
 }
 .postform_inputs div {
     display: table-row;
@@ -149,6 +152,9 @@ nav a {
 .row_captcha * { /* wtf */
     vertical-align: middle;
 }
+.row_captcha img {
+    height: 2em;
+}
 .row_files input {
     margin-left: 0.5em;
 }
@@ -173,6 +179,8 @@ nav a {
     margin-bottom: 2em;
 }
 .stub {
+}
+.full {
 }
 .thread_head {
     margin: 0;
@@ -202,6 +210,9 @@ nav a {
 span.text {
     margin-right: 1em;
 }
+.full .link_reply {
+    display: none;
+}
 span.link_reply::before {
     content: "» "
 }
@@ -216,6 +227,9 @@ span.icon * {
 }
 span.icon::before {
     content: "";
+}
+.icon a:hover {
+    background: none;
 }
 
 span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursive {
@@ -354,18 +368,98 @@ figcaption {
     padding-bottom: 1em;
 }
 
-.page_tools {
+.catalog {
+    text-align: center;
+}
+.teaser {
+    width: 210px;
+    display: inline-block;
+    vertical-align: top;
+    max-height: 400px;
     overflow: hidden;
+    position: relative;
+    border: 1px solid black;
+}
+.teaser a {
+    display: block;
+    background: none;
+    height: auto;
+    color: #000;
+}
+.teaser * {
+    background: none;
+}
+.teaser h1 {
+    font-size: 1em;
+}
+.teaser header a {
+    display: block;
+}
+.teaser:hover, .teaser:focus {
+    overflow: visible;
+    z-index: 1;
+}
+.teaser:hover .post, .teaser:focus .post {
+    background: #AAAACC;
+}
+.teaser:hover .thread_tools, .teaser:focus .thread_tools {
+    visibility: visible;
+}
+.teaser .text {
+    display: none;
+}
+.teaser .thread_tools {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    visibility: hidden;
+}
+.teaser .post_files {
+    float: none;
+    display: block;
+    margin: 0.5em 0;
+    word-spacing: -0.1em; /* hack, probably brittle */
+}
+.teaser figure {
+    display: block;
+    margin: 0;
+    background: none;
+}
+.teaser figure + figure {
+    width: 32%;
+    display: inline-block;
+}
+.teaser figure + figure img {
+    width: 100%;
+}
+.teaser .post {
+    padding: 5px;
+}
+.teaser .post_text {
+    margin: 0;
+    text-align: left;
+}
+.teaser .thumbnail {
+    padding: 0;
+    line-height: 0;
+}
+.teaser .thumbnail img {
+    display: inline-block;
+}
+
+.page_tools::after {
+    content: "";
+    display: block;
+    clear: both;
 }
 .page_tools nav {
     margin: 0;
     float: left;
 }
-.pages_catalog {
-    border-left: solid 1px gray;
+li.pages_catalog {
+    margin-left: 0.5em;
 }
 .pages_next {
-    border-right: solid 1px gray;
 }
 .page_actions {
     float: right;

@@ -1,5 +1,4 @@
     <div class="page_actions">
-        <input type="hidden" name="parent" value="<: $post :>">
         <label for="task1">
             <input type="radio" name="task" id="task1" value="delete">
             delete

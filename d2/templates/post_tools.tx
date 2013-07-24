@@ -1,0 +1,19 @@
+            <span class="post_tools<: $isop && " thread_tools" :>">
+: if $isop {
+                <span class="link_reply text"><a href="/board/<: $board_name :>/thread/<: $p.thread_id :>">Antworten</a></span>
+                <span class="link_watch js icon"><a href="#watch_<:$p.thread_id:>"><img src="/static/button-watch.gif" alt="" title="Verfolgen"></a></span>
+: }
+                <span class="link_show js icon"><a href="#show_<:$p.post_id:>"><img src="/static/button-open.gif" alt="" title="Einblenden"></a></span>
+: if !$isop {
+                <span class="link_show_recursive js icon"><a href="#show_recursive_<:$p.post_id:>"><img src="/static/button-open-recursive.gif" alt="" title="Einblenden mitsamt Antworten"></a></span>
+: }
+                <span class="link_hide js icon"><a href="#hide_<:$p.post_id:>"><img src="/static/button-close.gif" alt="" title="Minimieren"></a></span>
+: if !$isop {
+                <span class="link_hide_recursive js icon"><a href="#hide_recursive_<:$p.post_id:>"><img src="/static/button-close-recursive.gif" alt="" title="Minimieren mitsamt Antworten"></a></span>
+: }
+                <span class="link_kill js icon"><a href="#kill_<:$p.post_id:>"><img src="/static/button-kill.gif" alt="" title="Ausblenden (komplett)"></a></span>
+: if !$isop {
+                <span class="link_kill_recursive js icon"><a href="#kill_<:$p.post_id:>"><img src="/static/button-kill-recursive.gif" alt="" title="Ausblenden mitsamt Antworten"></a></span>
+: }
+                <span class="link_translate icon js"><a href="#translate_<:$p.post_id:>"><img src="/static/button-question.gif" alt="" title="VAD &Auml;R DETTA"></a></span>
+            </span>

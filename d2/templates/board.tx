@@ -1,11 +1,11 @@
 : cascade base
 : override title -> {
-: $board ~ '/' ~ $thread_id
+: "/" ~ $board_name ~ "/"
 : }
 : override content -> {
     : include postform
 <hr>
-<form id="delform" action="/b/wakaba.pl" method="post">
+<form id="delform" action="/delete" method="post">
     : for $thread_list.values() -> $thread {
 <article id="thread_<: $thread.post_list.0.post_id :>" class="thread stub">
         : for $thread.post_list -> $t {

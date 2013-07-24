@@ -27,12 +27,12 @@
     </nav>
 
     <div class="banner">
-        <a href="/board/<: $board :>/">
-:#            <img src="/banner/<: $board :>" alt="banner">
+        <a href="/board/<: $board_name :>/">
+:#            <img src="/banner/<: $board_name :>" alt="banner">
             <img src="/banner/silkroadbanner.png" alt="banner">
         </a>
     </div>
-    <h1>/<: $board :>/ &ndash; Restaurant at the End of the Universe</h1>
+    <h1>/<: $board_name :>/ &ndash; Restaurant at the End of the Universe</h1>
 </header>
 <hr>
 

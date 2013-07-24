@@ -1,0 +1,46 @@
+: cascade base
+: override title -> {
+: "catalog/" ~ $board_name
+: }
+: override content -> {
+<div class=catalog>
+: for $thread_list -> $p {
+<article tabindex=0 id="thread_<: $p.post_id :>" class="thread teaser">
+    <article class="thread_OP" id="<: $p.post_id :>">
+        <div class="post">
+            <header>
+                : include post_tools { isop => true, p => $p }
+                <a href="/board/<: $board_name:>/thread/<: $p.post_id :>">
+                    <h1><: $p.subject ? $p.subject | mark_raw : $p.post_id :></h1>
+                </a>
+            </header>
+            <div class="post_body">
+                <a href="/board/<: $board_name:>/thread/<: $p.post_id :>">
+                : if $p.file_list.size() == 0 {
+                    <div class="post_files empty">
+                : } else if $p.file_list.size() == 1 {
+                    <div class="post_files unary">
+                : } else {
+                    <div class="post_files multiple">
+                : }
+                    : for $p.file_list -> $f {
+                        <figure>
+                            <div class="thumbnail">
+                                <img src="/thumb/img/<: $f.path :>" alt="FIXME" />
+                            </div>
+                        </figure>
+                    : }
+                    </div>
+                </a>
+                <div class="post_text">
+<section>
+: $p.text | mark_raw
+</section>
+                </div>
+            </div>
+        </div>
+    </article>
+</article>
+: }
+</div>
+: }

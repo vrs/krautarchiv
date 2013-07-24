@@ -34,16 +34,17 @@ sub main {
     my $thread_id = $cgi->param('thread') || "";
     my $board = $cgi->param('board') || "none";
     my $post = $cgi->param('post') || "";
-    my $view = $post ? "show_post" :
+    my $view = $cgi->param('view') eq "catalog" ? "show_catalog" :
+        $post ? "show_post" :
         $thread_id ? "show_thread" :
         "show_board";
 
     my $db = Database->new("$data_folder/data.db");
 
     my $vars = {
-        post => $post,
+        post_id => $post,
         thread_id => $thread_id,
-        board => $board,
+        board_name => $board,
     };
 
     print $cgi->header();
@@ -90,4 +91,13 @@ sub show_board {
     $vars->{board_list} = $db->get_board_list();
 
     print $tx->render('board.tx', $vars);
+}
+
+sub show_catalog {
+    my ($cgi,$db,$vars) = @_;
+
+    $vars->{thread_list} = $db->get_thread_list(1);
+    $vars->{board_list} = $db->get_board_list();
+
+    print $tx->render('catalog.tx', $vars);
 }

@@ -1,6 +1,7 @@
 done:
 thread view
 board view
+catalog
 
 
 improvements to the parser:
@@ -22,17 +23,19 @@ ggf nochmal links/dateinamen überdenken?
 
 
 JS:
-load quote link: add >>, then rewrite url
-vad är detta
-tooltips
+tooltips (nav)
 context.js
 hide/hide replies
-inline image expansion
-post expansion
-thread expansion?
+hiding in catalog
 modformular als erweiterung des report/löschformulars
     position:fixed, bottom:0
+inline image expansion
+load quote link: add >>, then rewrite url
+vad är detta
+post expansion
+thread expansion?
 Quickreply?
+tooltips (nav)
 Spells?
     filter: ganz weg, stub, highlight, remove images, assign custom class, custom JS
     hide by: OP/name/trip/words/filenames/hashes/detectors
@@ -40,7 +43,6 @@ shipainter-ersatz?
 custom CSS
 refresh -> highlight changes (catalog & board)
 rebind f5
-hiding in catalog
 thread stats, page a thread is on
 endless scroll?
 keyboard navigation (n/p threads, j/k posts, ctrl+return = open, etc)?
@@ -53,6 +55,5 @@ mark text -> quote
 
 
 backend:
-catalog
 overboard
 overboard catalog
