@@ -1,7 +1,11 @@
 : my $delete = "delete_" ~ $p.post_id;
 : my $isop = $p.thread_id == $p.post_id;
 : if $isop {
-<h1 class="thread_head"><: if $p.subject { :><label for="<: $delete :>"><: $p.subject | mark_raw :></label><: } :></h1>
+<h1 class="thread_head<: $p.subject ? " manual" : " generated" :>">
+    <label for="<: $delete :>">
+        <: $p.subject | mark_raw || "#" ~ $p.post_id :>
+    </label>
+</h1>
 <article class="thread_OP" id="<: $p.post_id :>">
 : } else {
 <article class="thread_reply" id="<: $p.post_id :>">

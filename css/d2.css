@@ -178,6 +178,10 @@ nav a {
 .thread {
     margin-bottom: 2em;
 }
+.thread article {
+    position: relative;
+}
+
 .stub {
 }
 .full {
@@ -186,9 +190,6 @@ nav a {
     margin: 0;
     padding: 0.25em 0.5em;
     background: #9999BB;
-}
-.thread_head:empty {
-    padding: 0;
 }
 .thread_OP {
 }
@@ -232,16 +233,6 @@ span.icon::before {
     background: none;
 }
 
-span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursive {
-    display: none;
-}
-.hidden span.link_show, .hidden span.link_show_recursive, .hidden span.link_kill, .hidden span.link_kill_recursive {
-    display: inline-block;
-}
-.hidden span.link_hide, .hidden span.link_hide_recursive {
-    display: none;
-}
-
 .thread_reply {
     margin: 0.5em 0;
 }
@@ -265,9 +256,14 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 
 input[name=delete] {
     display: none;
+    position: absolute;
+    top: 2.5em;
+    z-index: 1;
+}
+.thread_OP input[name=delete] {
+    position: static;
     float: left;
-    clear: left;
-    margin-top: 0.5em;
+    margin: 1em 1em 0;
 }
 input[name=delete]:checked {
     display: block;
@@ -468,7 +464,7 @@ footer {
     text-align: center;
 }
 
-
+/* interactive styles */
 .tooltip {
     padding: 0.25em;
     background: #E2E7FF;
@@ -476,4 +472,45 @@ footer {
     float: left;
     box-shadow: 3px 3px 0 0 rgba(0,0,0,0.5);
     position: absolute;
+}
+
+.hidden, .hidden h1 {
+    color: gray;
+}
+.hidden * {
+    background: none;
+}
+.hidden h1 label {
+    display: inline-block;
+}
+.hidden .postername {
+    font-weight: normal;
+}
+.thread.hidden .thread_reply, .thread.hidden .omittedposts, .hidden input[name="delete"] {
+    display: none;
+}
+.hidden .post_body {
+    height: 0;
+    overflow: hidden;
+}
+/*
+.hidden label {
+    padding: 0.5em 1em;
+}
+.hidden .bullet a {
+    padding: 0.5em 0;
+}
+    */
+span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursive {
+    display: none;
+}
+.hidden span.link_show, .hidden span.link_show_recursive, .hidden span.link_kill, .hidden span.link_kill_recursive {
+    display: inline-block;
+}
+.hidden span.link_reply, .hidden span.link_hide, .hidden span.link_hide_recursive, .hidden span.link_translate, .hidden span.link_watch {
+    display: none;
+}
+
+.killed, .killed + hr {
+    display: none;
 }

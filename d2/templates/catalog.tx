@@ -11,7 +11,7 @@
             <header>
                 : include post_tools { isop => true, p => $p }
                 <a href="/board/<: $board_name:>/thread/<: $p.post_id :>">
-                    <h1><: $p.subject ? $p.subject | mark_raw : $p.post_id :></h1>
+                    <h1><: $p.subject | mark_raw || "#" ~ $p.post_id :></h1>
                 </a>
             </header>
             <div class="post_body">
