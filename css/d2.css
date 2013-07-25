@@ -467,3 +467,13 @@ li.pages_catalog {
 footer {
     text-align: center;
 }
+
+
+.tooltip {
+    padding: 0.25em;
+    background: #E2E7FF;
+    border: 1px solid #888;
+    float: left;
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.5);
+    position: absolute;
+}

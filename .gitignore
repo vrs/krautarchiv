@@ -4,3 +4,5 @@ data/data.db
 img/
 thumb/
 banner/
+Session.vim
+js/lib/

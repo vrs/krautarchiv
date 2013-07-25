@@ -1,6 +1,6 @@
         <ul class="menu">
 : for $board_list -> $entry {
-            <li title="TODO title"><a href="/board/<: $entry.board :>/">/<: $entry.board :>/</a></li>
+            <li><a title="TODO title" href="/board/<: $entry.board :>/">/<: $entry.board :>/</a></li>
 : }
             <li><a href="/board/foo/">/foo/</a>
             <li><a href="/board/bar/">/bar/</a>

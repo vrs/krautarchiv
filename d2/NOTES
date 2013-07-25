@@ -2,6 +2,7 @@ done:
 thread view
 board view
 catalog
+tooltips (nav)
 
 
 improvements to the parser:
@@ -23,7 +24,6 @@ ggf nochmal links/dateinamen überdenken?
 
 
 JS:
-tooltips (nav)
 context.js
 hide/hide replies
 hiding in catalog
@@ -35,7 +35,6 @@ vad är detta
 post expansion
 thread expansion?
 Quickreply?
-tooltips (nav)
 Spells?
     filter: ganz weg, stub, highlight, remove images, assign custom class, custom JS
     hide by: OP/name/trip/words/filenames/hashes/detectors

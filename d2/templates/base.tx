@@ -6,7 +6,11 @@
 
 <link rel="stylesheet" type="text/css" href="/css/d2.css">
 
-<!--<script type="text/javascript" src="/js/moo.js"></script>-->
+<!-- http://mootools.net/core/ccd5922c7bc9aade7b74398c6e5e5e7a -->
+<script type="text/javascript" src="/js/lib/mootools-core-1.4.5.js"></script>
+<!-- http://mootools.net/more/011fc05c613fdde1480115d3e75c3ec0 -->
+<script type="text/javascript" src="/js/lib/mootools-more-1.4.0.1.js"></script>
+<script type="text/javascript" src="/js/titles.js"></script>
 <!-- todo RSS -->
 
 </head>
