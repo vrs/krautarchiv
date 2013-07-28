@@ -34,10 +34,15 @@ sub main {
     my $thread_id = $cgi->param('thread') || "";
     my $board = $cgi->param('board') || "none";
     my $post = $cgi->param('post') || "";
-    my $view = $cgi->param('view') eq "catalog" ? "show_catalog" :
-        $post ? "show_post" :
-        $thread_id ? "show_thread" :
-        "show_board";
+    my $view = $cgi->param('view');
+    $view = $view eq "catalog" ? "show_catalog" :
+        $view eq "res" ?
+            $cgi->param('js') ? "show_js" :
+            $cgi->param('post') ? "show_post" :
+            "none" :
+        $view eq "board" ?
+            $thread_id ? "show_thread" : "show_board" :
+            "none";
 
     my $db = Database->new("$data_folder/data.db");
 
@@ -49,12 +54,19 @@ sub main {
 
     print $cgi->header();
 
-    #print $view, $board, $post, $cgi->url(-query => 1, -rewrite => 0), "\n";
     &{$view}($cgi,$db,$vars);
 }
 
+sub show_js {
+    my ($cgi, $db, $vars) = @_;
+
+    print "// nevermind...\n";
+    print $tx->render('page_vars.tx', $vars);
+}
 sub show_post {
     my ($cgi, $db, $vars) = @_;
+
+    $vars->{p} = $db->get_full_post(1,$vars->{post_id});
 
     print $tx->render('post.tx', $vars);
 }

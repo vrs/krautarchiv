@@ -311,6 +311,46 @@ sub get_post {
     }
 }
 
+sub get_full_post {
+    my $self = shift;
+    my $board_id = shift || croak("need board_id");
+    my $post_id = shift || croak("need thread_id");
+
+    my $sth = $self->{dbh}->prepare("SELECT `posts_rowid`,`board_id`,`thread_id`,
+                                            `post_id`,`subject`,`user`,`date`,
+                                            `text`,`file_id`,`path`,`md5`,`filename`
+                                     FROM `posts`
+                                     LEFT JOIN `post_files` USING(`posts_rowid`)
+                                     LEFT JOIN `files` USING(`file_id`)
+                                     WHERE `board_id` = ? AND `post_id` = ?");
+
+    $sth->execute($board_id, $post_id);
+
+    my $post;
+    my $file_list = _new_array();
+    while(my ($posts_rowid, $board_id, $thread_id,
+              $post_id, $subject, $user, $date,
+              $text, $file_id, $path,$md5, $filename) = $sth->fetchrow) {
+        $date =~ s/...$//; # <time> element
+        if(!$post) {
+            $post = { posts_rowid => $posts_rowid,
+                      board_id => $board_id,
+                      thread_id => $thread_id,
+                      post_id => $post_id,
+                      subject => $subject,
+                      user => $user,
+                      date => $date,
+                      text => $text,
+                      file_list => $file_list};
+        }
+        if($file_id) {
+            push(@{$file_list}, { file_id => $file_id, path => $path, md5 => $md5, filename => $filename });
+        }
+    }
+    
+    return $post;
+}
+
 sub get_file {
     my $self = shift;
     my $file_id = shift || croak("need file_id");

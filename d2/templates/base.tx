@@ -10,7 +10,9 @@
 <script type="text/javascript" src="/js/lib/mootools-core-1.4.5.js"></script>
 <!-- http://mootools.net/more/011fc05c613fdde1480115d3e75c3ec0 -->
 <script type="text/javascript" src="/js/lib/mootools-more-1.4.0.1.js"></script>
+: block scripts -> { }
 <script type="text/javascript" src="/js/titles.js"></script>
+<script type="text/javascript" src="/js/context.js"></script>
 <script type="text/javascript" src="/js/hide.js"></script>
 <!-- todo RSS -->
 

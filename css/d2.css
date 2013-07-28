@@ -268,17 +268,17 @@ input[name=delete] {
 input[name=delete]:checked {
     display: block;
 }
-.thread label {
+.post label, .thread_head label {
     line-height: 1em;
     display: block;
     padding: 1em;
     cursor: pointer;
 }
+.post label:empty {
+    display: none;
+}
 .thread_head label {
     padding: 0.5em;
-}
-.thread label:empty {
-    display: none;
 }
 
 .post {
@@ -513,4 +513,62 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 
 .killed, .killed + hr {
     display: none;
+}
+
+:target .post, .highlight .post {
+    background: #BBBBDD;
+}
+:target figure, .highlight figure {
+    background: #AAAACC;
+}
+
+.progress {
+    cursor: progress;
+}
+
+#preview {
+    position: absolute;
+    margin-right: 0.5em;
+    box-shadow: 1px 2px 2px 1px gray;
+    z-index: 10;
+}
+#preview.hidden {
+    visibility: hidden;
+}
+#preview .bullet {
+    display: none;
+}
+#preview .thread_reply {
+    margin: 0;
+}
+#preview .post {
+    margin: 0;
+}
+#preview .thread_OP .postername::after {
+    content: " (OP)"
+}
+
+#post_cache {
+    visibility: hidden;
+    position: absolute;
+    top: -100000px;
+}
+
+
+#ancbox {
+    bottom: 0.25em;
+}
+#desbox {
+    top: -0.25em;
+}
+.context {
+    position: relative;
+}
+.context > div {
+    position: absolute;
+    left: 10em;
+    padding-left: 0.5em;
+    z-index: 5;
+    background: #EEEEEE;
+    box-shadow: 1px 2px 2px 1px gray;
 }

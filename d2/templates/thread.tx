@@ -2,6 +2,11 @@
 : override title -> {
 : $board_name ~ '/' ~ $thread_id
 : }
+: override scripts -> {
+<script type="text/javascript">
+: include page_vars
+</script>
+: }
 : override content -> {
 : include postform
 <hr>
