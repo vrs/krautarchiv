@@ -3,6 +3,9 @@ thread view
 board view
 catalog
 tooltips (nav)
+hide
+hiding in catalog
+context.js
 
 
 improvements to the parser:
@@ -11,22 +14,24 @@ improvements to the parser:
 -refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
 -and give people subheadings (h2)
 -:focus for spoilers
+-replylinks
+-absolute links
 
 
-Interfacefragen:
-wie bestimmte Postfunktionen anbieten? also jene, die mit einem klick funktionieren sollen
-Länderbälle?
-setting: zeige keine namen/überschriften/bilder
+Interface:
+countryballs?
+setting: hide names/subjects/images
+smaller post labels?
 
 
-Bilder:
-ggf nochmal links/dateinamen überdenken?
+Images:
+images/filenames need rework
 
 
 JS:
-context.js
-hide/hide replies
-hiding in catalog
+context.js plus stuff
+errors for missing cookies
+hide replies
 modformular als erweiterung des report/löschformulars
     position:fixed, bottom:0
 inline image expansion

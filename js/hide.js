@@ -1,6 +1,6 @@
 (function () {
   var killedPosts = JSON.parse(window.localStorage.getItem('kill'));
-  if (killedPosts)
+  if (killedPosts && killedPosts.length)
     document.head.appendChild(new Element('style', { type: 'text/css', html:
       killedPosts.map(function (n) {
         return '#thread_' + n + ', #thread_' + n + ' + hr, article[id="' + n + '"]'
