@@ -6,6 +6,7 @@ tooltips (nav)
 hide
 hiding in catalog
 context.js
+recursive hide
 
 
 improvements to the parser:
@@ -29,11 +30,20 @@ images/filenames need rework
 
 
 JS:
-context.js plus stuff
-errors for missing cookies
-hide replies
+recursive hiding:
+    hide reason
+    some usable way to get killed posts back
+    preview for hidden posts
+    wider persistence
+    support for loaded posts
+context.js:
+    click on links in the context -> ?
+    show replies to post
+    support for loaded posts
+errors for missing cookies (because localstorage)
 modformular als erweiterung des report/löschformulars
     position:fixed, bottom:0
+    place for error messages?
 inline image expansion
 load quote link: add >>, then rewrite url
 vad är detta
