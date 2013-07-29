@@ -1,6 +1,6 @@
 .*.swp
 .*.swo
-data/data.db
+data/data.db*
 img/
 thumb/
 banner/
