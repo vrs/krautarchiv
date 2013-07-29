@@ -20,6 +20,6 @@
                 <span class="link_kill js icon"><a title="Ausblenden (komplett)" href="#kill_<:$p.post_id:>"><img src="/static/button-kill.gif" alt=""></a></span>
 : }
 : if !$isop {
-                <span class="link_kill_recursive js icon"><a title="Ausblenden mitsamt Antworten" href="#kill_<:$p.post_id:>"><img src="/static/button-kill-recursive.gif" alt=""></a></span>
+                <span class="link_kill_recursive js icon"><a title="Ausblenden mitsamt Antworten" href="#kill_recursive_<:$p.post_id:>"><img src="/static/button-kill-recursive.gif" alt=""></a></span>
 : }
             </span>

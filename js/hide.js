@@ -12,12 +12,21 @@ window.addEvent('domready', function () {
   function handle(action, persist) {
     return function (ev, target) {
       ev.preventDefault();
-      var num = target.getProperty('href').match(/\d+/)[0]
-        , type = target.getProperty('href').match(/[a-z]+(_recursive)?/)[0]
+      var params = target.getProperty('href').match(/#([a-z]+)(_recursive)?_(\d+)$/)
+        , type = params[1]
+        , recursive = !!params[2]
+        , num = params[3]
         , post = $(num)
       ;
       if (post.hasClass('thread_OP')) {
         action(post.getParent('article'))
+      } else if (recursive) {
+        postGraph(post.getParent('article'))
+          .descendants(num)
+          .flatten()
+          .map(String.from)
+          .map($)
+          .forEach(action);
       } else {
         action(post);
       }
