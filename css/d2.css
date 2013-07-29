@@ -562,3 +562,7 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     background: #EEEEEE;
     box-shadow: 1px 2px 2px 1px gray;
 }
+.inactive *, .inactive a {
+  background: none;
+  color: gray;
+}

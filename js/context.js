@@ -18,8 +18,8 @@ DAG.prototype.append = function (parents, id) {
     return false;
   } else {
     nodes[id] = {
-      parents : parents,
-      children : []
+      parents: parents,
+      children: []
     };
     parents.forEach(function (p) {
       nodes[+p].children.push(id);
@@ -130,7 +130,7 @@ var postCache
       }
 
       return {
-        show : function (num, pos, callback) {
+        show: function (num, pos, callback) {
           if ($(num))
             $(num).addClass('highlight');
           
@@ -164,7 +164,7 @@ var postCache
             status[+num] = "loading";
           }
         },
-        hide : function (num) {
+        hide: function (num) {
           var posts = $$('#' + num + ',#c' + num);
           status[+num] = "aborted";
           posts.removeClass('highlight');
@@ -192,7 +192,7 @@ var postCache
       }
 
       return {
-        show : function (num, highlight) {
+        show: function (num, highlight) {
           var posts = $$('article article')
             , OPid = $$('.thread_OP')[0].id
             , postgraph = createPostGraph(OPid)
@@ -212,17 +212,20 @@ var postCache
           
           ancestors.forEach(function (i) {
               ancbox.grab(clonePost($(''+i)));
+              $(''+i).addClass('inactive');
           });
           descendants.forEach(function (i) {
               desbox.grab(clonePost($(''+i)));
+              $(''+i).addClass('inactive');
           });
 
           ancbox.getFirst('#c' + highlight).addClass('highlight');
           if (ancestors.length) $(num).grab(ancwrap, 'before');
           if (descendants.length) $(num).grab(deswrap, 'after');
-        },
-        hide : function () {
+      },
+      hide: function () {
           $$('#ancwrap, #deswrap').dispose()
+          $$('#delform article.inactive').removeClass('inactive');
         }
       }
     })()
