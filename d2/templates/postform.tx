@@ -66,7 +66,7 @@
     </div>
 
     <div class=row_submit>
-        <div> <label for=submit></label> </div>
+        <div> <label></label> </div>
         <div> <input tabindex=1 type=submit value="Submit"> </div>
     </div>
 

@@ -16,11 +16,11 @@
     <input type="checkbox" name="delete" id="<: $delete :>" value="<: $p.post_id :>">
     <div class="post">
         <header>
-:# I'd prefer to get rid of the if and instead make a distinction between thread topic and post topic
-        : if !$isop {
-            <h1><label tabindex=0 for="<: $delete :>"><: $p.subject | mark_raw :></label></h1>
-        : }
-            <label tabindex=0 for="<: $delete :>">
+:# perhaps make a distinction between thread topic and post topic
+            <h1<: $p.subject ? "" : " class=empty" :>>
+                <label for="<: $delete :>"><: $p.subject | mark_raw :></label>
+            </h1>
+            <label class="postdata" for="<: $delete :>">
                 <span class="postername"><: $p.user :></span>
 :# http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-time-element
                 <time><: $p.date :></time>

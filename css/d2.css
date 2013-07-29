@@ -59,6 +59,9 @@ a:hover, a:focus {
 .quote {
     color: #077;
 }
+.empty {
+    display: none;
+}
 
 nav {
     overflow: hidden;
@@ -188,10 +191,13 @@ nav a {
 }
 .thread_head {
     margin: 0;
-    padding: 0.25em 0.5em;
+    padding: 0.5em;
     background: #9999BB;
 }
 .thread_OP {
+}
+.thread_OP h1 {
+    display: none;
 }
 .thread_OP .bullet {
     display: none;
@@ -269,16 +275,10 @@ input[name=delete]:checked {
     display: block;
 }
 .post label, .thread_head label {
-    line-height: 1em;
-    display: block;
-    padding: 1em;
     cursor: pointer;
 }
-.post label:empty {
-    display: none;
-}
-.thread_head label {
-    padding: 0.5em;
+.postdata {
+    display: block;
 }
 
 .post {
@@ -292,18 +292,18 @@ input[name=delete]:checked {
     clear: both;
 }
 .post header {
+    padding: 1em;
+    line-height: 1em;
 }
 .postername { 
     color: #3333CC;
     font-weight: bold;
 }
-.thread h1 {
+article h1 {
+    padding: 0;
+    margin: 0 0 0.5em;
     font-size: 1.5em;
     color: #CC3333;
-    padding: 0;
-}
-.post h1 {
-    display: inline;
 }
 
 .post_files {
@@ -480,9 +480,6 @@ footer {
 .hidden * {
     background: none;
 }
-.hidden h1 label {
-    display: inline-block;
-}
 .hidden .postername {
     font-weight: normal;
 }
@@ -493,14 +490,7 @@ footer {
     height: 0;
     overflow: hidden;
 }
-/*
-.hidden label {
-    padding: 0.5em 1em;
-}
-.hidden .bullet a {
-    padding: 0.5em 0;
-}
-    */
+
 span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursive {
     display: none;
 }
