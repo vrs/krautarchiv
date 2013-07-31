@@ -499,6 +499,12 @@ footer {
     height: 0;
     overflow: hidden;
 }
+.reason:not(:empty)::before {
+    content: "[hidden: "
+}
+.reason:not(:empty)::after {
+    content: "]";
+}
 
 span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursive {
     display: none;

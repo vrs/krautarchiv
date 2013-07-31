@@ -27,6 +27,7 @@
             <span class="reflink">
                 <a href="/board/l/thread/<: $p.thread_id :>#q<: $p.post_id :>">Nr. <: $p.post_id :></a> 
             </span>
+            <span class="reason"></span>
             : include post_tools { isop => $isop }
             </label>
         </header>

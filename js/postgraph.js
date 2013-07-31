@@ -84,18 +84,19 @@ DAG.prototype.ancestors = function (id) {
 
 var postGraph = (function () {
   var cache = [];
+  function addPost(post) {
+    var refs = post.getElements('a[onclick^=highlightPost]');
+    graph.append(refs.map(getTarget).filter(function (x) {
+      return $$('#delform #' + x).length;
+    }), post.id);
+  }
   return function (thread) {
     var id = thread.getFirst('article').get('id')
       , graph = cache[id]
     ;
     if (!graph) {
       graph = new DAG(id);
-      thread.getChildren('article').forEach(function (post) {
-        var refs = post.getElements('a[onclick^=highlightPost]');
-        graph.append(refs.map(getTarget).filter(function (x) {
-          return $$('#delform #' + x).length;
-        }), post.id);
-      });
+      thread.getChildren('article').forEach(addPost);
       cache[id] = graph;
     }
     return graph;
