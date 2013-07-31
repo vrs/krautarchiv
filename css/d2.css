@@ -12,9 +12,6 @@ body {
 hr {
     clear: both;
 }
-.empty {
-    display: none;
-}
 input {
     font-size: 1em;
 }
@@ -61,6 +58,14 @@ a:hover, a:focus {
 }
 .empty {
     display: none;
+}
+.js {
+    position: absolute;
+    visibility: hidden;
+}
+.jsenabled .js {
+    position: static;
+    visibility: inherit;
 }
 
 nav {
@@ -166,7 +171,7 @@ nav a {
     bottom: 0;
     right: 0;
 }
-.row_submit label {
+.row_submit div:first-child {
     visibility: hidden;
 }
 
@@ -387,6 +392,10 @@ figcaption {
 }
 .teaser h1 {
     font-size: 1em;
+    display: block;
+}
+.teaser header {
+    padding: 0;
 }
 .teaser header a {
     display: block;

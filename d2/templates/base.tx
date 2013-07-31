@@ -11,7 +11,7 @@
 <!-- http://mootools.net/more/011fc05c613fdde1480115d3e75c3ec0 -->
 <script type="text/javascript" src="/js/lib/mootools-more-1.4.0.1.js"></script>
 : block scripts -> { }
-<script type="text/javascript" src="/js/titles.js"></script>
+<script type="text/javascript" src="/js/misc.js"></script>
 <script type="text/javascript" src="/js/postgraph.js"></script>
 <script type="text/javascript" src="/js/context.js"></script>
 <script type="text/javascript" src="/js/hide.js"></script>
@@ -30,7 +30,7 @@
             <li><a href="/irc">IRC</a></li>
             <li><a href="http://schuchtel.net/mwiki/index.php/Hauptseite">Wiki</a></li>
             <li><a href="/donations">Spenden</a></li>
-            <li><a href="/settings">Einstellungen</a></li>
+            <li class=js><a href="/settings">Einstellungen</a></li>
         </ul>
     </nav>
 
@@ -49,7 +49,7 @@
 <hr>
 <footer>
 <p>Powered by a modded <a href="https://github.com/krautchan/krautarchiv">krautarchiv</a> (d2).
-<p>temporary: <a href="javascript:void(localStorage.removeItem('kill'),localStorage.removeItem('hide'),location.reload())">reset hidden threads</a>
+<p>dev: <a href="javascript:void(localStorage.clear(),location.reload())">reset settings and data</a>
 
 <nav>
 : include boards
