@@ -564,7 +564,7 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 #preview.hidden {
     visibility: hidden;
 }
-#preview .bullet {
+#preview .bullet, #preview input {
     display: none;
 }
 #preview .thread_reply {
@@ -614,6 +614,7 @@ article.inactive *, article.inactive a {
     border-top: solid 0.5em #9999BB;
     padding: 0.5em 1em;
     background: #AAAACC;
+    z-index: 7;
 }
 #toolbox_references {
     float: left;

@@ -37,9 +37,17 @@ var postCache
       }
 
       function showPost(p, pos) {
+        var halfHeight = p.getSize().y/2
+          , upperBound = window.scrollY + 5
+          , lowerBound = window.scrollY + window.getSize().y - 5
+          , left = pos.x + 5
+          , top = pos.y - halfHeight < upperBound ? upperBound :
+            pos.y + halfHeight > lowerBound ? lowerBound - 2*halfHeight :
+            pos.y - halfHeight
+        ;
         previewBox.empty()
           .grab( clonePost(p) )
-          .setStyles({left: pos.x + 5, top: pos.y - p.getSize().y/2})
+          .setStyles({left: left, top: top})
           .removeClass('hidden')
           .inject(document.body);
       }
@@ -53,9 +61,9 @@ var postCache
             , size = window.getSize()
             , coords = p && p.getCoordinates()
             , isVisible = p && coords.bottom > window.scrollY &&
-              window.scrollY + size.x > coords.top
+              window.scrollY + size.y > coords.top
             , isEntirelyVisible = p && coords.top > window.scrollY &&
-              window.scrollY + size.x > coords.bottom
+              window.scrollY + size.y > coords.bottom
           ;
 
           if (p) {
@@ -155,11 +163,14 @@ window.addEvent('domready', function() {
         var id = +getTarget(tgt);
 
         if ($$('main #' + id).length && window.threadNum) {
+          var post = tgt.getParent('article');
+          if (!post)
+            return;
           ev.preventDefault();
           if (!tgt.match('.context *')) {
             preview.hide(getTarget(tgt));
             context.hide();
-            context.show(tgt.getParent('article').id, id);
+            context.show(post.id, id);
           }
         }
       }

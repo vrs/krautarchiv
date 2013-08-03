@@ -26,9 +26,9 @@
         </article>
         <hr>
         : }
+        <div class="page_tools">
+            : include pages
+            : include page_tools
+        </div>
     </main>
-    <div class="page_tools">
-        : include pages
-        : include page_tools
-    </div>
 : }

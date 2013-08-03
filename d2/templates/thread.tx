@@ -19,9 +19,9 @@
         : include post { p => $p }
         : }
         </article>
+        <hr>
+        <div class="page_tools">
+        : include page_tools
+        </div>
     </main>
-    <hr>
-    <div class="page_tools">
-    : include page_tools
-    </div>
 : }

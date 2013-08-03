@@ -9,7 +9,8 @@ window.addEvent('domready', function () {
     $('toolbox_references').empty().adopt(checked.map(function (el) {
       return new Element('a.reflink', {
         href: '#' + el.get('value'),
-        text: ' >>' + el.get('value')
+        text: ' >>' + el.get('value'),
+        onclick: 'highlightPost' // hack
       });
     }));
   }
