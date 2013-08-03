@@ -1,8 +1,8 @@
-: my $delete = "delete_" ~ $p.post_id;
+: my $label = "posts_" ~ $p.post_id;
 : my $isop = $p.thread_id == $p.post_id;
 : if $isop {
 <h1 class="thread_head<: $p.subject ? " manual" : " generated" :>">
-    <label for="<: $delete :>">
+    <label for="<: $label :>">
         <: $p.subject | mark_raw || "#" ~ $p.post_id :>
     </label>
 </h1>
@@ -13,16 +13,15 @@
     <div class="bullet">
         <a href="/board/l/thread/<: $p.thread_id :>#<: $p.post_id :>">&gt;&gt;</a>
     </div>
-    <input type="checkbox" name="delete" id="<: $delete :>" value="<: $p.post_id :>">
+    <input type="checkbox" form="mngform" name="posts" id="<: $label :>" value="<: $p.post_id :>">
     <div class="post">
         <header>
 :# perhaps make a distinction between thread topic and post topic
             <h1<: $p.subject ? "" : " class=empty" :>>
-                <label for="<: $delete :>"><: $p.subject | mark_raw :></label>
+                <label for="<: $label :>"><: $p.subject | mark_raw :></label>
             </h1>
-            <label class="postdata" for="<: $delete :>">
+            <label class="postdata" for="<: $label :>">
                 <span class="postername"><: $p.user :></span>
-:# http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-time-element
                 <time><: $p.date :></time>
             <span class="reflink">
                 <a href="/board/l/thread/<: $p.thread_id :>#q<: $p.post_id :>">Nr. <: $p.post_id :></a> 

@@ -3,7 +3,7 @@
 : "catalog/" ~ $board_name
 : }
 : override content -> {
-<div class=catalog>
+<main class=catalog>
 : for $thread_list -> $p {
 <article tabindex=0 id="thread_<: $p.post_id :>" class="thread teaser">
     <article class="thread_OP" id="<: $p.post_id :>">
@@ -42,5 +42,5 @@
     </article>
 </article>
 : }
-</div>
+</main>
 : }

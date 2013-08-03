@@ -126,7 +126,7 @@ var postCache
       },
       hide: function () {
           $$('#ancwrap, #deswrap').dispose()
-          $$('#delform article.inactive').removeClass('inactive');
+          $$('main article.inactive').removeClass('inactive');
         }
       }
     })()
@@ -134,10 +134,11 @@ var postCache
 
 
 window.addEvent('domready', function() {
+  var main = $$('main')[0];
   postCache = new Element('div[id=post_cache]').inject(document.body);
   
-  if ($('delform'))
-    $('delform').addEvents({ // TODO eww
+  if (main)
+    main.addEvents({ // TODO eww
       'mouseenter:relay(a[onclick^=highlightPost])': function (ev, tgt) {
         var coords = tgt.getCoordinates();
         tgt.addClass('progress');
@@ -153,7 +154,7 @@ window.addEvent('domready', function() {
       'click:relay(a[onclick^=highlightPost])': function (ev, tgt) {
         var id = +getTarget(tgt);
 
-        if ($$('#delform #' + id).length && window.threadNum) {
+        if ($$('main #' + id).length && window.threadNum) {
           ev.preventDefault();
           if (!tgt.match('.context *')) {
             preview.hide(getTarget(tgt));

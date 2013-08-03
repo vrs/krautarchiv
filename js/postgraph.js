@@ -87,7 +87,7 @@ var postGraph = (function () {
   function addPost(post) {
     var refs = post.getElements('a[onclick^=highlightPost]');
     this.append(refs.map(getTarget).filter(function (x) {
-      return $$('#delform #' + x).length;
+      return $$('main #' + x).length;
     }), post.id);
   }
   return function (thread) {

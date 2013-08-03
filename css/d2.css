@@ -12,23 +12,6 @@ body {
 hr {
     clear: both;
 }
-input {
-    font-size: 1em;
-}
-textarea {
-    font-size: 1.25em;
-    margin: 0;
-}
-input[type=text], input[type=password] {
-    height: 1em;
-}
-input[type=text], input[type=password], textarea {
-    border: 1px solid #313370;
-    padding: 0.5em;
-}
-input[type=text]:focus, input[type=password]:focus, textarea:focus {
-    background: #ffd;
-}
 a {
     font-weight: bold;
     height: 1em;
@@ -104,6 +87,24 @@ nav a {
 #postform {
     display: table;
     margin: 0 auto;
+}
+
+#postform input {
+    font-size: 1em;
+}
+#postform textarea {
+    font-size: 1.25em;
+    margin: 0;
+}
+#postform input[type=text], #postform input[type=password] {
+    height: 1em;
+}
+#postform input[type=text], #postform input[type=password], #postform textarea {
+    border: 1px solid #313370;
+    padding: 0.5em;
+}
+#postform input[type=text]:focus, #postform input[type=password]:focus, #postform textarea:focus {
+    background: #ffd;
 }
 
 .postarea label {
@@ -265,18 +266,18 @@ span.icon::before {
     color: #888888;
 }
 
-input[name=delete] {
+input[name=posts] {
     display: none;
     position: absolute;
     top: 2.5em;
     z-index: 1;
 }
-.thread_OP input[name=delete] {
+.thread_OP input[name=posts] {
     position: static;
     float: left;
-    margin: 1em 1em 0;
+    margin: 0.5em 0.5em 0;
 }
-input[name=delete]:checked {
+input[name=posts]:checked {
     display: block;
 }
 .post label, .thread_head label {
@@ -468,9 +469,31 @@ li.pages_catalog {
 }
 .page_actions {
     float: right;
+    text-align: right;
 }
 footer {
     text-align: center;
+}
+
+#mngform {
+    float: right;
+    border-spacing: 0.25em 0;
+}
+#mngform .fieldset {
+    display: table-cell;
+}
+#mngform .buttons {
+    display: none;
+}
+.legend {
+    display: inline-block;
+}
+#mngform input:checked + div + .buttons {
+    display: inline-block;
+}
+#mngform input[name=tasks] {
+}
+#mngform input[type=submit] {
 }
 
 /* interactive styles */
@@ -481,6 +504,7 @@ footer {
     float: left;
     box-shadow: 3px 3px 0 0 rgba(0,0,0,0.5);
     position: absolute;
+    z-index: 20;
 }
 
 .hidden, .hidden h1 {
@@ -492,7 +516,7 @@ footer {
 .hidden .postername {
     font-weight: normal;
 }
-.thread.hidden .thread_reply, .thread.hidden .omittedposts, .hidden input[name="delete"] {
+.thread.hidden .thread_reply, .thread.hidden .omittedposts, .hidden input[name="posts"] {
     display: none;
 }
 .hidden .post_body {
@@ -577,7 +601,25 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     background: #EEEEEE;
     box-shadow: 1px 2px 2px 1px gray;
 }
-.inactive *, .inactive a {
+article.inactive *, article.inactive a {
   background: none;
   color: gray;
 }
+
+.jsenabled #toolbox {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: solid 0.5em #9999BB;
+    padding: 0.5em 1em;
+    background: #AAAACC;
+}
+#toolbox_references {
+    float: left;
+}
+/*
+#toolbox.inactive {
+    visibility: hidden;
+}
+*/

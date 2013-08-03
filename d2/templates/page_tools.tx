@@ -1,13 +1,48 @@
-    <div class="page_actions">
-        <label for="task1">
-            <input type="radio" name="task" id="task1" value="delete">
-            delete
-        </label>
-        <input type="password" name="password" size=8 placeholder="password">
-        <label for="task2">
-            <input type="radio" name="task" id="task2" value="report">
-            report
-        </label>
-        <input type="text" name="password" size=8 placeholder="reason">
-        <input value="Go!" type="submit">
+    <div class="page_actions inactive" id=toolbox>
+        <div id=toolbox_references>
+        </div>
+        <form id="mngform" action="/manage" method="post">
+            <input type=hidden name=board value="<: $board_name :>">
+
+            <div class="fieldset mngform_ban js">
+                <input type="checkbox" name="tasks" id="task_ban" value="ban">
+                <div class=legend><label for="task_ban">
+                    ban
+                </label></div>
+                <div class=buttons>
+                </div>
+            </div>
+
+            <div class="fieldset mngform_delete">
+                <input type="checkbox" name="tasks" id="task_delete" value="delete">
+                <div class=legend><label for="task_delete">
+                    delete
+                </label></div>
+                <div class=buttons>
+                    <input type="password" name="delete_password" size=8 placeholder="password">
+                </div>
+            </div>
+
+            <div class="fieldset mngform_report">
+                <input type="checkbox" name="tasks" id="task_report" value="report">
+                <div class=legend><label for="task_report">
+                    report
+                </label></div>
+                <div class=buttons>
+                    <select name=report_type>
+                        <option value=spam>Spam</option>
+                        <option value=illegal>Illegale Inhalte</option>
+                        <option value=other>Sonstiges</option>
+                    </select>
+                    <input type="text" name="report_reason" size=8 placeholder="reason">
+                </div>
+            </div>
+
+            <div class="fieldset mngform_submit">
+                <input value="Go!" type="submit">
+            </div>
+
+        </form>
+        <div id=toolbox_log>
+        </div>
     </div>

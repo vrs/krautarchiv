@@ -1,24 +1,27 @@
 : cascade base
+
 : override title -> {
-: $board_name ~ '/' ~ $thread_id
+    : $board_name ~ '/' ~ $thread_id
 : }
+
 : override scripts -> {
-<script type="text/javascript">
-: include page_vars
-</script>
+    <script type="text/javascript">
+    : include page_vars
+    </script>
 : }
+
 : override content -> {
-: include postform
-<hr>
-<form id="delform" action="/delete" method="post">
-<article id="thread_<: $thread_id :>" class="thread full">
-: for $post_list -> $p {
-: include post { p => $p }
-: }
-</article>
-<hr>
-<div class="page_tools">
-: include page_tools
-</div>
-</form>
+    : include postform
+    <hr>
+    <main>
+        <article id="thread_<: $thread_id :>" class="thread full">
+        : for $post_list -> $p {
+        : include post { p => $p }
+        : }
+        </article>
+    </main>
+    <hr>
+    <div class="page_tools">
+    : include page_tools
+    </div>
 : }

@@ -1,31 +1,34 @@
 : cascade base
+
 : override title -> {
-: "/" ~ $board_name ~ "/"
+    : "/" ~ $board_name ~ "/"
 : }
+
 : override scripts -> {
-<script type="text/javascript">
-: include page_vars
-</script>
+    <script type="text/javascript">
+    : include page_vars
+    </script>
 : }
+
 : override content -> {
     : include postform
-<hr>
-<form id="delform" action="/delete" method="post">
-    : for $thread_list.values() -> $thread {
-<article id="thread_<: $thread.post_list.0.post_id :>" class="thread stub">
-        : for $thread.post_list -> $t {
-            : include post { p => $t };
-            : if $~t == 0 && $thread.post_count {
-<div class="omittedposts"><: $thread.post_count :> post(s)<: if $thread.file_count { ", " ~ $thread.file_count ~ " file(s)" } :>
-not shown.</div>
+    <hr>
+    <main>
+        : for $thread_list.values() -> $thread {
+        <article id="thread_<: $thread.post_list.0.post_id :>" class="thread stub">
+            : for $thread.post_list -> $t {
+                : include post { p => $t };
+                : if $~t == 0 && $thread.post_count {
+                <div class="omittedposts"><: $thread.post_count :> post(s)<: if $thread.file_count { ", " ~ $thread.file_count ~ " file(s)" } :>
+        not shown.</div>
+                : }
             : }
+        </article>
+        <hr>
         : }
-</article>
-<hr>
-    : }
-<div class="page_tools">
-    : include pages
-    : include page_tools
-</div>
-</form>
+    </main>
+    <div class="page_tools">
+        : include pages
+        : include page_tools
+    </div>
 : }
