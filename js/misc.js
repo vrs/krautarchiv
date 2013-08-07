@@ -21,12 +21,19 @@ var storage = {
 
 
 // set up titles
-// TODO delegation (don't bother now)
-// TODO kill tooltip after post is hidden
 window.addEvent('domready', function () {
-  var tips = new Tips('a[title]', {
+  var tips = new Tips({
     className: 'tooltip',
     text: null
+  });
+  $$('main, nav').addEvents({
+    // hack for delegation
+    'mouseenter:relay(a[title], abbr[title])': function addTip(ev, tgt) {
+      if (!tgt.retrieve('tip:title')) {
+        tips.attach(tgt);
+        tips.elementEnter(ev, tgt);
+      }
+    }
   });
 });
 
