@@ -41,6 +41,7 @@ context.js:
     show replies to post
     support for loaded posts
     support in board?
+show all posts by ip in current view
 errors for missing cookies (because localstorage)
 inline image expansion
 load quote link: add >>, then rewrite url

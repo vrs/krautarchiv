@@ -39,9 +39,6 @@ a:hover, a:focus {
 .quote {
     color: #077;
 }
-.empty {
-    display: none;
-}
 .js {
     position: absolute;
     visibility: hidden;
@@ -52,6 +49,9 @@ a:hover, a:focus {
 }
 .invisible {
     visibility: hidden;
+}
+.empty, .collapsed {
+    display: none;
 }
 
 nav {
@@ -465,6 +465,9 @@ figcaption {
     margin: 0;
     float: left;
 }
+.page_tools > * {
+    margin-bottom: 0;
+}
 li.pages_catalog {
     margin-left: 0.5em;
 }
@@ -648,14 +651,14 @@ article.inactive *, article.inactive a {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 0.5em 1em;
-    /*
-    border-top: solid 0.5em #9999BB;
-    background: #AAAACC;
-    */
+    padding: 0.5em 1em 0;
     background: #9999BB;
     border-top: 0.5em solid #313370;
     z-index: 7;
+}
+#toolbox_manage, #toolbox_logbox {
+    margin-bottom: 0.5em;
+    overflow: hidden;
 }
 #toolbox_a {
     float: left;
@@ -671,4 +674,28 @@ article.inactive *, article.inactive a {
 }
 #toolbox abbr {
     border: none;
+}
+
+#log_clear {
+    display: block;
+}
+#toolbox_logbox {
+    text-align: left;
+    margin-bottom: 0.5em;
+}
+#toolbox_logbox label {
+    float: left;
+}
+#toolbox_log {
+    max-height: 5em;
+    overflow-y: auto;
+}
+#toolbox_log > div {
+    height: 1.5em;
+    background: #EEEEEE;
+    margin-left: 0.5em;
+    padding: 0 0.5em;
+}
+#toolbox_log .error {
+    color: red;
 }

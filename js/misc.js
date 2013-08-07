@@ -11,11 +11,20 @@
 // You were warned.
 var storage = {
   load: function (key, fallback) {
-    var data = window.localStorage.getItem(key);
+    var data;
+    try {
+      data = window.localStorage.getItem(key);
+    } catch (e) {
+      log.log('error', "Couldn't read localStorage. Have you enabled cookies?");
+    }
     this[key] = data ? JSON.parse(data) : fallback;
   },
   save: function (key) {
-    window.localStorage.setItem(key, JSON.stringify(this[key]));
+    try {
+      window.localStorage.setItem(key, JSON.stringify(this[key]));
+    } catch (e) {
+      log.log('error', "Couldn't save data in localStorage. Have you enabled cookies?");
+    }
   },
 }
 
