@@ -50,6 +50,9 @@ a:hover, a:focus {
     position: static;
     visibility: inherit;
 }
+.invisible {
+    visibility: hidden;
+}
 
 nav {
     overflow: hidden;
@@ -479,21 +482,56 @@ footer {
     float: right;
     border-spacing: 0.25em 0;
 }
+#mngform > div {
+    float: left;
+    margin-left: 0.5em;
+}
 #mngform .fieldset {
+    display: table;
+    border-spacing: 0;
+    border: 1px solid #313370;
+    background: #EEEEEE;
+}
+.fieldset > div {
+}
+.legend {
     display: table-cell;
+    font-weight: bold;
+    color: #ffffff;
+    background: #313370;
+    padding: 0 0.5em;
+    cursor: pointer;
 }
 #mngform .buttons {
     display: none;
+    padding: 0.25em;
 }
-.legend {
+.buttons label {
     display: inline-block;
 }
-#mngform input:checked + div + .buttons {
-    display: inline-block;
+#mngform input:checked + .buttons {
+}
+#mngform input:checked + .legend + .buttons {
+    display: table-cell;
 }
 #mngform input[name=tasks] {
 }
 #mngform input[type=submit] {
+}
+#mngform .textarea {
+}
+#mngform textarea {
+    margin: 0;
+    padding: 0;
+    height: 1.5em;
+    resize: none;
+}
+#mngform .select::before {
+    content: " • ";
+}
+#mngform textarea:focus {
+    height: 4.5em;
+    resize: horizontal;
 }
 
 /* interactive styles */
@@ -611,16 +649,27 @@ article.inactive *, article.inactive a {
     bottom: 0;
     left: 0;
     right: 0;
-    border-top: solid 0.5em #9999BB;
     padding: 0.5em 1em;
+    /*
+    border-top: solid 0.5em #9999BB;
     background: #AAAACC;
+    */
+    background: #9999BB;
+    border-top: 0.5em solid #313370;
     z-index: 7;
 }
-#toolbox_references {
+#toolbox_a {
     float: left;
 }
-/*
-#toolbox.inactive {
-    visibility: hidden;
+#toolbox_references {
+    display: inline-block;
 }
-*/
+#toolbox .ip::before {
+    content: "[";
+}
+#toolbox .ip::after {
+    content: "]";
+}
+#toolbox abbr {
+    border: none;
+}

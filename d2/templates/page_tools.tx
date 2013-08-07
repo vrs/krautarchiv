@@ -1,33 +1,151 @@
     <div class="page_actions inactive" id=toolbox>
-        <div id=toolbox_references>
+        <div id=toolbox_a>
+            <input type="submit" id=posts_deselect value="Deselect">
+            <div id=toolbox_references></div>
         </div>
         <form id="mngform" action="/manage" method="post">
             <input type=hidden name=board value="<: $board_name :>">
 
             <div class="fieldset mngform_ban js">
                 <input type="checkbox" name="tasks" id="task_ban" value="ban">
-                <div class=legend><label for="task_ban">
+                <label class=legend for="task_ban">
                     ban
-                </label></div>
+                </label>
                 <div class=buttons>
+
+                    <label class=select>Boards:
+                        <select name=ban_reach>
+                            <option value=local selected>/<: $board_name :>/</option>
+                            <option value=global>All</option>
+                        </select>
+                    </label>
+
+                    <label class=select>Range:
+                        <select name=ban_range>
+                            <option value=auto selected>automatic</option>
+                            <option value=D>Host (/32)</option>
+                            <!--<option value=C>Class C (/24)</option>-->
+                            <option value=B>Class B (/16)</option>
+                            <!--<option value=A>Class A (/8)</option>-->
+                            <option value=provider class=caution>Provider</option>
+                        </select>
+                    </label>
+
+                    <label class=select>Duration:
+                        <select name=ban_duration>
+                            <option value="5">5 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="60">1 hour</option>
+                            <option value="180">3 hours</option>
+                            <option value="300">5 hours</option>
+                            <option value="1440" selected>1 day</option>
+                            <option value="2880">2 days</option>
+                            <option value="4320">3 days</option>
+                            <option value="7200">5 days</option>
+                            <option value="10080">1 week</option>
+                            <option value="20160">2 weeks</option>
+                            <option value="43200" class=caution>1 month</option>
+                            <option value="1051200" class=caution>2 years</option>
+                            <option value="0" class=caution>Permanent</option>
+                        </select>
+                    </label>
+
+                    <label class=textarea>
+                        <textarea name=ban_reason placeholder="Reason" rows=1></textarea>
+                    </label>
+
+                    <label class=textarea>
+                        <textarea name=ban_note placeholder="Internal note" rows=1></textarea>
+                    </label>
+
+                    <label class=checkbox>
+                        <input type=checkbox name=ban_mark value=true checked>
+                        mark post
+                    </label>
+
+                    <label class=checkbox>
+                        <input type=checkbox name=ban_allowappeal value=true checked>
+                        allow appeal
+                    </label>
+
                 </div>
             </div>
 
             <div class="fieldset mngform_delete">
                 <input type="checkbox" name="tasks" id="task_delete" value="delete">
-                <div class=legend><label for="task_delete">
+                <label class=legend for="task_delete">
                     delete
-                </label></div>
+                </label>
                 <div class=buttons>
                     <input type="password" name="delete_password" size=8 placeholder="password">
                 </div>
             </div>
 
+            <div class="fieldset mngform_delete_posts">
+                <input type="checkbox" name="tasks" id="task_delete_posts" value="delete_posts">
+                <label class=legend for="task_delete_posts">
+                    delete more
+                </label>
+                <div class=buttons>
+
+                    <label class=select>Range:
+                        <select name=delete_posts_range>
+                            <option value=D selected>Host (/32)</option>
+                            <option value=C>Class C (/24)</option>
+                            <option value=B class=caution>Class B (/16)</option>
+                            <option value=A>Class A (/8)</option>
+                        </select>
+                    </label>
+
+                    <label class=select>Reach:
+                        <select name=delete_posts_reacg>
+                            <option value=thread selected>In this thread</option>
+                            <option value=local>On /<: $board_name :>/</option>
+                            <option value=global>All boards</option>
+                        </select>
+                    </label>
+
+                    <label class=select>Since:
+                        <select name=delete_posts_since>
+                            <option value="5">5 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="60">1 hour</option>
+                            <option value="180">3 hours</option>
+                            <option value="300">5 hours</option>
+                            <option value="1440" selected>1 day</option>
+                            <option value="2880">2 days</option>
+                            <option value="0">Any</option>
+                        </select>
+                    </label>
+
+                    <label class=submit>
+                        <input type="submit" value="(search)">
+                    </label>
+                </div>
+            </div>
+
+            <div class="fieldset mngform_flags">
+                <input type="checkbox" name="tasks" id="task_flags" value="flags">
+                <label class=legend for="task_flags">
+                    thread flags
+                </label>
+                <div class=buttons>
+                    <label class=checkbox>
+                        <input type=checkbox name=flags_sticky value=true>
+                        sticky
+                    </label>
+                    <label class=checkbox>
+                        <input type=checkbox name=flags_locked value=true>
+                        locked
+                    </label>
+                </div>
+            </div>
+
             <div class="fieldset mngform_report">
                 <input type="checkbox" name="tasks" id="task_report" value="report">
-                <div class=legend><label for="task_report">
+                <label class=legend for="task_report">
                     report
-                </label></div>
+                </label>
                 <div class=buttons>
                     <select name=report_type>
                         <option value=spam>Spam</option>
@@ -38,8 +156,9 @@
                 </div>
             </div>
 
-            <div class="fieldset mngform_submit">
-                <input value="Go!" type="submit">
+            <div class="mngform_submit">
+                <input type="reset" value="Reset">
+                <input type="submit" value="Go!">
             </div>
 
         </form>

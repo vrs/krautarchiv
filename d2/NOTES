@@ -7,6 +7,7 @@ hide
 hiding in catalog
 context.js
 recursive hide
+mod form
 
 
 improvements to the parser:
@@ -30,6 +31,7 @@ images/filenames need rework
 
 
 JS:
+some place for error messages
 recursive hiding:
     some usable way to get killed posts back
     preview for hidden posts
@@ -40,9 +42,6 @@ context.js:
     support for loaded posts
     support in board?
 errors for missing cookies (because localstorage)
-modformular als erweiterung des report/löschformulars
-    position:fixed, bottom:0
-    place for error messages?
 inline image expansion
 load quote link: add >>, then rewrite url
 vad är detta

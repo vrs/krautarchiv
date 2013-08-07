@@ -6,10 +6,15 @@
         <: $p.subject | mark_raw || "#" ~ $p.post_id :>
     </label>
 </h1>
-<article class="thread_OP" id="<: $p.post_id :>">
-: } else {
-<article class="thread_reply" id="<: $p.post_id :>">
 : }
+<article
+    class="<: $isop ? "thread_OP" : "thread_reply" :>"
+    id="<: $p.post_id :>"
+    data-ip="127.0.0.1"
+    data-hostname="localhost"
+    data-location="Antarctica, New Swabia, Underground Base"
+    data-geo="0;0"
+>
     <div class="bullet">
         <a href="/board/l/thread/<: $p.thread_id :>#<: $p.post_id :>">&gt;&gt;</a>
     </div>
