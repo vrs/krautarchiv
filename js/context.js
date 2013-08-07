@@ -16,7 +16,7 @@ function clonePost (p) {
 
 var postCache
   , preview = (function () {
-      var previewBox = new Element('div[id=preview]')
+      var previewBox = new Element('div.invisible[id=preview]')
         , status = []
       ;
 
@@ -36,24 +36,34 @@ var postCache
         }).get();
       }
 
-      function showPost(p, pos) {
-        var halfHeight = p.getSize().y/2
-          , upperBound = window.scrollY + 5
-          , lowerBound = window.scrollY + window.getSize().y - 5
-          , left = pos.x + 5
-          , top = pos.y - halfHeight < upperBound ? upperBound :
-            pos.y + halfHeight > lowerBound ? lowerBound - 2*halfHeight :
-            pos.y - halfHeight
+      function showPost(post, ref) {
+        var coords = ref.getCoordinates()
+          , fixed = ref.getOffsetParent().getStyle('position') === "fixed"
+          , pv = previewBox.empty().grab( clonePost(post) ).inject(document.body)
         ;
-        previewBox.empty()
-          .grab( clonePost(p) )
-          .setStyles({left: left, top: top})
-          .removeClass('hidden')
-          .inject(document.body);
+        if (fixed) {
+          pv.position({
+            relativeTo: ref,
+            edge: 'bottomLeft',
+            position: 'upperLeft',
+            offset: { x: 0, y: -5 },
+          }).pin();
+        } else {
+          pv.position({
+            relativeTo: ref,
+            edge: 'centerLeft',
+            position: 'centerRight',
+            offset: { x: 5, y: 0 },
+            minimum: { y: window.scrollY + 5 },
+            // neasures too early. doesn't seem to be a problem?
+            maximum: { y: window.scrollY + window.getSize().y - pv.getSize().y - 5 },
+          });
+        }
+        pv.removeClass('invisible');
       }
 
       return {
-        show: function (num, pos, callback) {
+        show: function (num, ref, callback) {
           if ($(num))
             $(num).addClass('highlight');
           
@@ -68,7 +78,7 @@ var postCache
 
           if (p) {
             if (!isEntirelyVisible) {
-              showPost(p, pos);
+              showPost(p, ref);
             }
             if (isVisible) {
               p.addClass('highlight');
@@ -78,7 +88,7 @@ var postCache
             if (!status[+num]) {
               loadPost(num, function (post) {
                 if (status[+num] !== "aborted") {
-                  showPost(post, pos, previewBox);
+                  showPost(post, ref);
                   callback();
                   status[+num] = "loaded";
                 }
@@ -91,7 +101,7 @@ var postCache
           var posts = $$('#' + num + ',#c' + num);
           status[+num] = "aborted";
           posts.removeClass('highlight');
-          previewBox.addClass('hidden').empty();
+          previewBox.addClass('invisible').unpin().empty();
         }
       };
     })()
@@ -148,12 +158,8 @@ window.addEvent('domready', function() {
   if (main)
     main.addEvents({ // TODO eww
       'mouseenter:relay(a[onclick^=highlightPost])': function (ev, tgt) {
-        var coords = tgt.getCoordinates();
         tgt.addClass('progress');
-    
-        preview.show(getTarget(tgt),
-          {x: coords.right, y: (coords.top + coords.bottom) / 2},
-          function () { tgt.removeClass('progress'); });
+        preview.show(getTarget(tgt), tgt, tgt.removeClass.bind(tgt, 'progress'));
       },
       'mouseleave:relay(a[onclick^=highlightPost])': function (ev, tgt) {
         tgt.removeClass('progress');

@@ -1,5 +1,5 @@
 <div class="postarea">
-<form id=postform action=/post>
+<form id=postform action=/post method="post">
 <div style="display: none">
     <input name="email" type="text">
     <input name="e-mail" type="text">

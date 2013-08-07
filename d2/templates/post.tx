@@ -28,7 +28,7 @@
             <label class="postdata" for="<: $label :>">
                 <span class="postername"><: $p.user :></span>
                 <time><: $p.date :></time>
-            <span class="reflink">
+                <span class="reflink">
                 <a href="/board/l/thread/<: $p.thread_id :>#q<: $p.post_id :>">Nr. <: $p.post_id :></a> 
             </span>
             <span class="reason"></span>

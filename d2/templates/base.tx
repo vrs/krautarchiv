@@ -8,7 +8,7 @@
 
 <!-- http://mootools.net/core/ccd5922c7bc9aade7b74398c6e5e5e7a -->
 <script type="text/javascript" src="/js/lib/mootools-core-1.4.5.js"></script>
-<!-- http://mootools.net/more/011fc05c613fdde1480115d3e75c3ec0 -->
+<!-- http://mootools.net/more/07760dad791dbcaf9b4913aca048b61c -->
 <script type="text/javascript" src="/js/lib/mootools-more-1.4.0.1.js"></script>
 : block scripts -> { }
 <script type="text/javascript" src="/js/misc.js"></script>
