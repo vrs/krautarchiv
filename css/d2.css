@@ -100,11 +100,11 @@ nav a {
     margin: 0;
 }
 #postform input[type=text], #postform input[type=password] {
-    height: 1em;
+    height: 1.4em;
 }
 #postform input[type=text], #postform input[type=password], #postform textarea {
     border: 1px solid #313370;
-    padding: 0.5em;
+    padding: 0.3em;
 }
 #postform input[type=text]:focus, #postform input[type=password]:focus, #postform textarea:focus {
     background: #ffd;
@@ -512,9 +512,7 @@ footer {
 .buttons label {
     display: inline-block;
 }
-#mngform input:checked + .buttons {
-}
-#mngform input:checked + .legend + .buttons {
+#mngform input:checked ~ .buttons {
     display: table-cell;
 }
 #mngform input[name=tasks] {
