@@ -19,7 +19,7 @@ function clonePost (p) {
 var postCache
   , preview = (function () {
       var previewBox = new Element('div.invisible[id=preview]')
-        , status = []
+        , status = {}
       ;
 
       function loadPost(num, callback) {
@@ -84,24 +84,24 @@ var postCache
             }
             callback();
           } else {
-            if (!status[+num]) {
+            if (!status[num]) {
               loadPost(num, function (post) {
-                if (status[+num] !== "aborted") {
+                if (status[num] !== "aborted") {
                   post.addClass('highlight');
                   showPost(post, ref);
                   callback();
-                  status[+num] = "loaded";
+                  status[num] = "loaded";
                 }
               });
             }
-            status[+num] = "loading";
+            status[num] = "loading";
           }
         },
         hide: function (num) {
           var posts = $$('#' + num + ',#c' + num);
-          status[+num] = "aborted";
+          status[num] = "aborted";
           posts.removeClass('highlight');
-          previewBox.addClass('invisible').unpin().empty();
+          previewBox.addClass('invisible').empty();
         }
       };
     })()
@@ -115,6 +115,13 @@ var postCache
 
       return {
         show: function (num, highlight) {
+          function cloneAndMark(i) {
+            var original = $(i)
+              , clone = clonePost(original)
+            ;
+            original.addClass('inactive');
+            return clone;
+          }
           var posts = $$('article article')
             , graph = postGraph($$('.thread')[0])
             , ancwrap = $('ancwrap') || new Element('div#ancwrap.context', { html: '<div id=ancbox>' })
@@ -129,14 +136,8 @@ var postCache
           descendants = exclude(graph.descendants(num).flatten(), [num]);
           ancestors = exclude(graph.ancestors(num).flatten(), [num]);
           
-          ancestors.forEach(function (i) {
-              ancbox.grab(clonePost($(''+i)));
-              $(''+i).addClass('inactive');
-          });
-          descendants.forEach(function (i) {
-              desbox.grab(clonePost($(''+i)));
-              $(''+i).addClass('inactive');
-          });
+          ancbox.adopt(ancestors.map(cloneAndMark));
+          desbox.adopt(descendants.map(cloneAndMark));
 
           ancbox.getFirst('#c' + highlight).addClass('highlight');
           if (ancestors.length) $(num).grab(ancwrap, 'before');

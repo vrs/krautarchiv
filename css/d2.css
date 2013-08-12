@@ -615,7 +615,7 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     margin: 0;
 }
 #preview .thread_OP .postername::after {
-    content: " (OP)"
+    content: " (OP)";
 }
 
 #post_cache {
@@ -637,11 +637,17 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 .context > div {
     position: absolute;
     left: 10em;
-    padding: 0 0.5em;
     z-index: 5;
     background: #EEEEEE;
     box-shadow: 1px 2px 2px 1px gray;
 }
+.context .thread_reply {
+    margin: 0.5em;
+}
+.context .thread_OP .postername::after {
+    content: " (OP)";
+}
+
 article.inactive *, article.inactive a {
   background: none;
   color: gray;

@@ -86,17 +86,22 @@ DAG.prototype.ancestors = function (id) {
 
 
 var postGraph = (function () {
-  var cache = [];
+  // possible optimisation: remove calls to Slick
+  var cache = []
+    , main = null
+  ;
   function addPost(post) {
     var refs = post.getElements('a[onclick^=highlightPost]');
     this.append(refs.map(getTarget).filter(function (x) {
-      return $$('main #' + x).length;
+      return !!main.getElementById(x);
     }), post.id);
   }
   return function (thread) {
     var id = thread.getElement('article').get('id')
       , graph = cache[id]
     ;
+    if (!main)
+      main = $$('main')[0];
     if (!graph) {
       graph = new DAG(id);
       thread.getChildren('article').forEach(addPost.bind(graph));
