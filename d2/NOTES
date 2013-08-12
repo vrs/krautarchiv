@@ -8,6 +8,8 @@ hiding in catalog
 context.js
 recursive hide
 mod form
+some place for error messages
+errors for missing cookies (because localstorage)
 
 
 improvements to the parser:
@@ -21,17 +23,27 @@ improvements to the parser:
 
 
 Interface:
-countryballs?
+floating buttons break in chrome
+what about countryballs?
 setting: hide names/subjects/images
-smaller post labels?
 
 
 Images:
 images/filenames need rework
+inline image expansion
 
 
 JS:
-some place for error messages
+infrastructure:
+    settings panel
+small and useful:
+    flush out stale hide/kill entries
+    load quote link: add >>, then rewrite url
+    mark text -> quote
+    vad är detta
+    rebind f5
+    refresh -> highlight changes (catalog & board)
+    thread stats, page a thread is on
 recursive hiding:
     some usable way to get killed posts back
     preview for hidden posts
@@ -41,30 +53,30 @@ context.js:
     show replies to post
     support for loaded posts
     support in board?
-show all posts by ip in current view
-errors for missing cookies (because localstorage)
-inline image expansion
-load quote link: add >>, then rewrite url
-vad är detta
-post expansion
-thread expansion?
+postloading:
+    post expansion
+    thread expansion?
+    endless scroll?
 Quickreply?
 Spells?
     filter: ganz weg, stub, highlight, remove images, assign custom class, custom JS
     hide by: OP/name/trip/words/filenames/hashes/detectors
-shipainter-ersatz?
 custom CSS
-refresh -> highlight changes (catalog & board)
-rebind f5
-thread stats, page a thread is on
-endless scroll?
 keyboard navigation (n/p threads, j/k posts, ctrl+return = open, etc)?
+shipainter replacement?
 
 
 Formular:
-validation (würg)
+validation
 captcha
-mark text -> quote
+file preview
+
+
+Modform:
+show all posts by ip in current view
+validation
+post search
+?
 
 
 backend:
