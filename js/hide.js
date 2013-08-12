@@ -17,9 +17,11 @@ window.addEvent('domready', function () {
       , tgt = post.hasClass('thread_OP') ? post.getParent('article') : post
     ;
     reason = reason || "";
-    tgt.addClass('hidden')
-      .getElement('.reason')
-      .set('text', reason);
+    post.addClass('hidden');
+    if (reasonEl)
+      reasonEl.set('text', reason);
+    if (thread)
+      thread.addClass('hidden');
     storage.hidden[num] = reason;
   }
 

@@ -76,7 +76,8 @@ var mngform = {
 };
   
 window.addEvent('domready', function () {
-
+  if (!$('toolbox'))
+    return;
   $('posts_deselect').addEvent('click', mngform.clearPosts.bind(mngform));
   $('log_clear').addEvent('click', log.clear.bind(log));
   mngform.update();
