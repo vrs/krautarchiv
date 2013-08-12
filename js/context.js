@@ -126,8 +126,8 @@ var postCache
             , descendants
           ;
           
-          descendants = exclude(graph.descendants(num).flatten(), [+num]);
-          ancestors = exclude(graph.ancestors(num).flatten(), [+num]);
+          descendants = exclude(graph.descendants(num).flatten(), [num]);
+          ancestors = exclude(graph.ancestors(num).flatten(), [num]);
           
           ancestors.forEach(function (i) {
               ancbox.grab(clonePost($(''+i)));
@@ -166,7 +166,7 @@ window.addEvent('domready', function() {
         preview.hide(getTarget(tgt));
       },
       'click:relay(a[onclick^=highlightPost])': function (ev, tgt) {
-        var id = +getTarget(tgt);
+        var id = getTarget(tgt);
 
         if ($$('main #' + id).length && window.threadNum) {
           var post = tgt.getParent('article');

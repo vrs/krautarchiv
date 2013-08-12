@@ -1,7 +1,7 @@
+// beware when modifying lists that might have a meaning in more than one DAG
 function DAG(id) {
-  this.nodes = [];
+  this.nodes = {};
   if (id !== undefined) {
-    id = +id;
     this.head = id;
     this.nodes[id] = {
       parents: [],
@@ -10,67 +10,70 @@ function DAG(id) {
   }
 }
 DAG.prototype.append = function (parents, id) {
-  id = +id;
   var nodes = this.nodes;
   if (nodes[id]) {
     return false;
   } else {
+    // link upwards
     nodes[id] = {
       parents: parents,
       children: []
     };
+    // link downwards
     parents.forEach(function (p) {
-      nodes[+p].children.push(id);
+      nodes[p].children.push(id);
     });
     return true;
   }
 };
 DAG.prototype.attach = function (parents, sub) {
   var nodes = this.nodes;
-  if (sub.nodes.filter(function (el) {
-    return nodes[el.id] !== undefined;
-  }).length) {
-    return false;
-  } else {
-    sub.nodes.forEach(function (node, i) {
-      nodes[i] = node;
-    });
-    nodes[sub.head].parents = parents;
-    parents.forEach(function (p) {
-      nodes[p].children.push(sub.head);
-    });
-    return true;
+
+  // copy over nodes
+  for (var i in sub.nodes) {
+    nodes[i] = sub.nodes[i];
   }
+  // attach head
+  nodes[sub.head].parents = parents;
+  parents.forEach(function (p) {
+    nodes[p].children.push(sub.head);
+  });
+  return true;
 };
 DAG.prototype.flatten = function () {
   // this is not a toposort!
-  return this.nodes.map(function (node, i) {
-    return i;
-  }).filter(function (node, i) {
-    return i !== undefined;
-  });
+  return Object.keys(this.nodes).sort(function (a, b) {
+    return +a - b;
+  })
 };
 DAG.prototype.reverse = function () {
-  var out = new DAG();
-  this.nodes.forEach(function (node, i) {
-    if (out.head === undefined && !node.children.length) {
+  var out = new DAG()
+    , nodes = this.nodes
+  ;
+  for (var i in nodes) {
+    // choose an element that has no children in nodes as head
+    // no specific preference
+    if (out.head === undefined && !nodes[i].children.length) {
       out.head = i;
     }
+    // point the links the other way
     out.nodes[i] = {
-      parents: node.children,
-      children: node.parents
+      parents: nodes[i].children,
+      children: nodes[i].parents
     };
-  });
+  }
   return out;
 };
 DAG.prototype.descendants = function (id) {
-  id = +id;
   var out = new DAG(id)
     , self = this
   ;
+  // copy descendants into sub-DAG
   self.nodes[id].children.forEach(function (child) {
     if (out.nodes[child]) {
+      // already visited by another branch, just add a link
       out.nodes[child].parents.push(id);
+      out.nodes[id].children.push(child);
     } else {
       out.attach([id], self.descendants(child));
     }
@@ -78,7 +81,7 @@ DAG.prototype.descendants = function (id) {
   return out;
 };
 DAG.prototype.ancestors = function (id) {
-  return this.reverse().descendants(+id);
+  return this.reverse().descendants(id);
 };
 
 
