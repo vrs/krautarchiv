@@ -5,8 +5,10 @@ function getTarget (a) {
 }
 
 function clonePost (p) {
+  // possible optimisation: cache clones
   var post = p.clone();
-  post.set('id', 'c' + p.id);
+  post.set('id', 'c' + p.id)
+    .removeClass('hidden');
   // TODO eww
   post.getElements('a[onclick^=highlightPost]').forEach(function (el) {
     el.set('href', el.get('href').replace('#','#c'))
@@ -30,7 +32,6 @@ var postCache
             if (!$(num)) {
               postCache.grab(post);
             }
-            post.addClass('highlight');
             callback(post);
           }
         }).get();
@@ -64,9 +65,6 @@ var postCache
 
       return {
         show: function (num, ref, callback) {
-          if ($(num))
-            $(num).addClass('highlight');
-          
           var p = $('c'+num) || $(num)
             , size = window.getSize()
             , coords = p && p.getCoordinates()
@@ -77,10 +75,11 @@ var postCache
           ;
 
           if (p) {
-            if (!isEntirelyVisible) {
+            if (!isEntirelyVisible || p.hasClass('hidden') ) {
+              p.addClass('highlight');
               showPost(p, ref);
             }
-            if (isVisible) {
+            if (isVisible && !ref.getParent().getParent('.postdata')) {
               p.addClass('highlight');
             }
             callback();
@@ -88,6 +87,7 @@ var postCache
             if (!status[+num]) {
               loadPost(num, function (post) {
                 if (status[+num] !== "aborted") {
+                  post.addClass('highlight');
                   showPost(post, ref);
                   callback();
                   status[+num] = "loaded";
@@ -157,11 +157,11 @@ window.addEvent('domready', function() {
   
   if (main)
     main.addEvents({ // TODO eww
-      'mouseenter:relay(a[onclick^=highlightPost])': function (ev, tgt) {
+      'mouseenter:relay(a[onclick^=highlightPost], span.reflink a)': function (ev, tgt) {
         tgt.addClass('progress');
         preview.show(getTarget(tgt), tgt, tgt.removeClass.bind(tgt, 'progress'));
       },
-      'mouseleave:relay(a[onclick^=highlightPost])': function (ev, tgt) {
+      'mouseleave:relay(a[onclick^=highlightPost], span.reflink a)': function (ev, tgt) {
         tgt.removeClass('progress');
         preview.hide(getTarget(tgt));
       },

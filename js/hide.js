@@ -14,7 +14,8 @@ storage.load('killed', {});
 window.addEvent('domready', function () {
   function hide(post, reason) {
     var num = post.get('id')
-      , tgt = post.hasClass('thread_OP') ? post.getParent('article') : post
+      , thread = post.hasClass('thread_OP') ? post.getParent('article') : null
+      , reasonEl = post.getElement('.reason')
     ;
     reason = reason || "";
     post.addClass('hidden');
@@ -27,19 +28,23 @@ window.addEvent('domready', function () {
 
   function show(post) {
     var num = post.get('id')
-      , tgt = post.hasClass('thread_OP') ? post.getParent('article') : post
+      , thread = post.hasClass('thread_OP') ? post.getParent('article') : null
+      , reasonEl = post.getElement('.reason')
     ;
-    tgt.removeClass('hidden').removeClass('killed');
-    tgt.getElement('.reason').empty();
+    new Elements([post, thread]).removeClass('hidden').removeClass('killed');
+    if (reasonEl)
+      reasonEl.empty();
     delete storage.hidden[num];
     delete storage.killed[num];
   }
 
   function kill(post) {
     var num = post.get('id')
-      , tgt = post.hasClass('thread_OP') ? post.getParent('article') : post
+      , thread = post.hasClass('thread_OP') ? post.getParent('article') : null
     ;
-    tgt.addClass('killed');
+    post.addClass('killed');
+    if (thread)
+      thread.addClass('killed');
     storage.killed[num] = 1;
   }
 
@@ -48,8 +53,6 @@ window.addEvent('domready', function () {
   Object.each(storage.hidden, function (reason, num) {
     var post;
     if (post = $(num)) {
-      if (post.hasClass('thread_OP'))
-        post = post.getParent('article');
       hide(post, reason);
     }
   });

@@ -549,6 +549,9 @@ footer {
 .hidden, .hidden h1 {
     color: gray;
 }
+.hidden a:hover, .hidden a:focus {
+    background: #FFFFFF;
+}
 .hidden * {
     background: none;
 }
