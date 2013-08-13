@@ -14,7 +14,6 @@ hr {
 }
 a {
     font-weight: bold;
-    height: 1em;
 }
 a:link {
     text-decoration: none;
@@ -340,32 +339,48 @@ figure:hover, figure:focus {
 figure:hover .metadata, figure:focus .metadata {
     visibility: visible;
 }
-figcaption {
+figure:hover .metadata {
+    z-index: 2;
+}
+.filename, .thumbnail, figcaption {
+    max-width: 200px;
     background: inherit;
+    margin: 0.5em 0.5em 0;
+}
+.filename {
 }
 .filename a {
     display: block;
-    padding: 0.5em;
-    /*temporary*/
-    max-width: 200px;
 }
 .thumbnail {
-    display: block;
-    padding: 0 0.5em 0.5em;
 }
 .thumbnail img {
     display: block;
     max-height: 200px;
+    margin: 0 auto;
+}
+figcaption {
+    position: relative;
+    margin: 0;
+    padding: 0.5em;
+}
+.filesize {
+    text-align: center;
 }
 .metadata {
-    position: absolute;
-    top: 100%;
-    padding: 0.5em;
-    background: inherit;
-    margin-top: 0.5em;
     visibility: hidden;
+    position: absolute;
+    min-width: 100%;
+    background: inherit;
     z-index: 1;
-    /*box-shadow: 1px 1px 0 0 #313370;*/
+    border-spacing: 0.5em;
+    margin-left: -0.5em;
+}
+.metadata tr {
+    vertical-align: top;
+}
+.metadata td:first-child {
+    font-weight: bold;
 }
 
 .post_text {
@@ -449,6 +464,7 @@ figcaption {
     text-align: left;
 }
 .teaser .thumbnail {
+    margin: 0;
     padding: 0;
     line-height: 0;
 }

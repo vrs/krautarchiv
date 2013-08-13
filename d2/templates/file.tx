@@ -3,17 +3,21 @@
                       <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>"><: $f.filename | mark_raw :></a>
                   </div>
                   <div class="thumbnail">
-:#                      <a tabindex=-1 target="_blank" href="/show_file/?file_id=<: $f.file_id :>">
+                      <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>">
                           <img src="/thumb/img/<: $f.path :>" alt="FIXME" />
-:#                      </a>
+                      </a>
                   </div>
-:#                  <div class="filesize">
-:#                      $filesize
-:#                  </div>
                   <figcaption>
-                      <div class="metadata">
-                      <b>Filename:</b> <: $f.filename :><br>
-                      <b>Metadata:</b> FIXME
+                      <div class="filesize">
+                          size/width/height
                       </div>
+                      <table class="metadata">
+                          <tr>
+                              <td>Filename:
+                              <td><: $f.filename | mark_raw :>
+                          <tr>
+                              <td>Metadata:
+                              <td>FIXME
+                      </table>
                   </figcaption>
               </figure>
