@@ -315,9 +315,10 @@ article h1 {
 }
 
 .post_files {
-    margin-bottom: 1em;
     display: table;
-    border-spacing: 0.5em 0;
+    border-spacing: 0.5em;
+    margin-bottom: 0.5em;
+    margin-top: -0.5em;
     position: relative;
 }
 .post_files.unary {
@@ -332,6 +333,7 @@ article h1 {
 figure {
     background: #9999BB;
     display: table-cell;
+    margin: 0;
 }
 figure:hover, figure:focus {
     background: #BBBBDD;
@@ -343,16 +345,14 @@ figure:hover .metadata {
     z-index: 2;
 }
 .filename, .thumbnail, figcaption {
-    max-width: 200px;
     background: inherit;
-    margin: 0.5em 0.5em 0;
 }
-.filename {
+.filename, .thumbnail {
+    max-width: 200px;
+    margin: 0.5em 0.5em 0;
 }
 .filename a {
     display: block;
-}
-.thumbnail {
 }
 .thumbnail img {
     display: block;
@@ -362,9 +362,9 @@ figure:hover .metadata {
 figcaption {
     position: relative;
     margin: 0;
-    padding: 0.5em;
 }
 .filesize {
+    padding: 0.5em;
     text-align: center;
 }
 .metadata {
@@ -374,7 +374,6 @@ figcaption {
     background: inherit;
     z-index: 1;
     border-spacing: 0.5em;
-    margin-left: -0.5em;
 }
 .metadata tr {
     vertical-align: top;
@@ -551,7 +550,8 @@ footer {
     resize: horizontal;
 }
 
-/* interactive styles */
+/** interactive styles */
+/* tooltips */
 .tooltip {
     padding: 0.25em;
     background: #E2E7FF;
@@ -562,6 +562,7 @@ footer {
     z-index: 20;
 }
 
+/* hiding */
 .hidden, .hidden h1 {
     color: gray;
 }
@@ -602,6 +603,7 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     display: none;
 }
 
+/* preview */
 :target .post, .highlight .post {
     background: #BBBBDD;
 }
@@ -640,7 +642,7 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     top: -100000px;
 }
 
-
+/* context */
 #ancbox {
     bottom: 0.25em;
 }
@@ -669,6 +671,7 @@ article.inactive *, article.inactive a {
   color: gray;
 }
 
+/* manageform */
 .jsenabled #toolbox {
     position: fixed;
     bottom: 0;
@@ -699,6 +702,7 @@ article.inactive *, article.inactive a {
     border: none;
 }
 
+/* logging */
 #log_clear {
     display: block;
 }
@@ -721,4 +725,36 @@ article.inactive *, article.inactive a {
 }
 #toolbox_log .error {
     color: red;
+}
+
+/* image expansion */
+.hasexpanded, .hasexpanded .post_files {
+    display: block;
+    float: none;
+    margin-right: 0;
+}
+.hasexpanded figure {
+    vertical-align: top;
+}
+figure.expanded {
+    margin-bottom: 0.5em;
+    display: inline-block;
+}
+.expanded img, .expanded .thumbnail, .expanded {
+    max-height: none;
+    max-width: 100%;
+    margin: 0;
+}
+.expanded .smallthumb {
+    display: none;
+}
+.expanded .thumbnail {
+    margin: 0.5em;
+}
+.expanded .metadata {
+    visibility: visible;
+    position: static;
+}
+.expanded figcaption, .expanded .filename {
+    max-width: none;
 }

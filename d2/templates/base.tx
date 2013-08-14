@@ -16,6 +16,7 @@
 <script type="text/javascript" src="/js/postgraph.js"></script>
 <script type="text/javascript" src="/js/context.js"></script>
 <script type="text/javascript" src="/js/hide.js"></script>
+<script type="text/javascript" src="/js/expand.js"></script>
 <!-- todo RSS -->
 
 </head>

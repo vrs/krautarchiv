@@ -10,6 +10,7 @@ recursive hide
 mod form
 some place for error messages
 errors for missing cookies (because localstorage)
+inline image expansion
 
 
 improvements to the parser:
@@ -29,7 +30,7 @@ setting: hide names/subjects/images
 
 
 Images:
-inline image expansion
+when only the lower edge of an image is visible and it is minimized again, adjust scroll
 
 
 JS:

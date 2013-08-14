@@ -3,8 +3,8 @@
                       <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>"><: $f.filename | mark_raw :></a>
                   </div>
                   <div class="thumbnail">
-                      <a target="_blank" href="/show_file/?file_id=<: $f.file_id :>">
-                          <img src="/thumb/img/<: $f.path :>" alt="FIXME" />
+                      <a target="_blank" href="/img/<: $f.path :>">
+                          <img class=smallthumb src="/thumb/img/<: $f.path :>" alt="FIXME" />
                       </a>
                   </div>
                   <figcaption>
