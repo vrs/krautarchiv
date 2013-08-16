@@ -1,23 +1,33 @@
 window.addEvent('domready', function () {
   function updateContainer(tgt) {
-    var parent = tgt.getParents('.post')[0];
+    var parent = tgt.getParent('.post');
 
     parent.toggleClass('hasexpanded',
       !!parent.getElements('.expanded').length)
   }
 
   function toggleExpand(img) {
-    var figure = img.getParents('figure')[0];
+    var figure = img.getParent('figure')
+      , a = img.getParent()
+      , src = img.get('src')
+    ;
 
     if (img.hasClass('smallthumb')) {
+      a.setStyles({
+        'min-width': img.offsetWidth,
+        'min-height': img.offsetHeight,
+        'background-size': 'cover',
+        'background-image': 'url("' + window.location.origin + src + '")',
+      });
       img.clone()
         .removeClass('smallthumb')
         .addClass('bigthumb')
-        .set('src', img.get('src').replace('/thumb', ''))
-        .inject(img.getParent());
+        .set('src', src.replace('/thumb', ''))
+        .inject(a);
       figure.addClass('expanded');
       updateContainer(img);
     } else {
+      a.set('style', '');
       figure.removeClass('expanded');
       updateContainer(img);
       img.destroy();

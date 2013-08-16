@@ -360,6 +360,10 @@ figure:hover .metadata {
     max-height: 200px;
     margin: 0 auto;
 }
+.thumbnail a {
+    display: inline-block;
+    max-width: 100%;
+}
 figcaption {
     position: relative;
     margin: 0;
@@ -742,11 +746,11 @@ figure.expanded {
     max-width: 100%;
     margin: 0;
 }
-.expanded .smallthumb {
-    display: none;
-}
 .expanded .thumbnail {
     margin: 0.5em;
+}
+.expanded .smallthumb {
+    display: none;
 }
 .expanded .metadata {
     visibility: visible;
