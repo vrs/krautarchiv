@@ -187,7 +187,7 @@ window.addEvent('domready', function() {
       }
     });
     document.body.addEvent('click', function (ev) {
-      if (!ev.target.match('.context, .context *, a[onclick^=highlightPost], .post_body span.reflink a')) {
+      if (!ev.target.match('.context, .context *, a[onclick^=highlightPost], .post_body span.reflink a') && $$('.context').length) {
         scrolls.save(context.focus);
         context.hide();
         scrolls.restore(context.focus);

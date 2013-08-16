@@ -750,7 +750,8 @@ figure.expanded {
     margin: 0.5em;
 }
 .expanded .smallthumb {
-    display: none;
+    visibility: hidden;
+    position: absolute;
 }
 .expanded .metadata {
     visibility: visible;

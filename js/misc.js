@@ -55,18 +55,24 @@ window.addEvent('domready', function () {
 // scroll preserver for various features
 var scrolls = {
   save: function (el) {
-    var coords = el.getCoordinates()
-      , edge = coords.top < window.scrollY
-    ;
-    el.store('scroll', {
-      edge: edge, // 1: bottom, 0: top
-      offset: window.scrollY - (edge ? coords.bottom : coords.top)
-    });
+    var pos = el.getPosition();
+    el.store('scroll', pos.y - window.scrollY);
   },
   restore: function (el) {
-    var coords = el.getCoordinates(),
-      pos = el.retrieve('scroll')
+    var pos = el.getPosition(),
+      scroll = el.retrieve('scroll')
     ;
-    window.scroll(0, pos.offset + (pos.edge ? coords.bottom : coords.top));
+    window.scrollTo(0, pos.y - scroll);
+  },
+  intoview: function (el) {
+    var coords = el.getCoordinates()
+      , height = window.getSize().y
+    ;
+    if (coords.bottom > window.scrollY + height) {
+      el.scrollIntoView(coords.height > height);
+    }
+    if (coords.top < window.scrollY) {
+      el.scrollIntoView(true);
+    }
   }
 };

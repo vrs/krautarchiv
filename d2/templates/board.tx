@@ -13,7 +13,7 @@
 : override content -> {
     : include postform
     <hr>
-    <main>
+    <main class=board>
         : for $thread_list.values() -> $thread {
         <article id="thread_<: $thread.post_list.0.post_id :>" class="thread stub">
             : for $thread.post_list -> $t {
