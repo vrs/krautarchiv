@@ -51,3 +51,22 @@ window.addEvent('domready', function () {
 window.addEvent('domready', function () {
   document.body.addClass('jsenabled');
 });
+
+// scroll preserver for various features
+var scrolls = {
+  save: function (el) {
+    var coords = el.getCoordinates()
+      , edge = coords.top < window.scrollY
+    ;
+    el.store('scroll', {
+      edge: edge, // 1: bottom, 0: top
+      offset: window.scrollY - (edge ? coords.bottom : coords.top)
+    });
+  },
+  restore: function (el) {
+    var coords = el.getCoordinates(),
+      pos = el.retrieve('scroll')
+    ;
+    window.scroll(0, pos.offset + (pos.edge ? coords.bottom : coords.top));
+  }
+};

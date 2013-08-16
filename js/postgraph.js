@@ -92,7 +92,7 @@ var postGraph = (function () {
   ;
   function addPost(post) {
     var refs = post.getElements('a[onclick^=highlightPost]');
-    this.append(refs.map(getTarget).filter(function (x) {
+    this.append(refs.map(getTarget).sort().unique().filter(function (x) {
       return !!main.getElementById(x);
     }), post.id);
   }

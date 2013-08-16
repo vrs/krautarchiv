@@ -114,6 +114,7 @@ var postCache
       }
 
       return {
+        focus: null,
         show: function (num, highlight) {
           function cloneAndMark(i) {
             var original = $(i)
@@ -132,6 +133,7 @@ var postCache
             , ancestors
             , descendants
           ;
+          this.focus = $(num);
           
           descendants = exclude(graph.descendants(num).flatten(), [num]);
           ancestors = exclude(graph.ancestors(num).flatten(), [num]);
@@ -139,9 +141,9 @@ var postCache
           ancbox.adopt(ancestors.map(cloneAndMark));
           desbox.adopt(descendants.map(cloneAndMark));
 
-          ancbox.getFirst('#c' + highlight).addClass('highlight');
-          if (ancestors.length) $(num).grab(ancwrap, 'before');
-          if (descendants.length) $(num).grab(deswrap, 'after');
+          if (ancestors.length) this.focus.grab(ancwrap, 'before');
+          if (descendants.length) this.focus.grab(deswrap, 'after');
+          $('c' + highlight).addClass('highlight');
       },
       hide: function () {
           $$('#ancwrap, #deswrap').dispose()
@@ -166,7 +168,7 @@ window.addEvent('domready', function() {
         tgt.removeClass('progress');
         preview.hide(getTarget(tgt));
       },
-      'click:relay(a[onclick^=highlightPost])': function (ev, tgt) {
+      'click:relay(a[onclick^=highlightPost], .post_body span.reflink a)': function (ev, tgt) {
         var id = getTarget(tgt);
 
         if ($$('main #' + id).length && window.threadNum) {
@@ -174,17 +176,21 @@ window.addEvent('domready', function() {
           if (!post)
             return;
           ev.preventDefault();
-          if (!tgt.match('.context *')) {
+          if (!tgt.getParent('.context')) {
+            scrolls.save(post);
             preview.hide(getTarget(tgt));
             context.hide();
             context.show(post.id, id);
+            scrolls.restore(post);
           }
         }
       }
     });
     document.body.addEvent('click', function (ev) {
-      if (!ev.target.match('.context, .context *, a[onclick^=highlightPost]')) {
+      if (!ev.target.match('.context, .context *, a[onclick^=highlightPost], .post_body span.reflink a')) {
+        scrolls.save(context.focus);
         context.hide();
+        scrolls.restore(context.focus);
       }
     });
 })

@@ -3,7 +3,8 @@ html {
     background: #EEEEEE;
 }
 body { 
-    margin: 0 1em;
+    margin: 0;
+    padding: 0 1em;
     font-family: sans-serif;
     font-size: 80%;
     word-wrap: break-word;
@@ -653,11 +654,7 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     position: relative;
 }
 .context > div {
-    position: absolute;
-    left: 10em;
-    z-index: 5;
-    background: #EEEEEE;
-    box-shadow: 1px 2px 2px 1px gray;
+    margin-left: 4em;
 }
 .context .thread_reply {
     margin: 0.5em;
@@ -757,4 +754,18 @@ figure.expanded {
 }
 .expanded figcaption, .expanded .filename {
     max-width: none;
+}
+
+/* replies */
+.post_replies {
+    font-size: 84%;
+    border-top: 1px solid gray;
+    display: table;
+    clear: left;
+    margin: 0 1.2em;
+    padding-bottom: 0.6em;
+}
+
+.post_replies .reflink + .reflink:before {
+    content: ", ";
 }

@@ -11,19 +11,11 @@ mod form
 some place for error messages
 errors for missing cookies (because localstorage)
 inline image expansion
-
-
-improvements to the parser:
--links with nofollow+noreferrer
--subsections divided by >>123 <=> paragraphs instead of <br>
--refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
--and give people subheadings (h2)
--:focus for spoilers
--replylinks
--absolute links
+show replies to post
 
 
 Interface:
+context isn't entirely obvious, especially hiding
 floating buttons break in chrome
 what about countryballs?
 setting: hide names/subjects/images
@@ -37,48 +29,57 @@ JS:
 infrastructure:
     settings panel
 small and useful:
-    flush out stale hide/kill entries
-    load quote link: add >>, then rewrite url
     mark text -> quote
+    load quote link: add >>, then rewrite url
     vad är detta
+    flush out stale hide/kill entries
     rebind f5
     refresh -> highlight changes (catalog & board)
     thread stats, page a thread is on
 recursive hiding:
     some usable way to get killed posts back
-    preview for hidden posts
     support for loaded posts
 context.js:
     click on links in the context -> ?
-    show replies to post
     support for loaded posts
     support in board?
 postloading:
-    post expansion
     thread expansion?
+    post expansion
     endless scroll?
 Quickreply?
 Spells?
-    filter: ganz weg, stub, highlight, remove images, assign custom class, custom JS
+    filter: kill, hide, highlight, remove images, assign custom class, custom JS
     hide by: OP/name/trip/words/filenames/hashes/detectors
 custom CSS
 keyboard navigation (n/p threads, j/k posts, ctrl+return = open, etc)?
 shipainter replacement?
 
 
-Formular:
+Postform:
 validation
 captcha
 file preview
+show posts being replied to
 
 
 Modform:
 show all posts by ip in current view
 validation
 post search
-?
 
 
 backend:
+board overview
 overboard
-overboard catalog
+overboard catalog?
+
+
+improvements to the parser:
+-absolute links
+-links with nofollow+noreferrer
+-subsections divided by >>123 <=> paragraphs instead of <br>
+-refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
+-and give people subheadings (h2)
+-:focus for spoilers
+-replylinks
