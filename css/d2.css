@@ -649,16 +649,16 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 
 /* context */
 #ancbox {
-    bottom: 0.25em;
+    margin-top: 2em;
 }
 #desbox {
-    top: -0.25em;
+    margin-bottom: 2em;
 }
 .context {
     position: relative;
+    margin-left: 2em;
 }
 .context > div {
-    margin-left: 4em;
 }
 .context .thread_reply {
     margin: 0.5em;
@@ -667,9 +667,13 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     content: " (OP)";
 }
 
-article.inactive *, article.inactive a {
-  background: none;
-  color: gray;
+.replaced {
+    color: gray;
+    background: none;
+    padding: 0 1em;
+}
+.replaced a:hover, .replaced a:focus {
+    background: #FFFFFF;
 }
 
 /* manageform */

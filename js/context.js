@@ -16,6 +16,23 @@ function clonePost (p) {
   return post;
 }
 
+function grabPost(original) {
+  var id = original.get('id');
+
+  new Element('div.post.thread_reply.replaced#replaced_' + id)
+    .grab(new Element('span.reflink', {
+      html: "[<a href=\"#" + id + "\">&gt;&gt;" + id + "</a>]"
+    }))
+    .replaces(original);
+
+  return original;
+}
+
+function restorePost(replacement) {
+  var id = getTarget(replacement.getElement('span.reflink a'));
+  $(id).replaces(replacement);
+}
+
 var postCache
   , preview = (function () {
       var previewBox = new Element('div.invisible[id=preview]')
@@ -116,15 +133,8 @@ var postCache
       return {
         focus: null,
         show: function (num, highlight) {
-          function cloneAndMark(i) {
-            var original = $(i)
-              , clone = clonePost(original)
-            ;
-            original.addClass('inactive');
-            return clone;
-          }
           var posts = $$('article article')
-            , graph = postGraph($$('.thread')[0])
+            , graph = postGraph($$('article.thread')[0])
             , ancwrap = $('ancwrap') || new Element('div#ancwrap.context', { html: '<div id=ancbox>' })
             , deswrap = $('deswrap') || new Element('div#deswrap.context', { html: '<div id=desbox>' })
             , ancbox = ancwrap.firstChild.empty()
@@ -134,20 +144,25 @@ var postCache
             , descendants
           ;
           this.focus = $(num);
-          
-          descendants = exclude(graph.descendants(num).flatten(), [num]);
+
           ancestors = exclude(graph.ancestors(num).flatten(), [num]);
-          
-          ancbox.adopt(ancestors.map(cloneAndMark));
-          desbox.adopt(descendants.map(cloneAndMark));
+          descendants = exclude(graph.descendants(num).flatten(), [num]);
+
+          ancbox.adopt(ancestors.map($).map(grabPost));
+          desbox.adopt(descendants.map($).map(grabPost));
 
           if (ancestors.length) this.focus.grab(ancwrap, 'before');
-          if (descendants.length) this.focus.grab(deswrap, 'after');
-          $('c' + highlight).addClass('highlight');
-      },
-      hide: function () {
+          this.focus.grab(deswrap, 'after');
+          if (highlight)
+            $(highlight).addClass('highlight');
+        },
+        hide: function () {
+          if (this.focus) {
+            this.focus.getElement('.bullet a').set('text', ">>");
+            this.focus = null;
+          }
+          $$('.replaced').forEach(restorePost);
           $$('#ancwrap, #deswrap').dispose()
-          $$('main article.inactive').removeClass('inactive');
         }
       }
     })()
@@ -157,7 +172,7 @@ var postCache
 window.addEvent('domready', function() {
   var main = $$('main')[0];
   postCache = new Element('div[id=post_cache]').inject(document.body);
-  
+
   if (main)
     main.addEvents({ // TODO eww
       'mouseenter:relay(a[onclick^=highlightPost], span.reflink a)': function (ev, tgt) {
@@ -168,29 +183,32 @@ window.addEvent('domready', function() {
         tgt.removeClass('progress');
         preview.hide(getTarget(tgt));
       },
-      'click:relay(a[onclick^=highlightPost], .post_body span.reflink a)': function (ev, tgt) {
-        var id = getTarget(tgt);
+      'click:relay(a[onclick^=highlightPost], span.reflink > a, .bullet > a)': function (ev, tgt) {
+        var id = getTarget(tgt)
+          , post = tgt.getParent('article')
+          , thread = post && post.getParent('article')
+          , same = context.focus && post.id === context.focus.id
+        ;
 
-        if ($$('main #' + id).length && window.threadNum) {
-          var post = tgt.getParent('article');
-          if (!post)
-            return;
-          ev.preventDefault();
-          if (!tgt.getParent('.context')) {
-            scrolls.save(post);
+        if (tgt.get('href').contains('#q'))
+          return;
+        if (!post)
+          return;
+        if (thread.getElementById(id) && window.threadNum) {
+          if (tgt.match('.bullet > a')) {
+            if (!same)
+              tgt.set('text', "<<");
+          } else {
             preview.hide(getTarget(tgt));
-            context.hide();
-            context.show(post.id, id);
-            scrolls.restore(post);
           }
+
+          ev.preventDefault();
+          scrolls.save(post);
+          context.hide();
+          if (!same)
+            context.show(post.id, id);
+          scrolls.restore(post);
         }
-      }
-    });
-    document.body.addEvent('click', function (ev) {
-      if (!ev.target.match('.context, .context *, a[onclick^=highlightPost], .post_body span.reflink a') && $$('.context').length) {
-        scrolls.save(context.focus);
-        context.hide();
-        scrolls.restore(context.focus);
-      }
+      },
     });
 })

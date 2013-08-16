@@ -15,7 +15,6 @@ show replies to post
 
 
 Interface:
-context isn't entirely obvious, especially hiding
 floating buttons break in chrome
 what about countryballs?
 setting: hide names/subjects/images
@@ -39,7 +38,6 @@ recursive hiding:
     some usable way to get killed posts back
     support for loaded posts
 context.js:
-    click on links in the context -> ?
     support for loaded posts
     support in board?
 postloading:
