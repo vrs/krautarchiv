@@ -740,10 +740,10 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 }
 .hasexpanded figure {
     vertical-align: top;
+    display: inline-block;
+    margin: 0.5em 0;
 }
 figure.expanded {
-    margin-bottom: 0.5em;
-    display: inline-block;
 }
 .expanded img, .expanded .thumbnail, .expanded {
     max-height: none;

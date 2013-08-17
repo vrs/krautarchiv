@@ -23,9 +23,6 @@ window.addEvent('domready', function () {
       img.clone()
         .removeClass('smallthumb')
         .addClass('bigthumb')
-        .addEvent('load', function (ev) {
-          scrolls.intoview(figure);
-        })
         .set('src', src.replace('/thumb', ''))
         .inject(a)
       ;
