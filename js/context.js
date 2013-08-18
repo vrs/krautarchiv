@@ -32,26 +32,11 @@ function restorePost(replacement) {
   $(id).replaces(replacement);
 }
 
-var postCache
-  , preview = (function () {
+var preview = (function () {
       var previewBox = new Element('div.invisible#preview')
-        , status = {}
+        , state = {}
       ;
 
-      function loadPost(num, callback) {
-        new Request.HTML({
-          url: '/res/' + window.boardName + '/post/' + num,
-          onSuccess: function (responseTree) {
-            var post = Array.from(responseTree).filter(function (el) {
-              return el.match && el.match('article')
-            })[0];
-            if (!$(num)) {
-              postCache.grab(post);
-            }
-            callback(post);
-          }
-        }).get();
-      }
 
       function showPost(post, ref) {
         var coords = ref.getCoordinates()
@@ -80,43 +65,45 @@ var postCache
       }
 
       return {
-        show: function (num, ref, callback) {
-          var p = $('c'+num) || $(num)
-            , size = window.getSize()
-            , coords = p && p.getCoordinates()
-            , isVisible = p && coords.bottom > window.scrollY &&
-              window.scrollY + size.y > coords.top
-            , isEntirelyVisible = p && coords.top > window.scrollY &&
-              window.scrollY + size.y > coords.bottom
-          ;
+        show: function (id, ref, callback) {
+          if (!state[id]) {
+            state[id] = { hover: true, loading: true };
+          } else {
+            state[id].hover = true;
+            if (state[id].loading)
+              return;
+          }
 
-          if (p) {
+          new board.Post(id).getAnd(function (post) {
+            state[id].loading = false;
+            if (!state[id].hover)
+              return;
+
+            var p = post.element
+              , size = window.getSize()
+              , coords = p.getCoordinates()
+              , isVisible = coords.bottom > window.scrollY &&
+                window.scrollY + size.y > coords.top
+              , isEntirelyVisible = coords.top > window.scrollY &&
+                window.scrollY + size.y > coords.bottom
+            ;
+
+            if (isVisible && !ref.getParent().getParent('.postdata')) {
+              p.addClass('highlight');
+            }
             if (!isEntirelyVisible || p.hasClass('hidden') ) {
               p.addClass('highlight');
               showPost(p, ref);
             }
-            if (isVisible && !ref.getParent().getParent('.postdata')) {
-              p.addClass('highlight');
-            }
             callback();
-          } else {
-            if (!status[num]) {
-              loadPost(num, function (post) {
-                if (status[num] !== "aborted") {
-                  post.addClass('highlight');
-                  showPost(post, ref);
-                  callback();
-                  status[num] = "loaded";
-                }
-              });
-            }
-            status[num] = "loading";
-          }
+          });
         },
-        hide: function (num) {
-          var posts = $$('#' + num + ',#c' + num);
-          status[num] = "aborted";
-          posts.removeClass('highlight');
+        hide: function (id) {
+          state[id].hover = false;
+          var p = $(id);
+          if (!p)
+            return;
+          p.removeClass('highlight');
           previewBox.addClass('invisible').empty();
         }
       };
@@ -170,7 +157,6 @@ var postCache
 
 window.addEvent('domready', function() {
   var main = $$('main')[0];
-  postCache = new Element('div.cache#post_cache').inject(document.body);
 
   if (main)
     main.addEvents({

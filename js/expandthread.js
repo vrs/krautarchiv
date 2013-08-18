@@ -1,42 +1,21 @@
 window.addEvent('domready', function () {
   function expand(num) {
-    var thread = $('thread_' + num)
-      , omitted = thread.getElement('.omittedposts')
-      , cached = $('cache_' + num).getChildren('article')
-    ;
-    if (cached.length >= omitted.dataset.posts) {
-      omitted.addClass('shown');
-      thread.adopt(
+    new board.Thread(num).getAnd(function (thread) {
+      var cached = $('cache_' + num).getChildren('article')
+      thread.omitted().addClass('shown');
+      thread.element.adopt(
         cached.concat(
-          thread.getChildren('article:not(.thread_OP)')
-            .dispose())
-      );
-    } else {
-      new Request.HTML({
-        url: '/res/' + window.boardName + '/thread/' + num,
-        onSuccess: function (responseTree) {
-          var replies = responseTree[0].getChildren('article').slice(1);
-          omitted.addClass('shown')
-            .getAllNext()
-            .dispose();
-          thread.adopt(replies);
-        }
-      }).get();
-    }
+          thread.posts().slice(1).invoke('dispose')));
+    });
   }
 
   function condense(num) {
-    var thread = $('thread_' + num);
-    thread.getElement('.omittedposts').removeClass('shown');
-    thread.adopt(
-      thread.getChildren('article:not(.thread_OP)')
-        .dispose()
-        .sort(function (a, b) {
-          return +a.id - b.id
-        })
-        .invoke('inject', $('cache_' + num))
-        .slice(-3)
-    );
+    var thread = new board.Thread(num)
+      , posts = thread.posts().slice(1)
+    ;
+    thread.omitted().removeClass('shown');
+    thread.element.adopt(posts.splice(-3, 3));
+    thread.cache().adopt(posts);
   }
 
   $$('main:not(.catalog)').addEvent(
