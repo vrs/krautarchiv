@@ -37,8 +37,8 @@ sub main {
     my $view = $cgi->param('view');
     $view = $view eq "catalog" ? "show_catalog" :
         $view eq "res" ?
-            $cgi->param('js') ? "show_js" :
             $cgi->param('post') ? "show_post" :
+            $cgi->param('thread') ? "show_bare_thread" :
             "none" :
         $view eq "board" ?
             $thread_id ? "show_thread" : "show_board" :
@@ -57,12 +57,6 @@ sub main {
     &{$view}($cgi,$db,$vars);
 }
 
-sub show_js {
-    my ($cgi, $db, $vars) = @_;
-
-    print "// nevermind...\n";
-    print $tx->render('page_vars.tx', $vars);
-}
 sub show_post {
     my ($cgi, $db, $vars) = @_;
 
@@ -71,13 +65,21 @@ sub show_post {
     print $tx->render('post.tx', $vars);
 }
 
+sub show_bare_thread {
+    my ($cgi, $db, $vars) = @_;
+
+    $vars->{post_list} = $db->get_thread(1,$vars->{thread_id});
+
+    print $tx->render('thread.tx', $vars);
+}
+
 sub show_thread {
     my ($cgi, $db, $vars) = @_;
 
     $vars->{post_list} = $db->get_thread(1,$vars->{thread_id});
     $vars->{board_list} = $db->get_board_list();
 
-    print $tx->render('thread.tx', $vars);
+    print $tx->render('fullthread.tx', $vars);
 }
 
 sub show_board {

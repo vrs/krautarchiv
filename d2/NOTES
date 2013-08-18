@@ -12,15 +12,13 @@ some place for error messages
 errors for missing cookies (because localstorage)
 inline image expansion
 show replies to post
+thread expansion
 
 
 Interface:
 floating buttons break in chrome
 what about countryballs?
 setting: hide names/subjects/images
-
-
-Images:
 
 
 JS:
@@ -41,9 +39,13 @@ context.js:
     support for loaded posts
     support in board?
 postloading:
-    thread expansion?
+    thread loading:
+        ensure that cache entries are unique
+        interface with replies and context
+        client side post/thread data model?
     post expansion
     endless scroll?
+thread watcher
 Quickreply?
 Spells?
     filter: kill, hide, highlight, remove images, assign custom class, custom JS

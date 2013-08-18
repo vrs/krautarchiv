@@ -641,10 +641,10 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     content: " (OP)";
 }
 
-#post_cache {
-    visibility: hidden;
+.cache {
     position: absolute;
     top: -100000px;
+    visibility: hidden;
 }
 
 /* context */
@@ -777,4 +777,18 @@ figure.expanded {
 
 .post_replies .reflink + .reflink:before {
     content: ", ";
+}
+
+/* thread expansion */
+.omittedposts a:hover, .omittedposts a:focus {
+    background: #FFFFFF;
+}
+.omittedposts .link_condensethread {
+    display: none;
+}
+.omittedposts.shown .link_condensethread {
+    display: inline;
+}
+.omittedposts.shown .link_expandthread, .omittedposts.shown .omitted_text {
+    display: none;
 }

@@ -9,7 +9,6 @@ function clonePost (p) {
   var post = p.clone();
   post.set('id', 'c' + p.id)
     .removeClass('hidden');
-  // TODO eww
   post.getElements('a[onclick^=highlightPost]').forEach(function (el) {
     el.set('href', el.get('href').replace('#','#c'))
   });
@@ -35,7 +34,7 @@ function restorePost(replacement) {
 
 var postCache
   , preview = (function () {
-      var previewBox = new Element('div.invisible[id=preview]')
+      var previewBox = new Element('div.invisible#preview')
         , status = {}
       ;
 
@@ -171,10 +170,10 @@ var postCache
 
 window.addEvent('domready', function() {
   var main = $$('main')[0];
-  postCache = new Element('div[id=post_cache]').inject(document.body);
+  postCache = new Element('div.cache#post_cache').inject(document.body);
 
   if (main)
-    main.addEvents({ // TODO eww
+    main.addEvents({
       'mouseenter:relay(a[onclick^=highlightPost], span.reflink a)': function (ev, tgt) {
         tgt.addClass('progress');
         preview.show(getTarget(tgt), tgt, tgt.removeClass.bind(tgt, 'progress'));

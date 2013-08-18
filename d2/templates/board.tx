@@ -14,18 +14,34 @@
     : include postform
     <hr>
     <main class=board>
-        : for $thread_list.values() -> $thread {
-        <article id="thread_<: $thread.post_list.0.post_id :>" class="thread stub">
+    : for $thread_list.values() -> $thread {
+        : my $thread_id = $thread.post_list.0.post_id;
+        <article id="thread_<: $thread_id :>" class="thread stub">
             : for $thread.post_list -> $t {
                 : include post { p => $t };
+                : if $~t == 0 {
+                <div class=cache id="cache_<: $thread_id :>"></div>
+                : }
                 : if $~t == 0 && $thread.post_count {
-                <div class="omittedposts"><: $thread.post_count :> post(s)<: if $thread.file_count { ", " ~ $thread.file_count ~ " file(s)" } :>
-        not shown.</div>
+                <div class="omittedposts" data-posts="<: $thread.post_count :>" data-files="<: $thread.file_count :>">
+                    <span class="omitted_text">
+                        <: $thread.post_count :> post(s)<: if $thread.file_count { :>,
+                            <: $thread.file_count :> file(s)
+                        <: } :>
+                        not shown.
+                    </span>
+                    <span class="link_expandthread js">
+                        <a href="#expandthread_<: $thread_id :>">Load</a>
+                    </span>
+                    <span class="link_condensethread js">
+                        <a href="#condensethread_<: $thread_id :>">Condense</a>
+                    </span>
+                </div>
                 : }
             : }
         </article>
         <hr>
-        : }
+    : }
         <div class="page_tools">
             : include pages
             : include page_tools
