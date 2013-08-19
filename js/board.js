@@ -1,5 +1,7 @@
 var board = (function () {
-  var postCache = new Element('div.cache#post_cache');
+  var postCache = new Element('div.cache#post_cache')
+    , graphCache = {}
+  ;
 
 function Post(id) {
   this.id = id;
@@ -29,10 +31,18 @@ Post.implement({
   },
 });
 
-function Thread(id) {
-  this.id = id;
-  this.element = $('thread_' + id) || null;
+
+function Thread(thread) {
+  if (typeOf(thread) === 'string') {
+    this.id = thread;
+    this.element = $('thread_' + thread) || null;
+  } else {
+    this.id = thread.id;
+    this.element = thread;
+  }
+  this.graph = null;
 }
+
 Thread.implement({
   getAnd: function (callback) {
     var self = this
@@ -69,6 +79,7 @@ Thread.implement({
       }).get();
     }
   },
+
   posts: function () {
     return this.element
       .getElements('article')
@@ -76,12 +87,37 @@ Thread.implement({
         return +a.id - b.id
       });
   },
+
   omitted: function () {
     return this.element.getElement('.omittedposts');
   },
+
   cache: function () {
     return this.element.getElementById('cache_' + this.id);
   },
+
+  addPost: function (el) {
+    var refs = el.getElements('a[onclick^=highlightPost]');
+    this.graph.append(
+      refs.map(getTarget)
+        .sort()
+        .unique()
+        .filter(function (x) {
+          return !!$(x);
+        }),
+      el.id);
+  },
+
+  postGraph: function (regenerate) {
+    if (!this.graph)
+      this.graph = graphCache[this.id];
+    if (!this.graph || regenerate) {
+      this.graph = graphCache[this.id] = new DAG(this.id);
+      this.posts().forEach(this.addPost.bind(this));
+    }
+    return this.graph;
+  },
+
 });
 
 window.addEvent('domready', function () {

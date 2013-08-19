@@ -1,6 +1,6 @@
 window.addEvent('domready', function () {
   $$('article.thread').forEach(function (thread) {
-    var graph = postGraph(thread)
+    var graph = new board.Thread(thread).postGraph()
       , articles = thread.getElements('article');
     thread.getElements('.post_replies').forEach(function (replies, i) {
       var id = articles[i].get('id')

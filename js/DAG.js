@@ -83,30 +83,3 @@ DAG.prototype.descendants = function (id) {
 DAG.prototype.ancestors = function (id) {
   return this.reverse().descendants(id);
 };
-
-
-var postGraph = (function () {
-  // possible optimisation: remove calls to Slick
-  var cache = []
-    , main = null
-  ;
-  function addPost(post) {
-    var refs = post.getElements('a[onclick^=highlightPost]');
-    this.append(refs.map(getTarget).sort().unique().filter(function (x) {
-      return !!main.getElementById(x);
-    }), post.id);
-  }
-  return function (thread) {
-    var id = thread.getElement('article').get('id')
-      , graph = cache[id]
-    ;
-    if (!main)
-      main = $$('main')[0];
-    if (!graph) {
-      graph = new DAG(id);
-      thread.getChildren('article').forEach(addPost.bind(graph));
-      cache[id] = graph;
-    }
-    return graph;
-  }
-})()

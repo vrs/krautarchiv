@@ -72,7 +72,7 @@ window.addEvent('domready', function () {
 
       action(post, 'manually');
       if (recursive) {
-        postGraph(post.getParent('article'))
+        new board.Thread(post.getParent('article')).postGraph()
           .descendants(num)
           .flatten()
           .slice(1) // no need to be redundant

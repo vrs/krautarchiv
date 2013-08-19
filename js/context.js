@@ -119,8 +119,8 @@ var preview = (function () {
       return {
         focus: null,
         show: function (num, highlight) {
-          var posts = $$('article article')
-            , graph = postGraph($$('article.thread')[0])
+          this.focus = $(num);
+          var graph = new board.Thread(this.focus.getParent()).postGraph()
             , ancwrap = $('ancwrap') || new Element('div#ancwrap.context', { html: '<div id=ancbox>' })
             , deswrap = $('deswrap') || new Element('div#deswrap.context', { html: '<div id=desbox>' })
             , ancbox = ancwrap.firstChild.empty()
@@ -129,7 +129,6 @@ var preview = (function () {
             , ancestors
             , descendants
           ;
-          this.focus = $(num);
 
           ancestors = exclude(graph.ancestors(num).flatten(), [num]);
           descendants = exclude(graph.descendants(num).flatten(), [num]);
