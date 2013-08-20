@@ -40,7 +40,7 @@ context.js:
     support in board?
 postloading:
     thread loading:
-        interface with replies and context
+        interface with context
     post expansion
     endless scroll?
 thread watcher

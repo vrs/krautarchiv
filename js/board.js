@@ -1,7 +1,5 @@
 var board = (function () {
   var postCache = new Element('div.cache#post_cache')
-    , graphCache = {}
-    , refCache = {}
     , resourceCache = {}
   ;
 
@@ -15,6 +13,7 @@ var Resource = new Class({
       this.id
     ].join('/');
     this.hooks = { 'load': [] };
+    return resourceCache[this.url] || (resourceCache[this.url] = this);
   }
 });
 
@@ -65,7 +64,7 @@ var Post = new Class({
       this.element = post;
     }
     this.refs = null;
-    this.parent('post');
+    return this.parent('post');
   }
 });
 
@@ -86,15 +85,11 @@ Post.implement({
     if (!this.element)
       return null;
     if (!this.refs)
-      this.refs = refCache[this.id];
-    if (!refCache[this.id]) {
-      this.refs = refCache[this.id] = this
-        .element
+      this.refs = this.element
         .getElements('.post_text a[onclick^=highlightPost]')
         .map(getTarget)
         .sort()
-        .unique()
-    }
+        .unique();
     return this.refs;
   },
 
@@ -112,7 +107,7 @@ var Thread = new Class({
       this.element = thread;
     }
     this.graph = null;
-    this.parent('thread');
+    return this.parent('thread');
   }
 });
 
@@ -168,11 +163,10 @@ Thread.implement({
       });
   },
 
+  // TODO automatically check expiration
   postGraph: function (regenerate) {
-    if (!this.graph)
-      this.graph = graphCache[this.id];
     if (!this.graph || regenerate) {
-      this.graph = graphCache[this.id] = new DAG(this.id);
+      this.graph = new DAG(this.id);
       this.posts().forEach(function (post) {
         this.addPost(new board.Post(post));
       }, this);

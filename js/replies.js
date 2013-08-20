@@ -1,21 +1,35 @@
 window.addEvent('domready', function () {
-  $$('article.thread').forEach(function (thread) {
-    var graph = new board.Thread(thread).postGraph()
-      , articles = thread.getElements('article');
-    thread.getElements('.post_replies').forEach(function (replies, i) {
-      var id = articles[i].get('id')
+  function linkFromId(id) {
+    return new Element('span.reflink', {
+      html: "<a href=\"#" + id + "\">&gt;&gt;" + id + "</a>"
+    });
+  }
+
+  function addReplies(replyEl, refs) {
+    replyEl.empty().adopt(
+      new Element('span.replies', { text: "Replies: " }),
+      refs.map(linkFromId)
+    );
+  }
+
+  function decorateThread(thread) {
+    var graph = thread.postGraph(true)
+      , articles = thread.element.getElements('article')
+    ;
+
+    thread.element.getElements('.post_replies').forEach(function (replies, i) {
+      var id = new board.Post(articles[i]).id
         , children = (id in graph.nodes) && graph.nodes[id].children
       ;
-      if (children && children.length) {
-        replies.adopt(
-          new Element('span.replies', { text: "Replies: " }),
-          children.map(function (id) {
-            return new Element('span.reflink', {
-              html: "<a href=\"#" + id + "\">&gt;&gt;" + id + "</a>"
-            });
-          })
-        );
-      }
+      if (children && children.length)
+        addReplies(replies, children);
     });
+  }
+
+  $$('article.thread').forEach(function (threadEl) {
+    var thread = new board.Thread(threadEl);
+
+    decorateThread(thread);
+    thread.onLoad(decorateThread);
   });
 });
