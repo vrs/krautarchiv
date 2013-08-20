@@ -40,9 +40,7 @@ context.js:
     support in board?
 postloading:
     thread loading:
-        ensure that cache entries are unique
         interface with replies and context
-        client side post/thread data model?
     post expansion
     endless scroll?
 thread watcher

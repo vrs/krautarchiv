@@ -74,29 +74,31 @@ var preview = (function () {
               return;
           }
 
-          new board.Post(id).getAnd(function (post) {
-            state[id].loading = false;
-            if (!state[id].hover)
-              return;
+          new board.Post(id)
+            .onLoad(function (post) {
+              state[id].loading = false;
+              if (!state[id].hover)
+                return;
 
-            var p = post.element
-              , size = window.getSize()
-              , coords = p.getCoordinates()
-              , isVisible = coords.bottom > window.scrollY &&
-                window.scrollY + size.y > coords.top
-              , isEntirelyVisible = coords.top > window.scrollY &&
-                window.scrollY + size.y > coords.bottom
-            ;
+              var p = post.element
+                , size = window.getSize()
+                , coords = p.getCoordinates()
+                , isVisible = coords.bottom > window.scrollY &&
+                  window.scrollY + size.y > coords.top
+                , isEntirelyVisible = coords.top > window.scrollY &&
+                  window.scrollY + size.y > coords.bottom
+              ;
 
-            if (isVisible && !ref.getParent().getParent('.postdata')) {
-              p.addClass('highlight');
-            }
-            if (!isEntirelyVisible || p.hasClass('hidden') ) {
-              p.addClass('highlight');
-              showPost(p, ref);
-            }
-            callback();
-          });
+              if (isVisible && !ref.getParent().getParent('.postdata')) {
+                p.addClass('highlight');
+              }
+              if (!isEntirelyVisible || p.hasClass('hidden') ) {
+                p.addClass('highlight');
+                showPost(p, ref);
+              }
+              callback();
+            })
+            .load();
         },
         hide: function (id) {
           state[id].hover = false;

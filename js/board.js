@@ -1,82 +1,162 @@
 var board = (function () {
   var postCache = new Element('div.cache#post_cache')
     , graphCache = {}
+    , refCache = {}
+    , resourceCache = {}
   ;
 
-function Post(id) {
-  this.id = id;
-  this.element = $(id) || null;
-}
-Post.implement({
-  getAnd: function (callback) {
-    var self = this;
 
-    if (self.element) {
-      callback(self);
+var Resource = new Class({
+  initialize: function (type) {
+    this.url = [
+      '/res',
+      window.boardName,
+      type,
+      this.id
+    ].join('/');
+    this.hooks = { 'load': [] };
+  }
+});
+
+Resource.implement({
+
+  fireHooks: function (eventType) {
+    this.hooks[eventType].forEach(function (f) {
+      f(this);
+    }, this);
+  },
+
+  load: function (forceAsync) {
+    if (this.isCached()) {
+      if (forceAsync) {
+        setTimeout(function () {
+          this.fireHooks('load');
+        }.bind(this));
+      } else {
+        this.fireHooks('load');
+      }
     } else {
       new Request.HTML({
-        url: '/res/' + window.boardName + '/post/' + self.id,
+        url: this.url,
         onSuccess: function (responseTree) {
-          var post = Array.from(responseTree).filter(function (el) {
-            return el.match && el.match('article')
-          })[0];
-          self.element = post;
-          if (!$(self.id)) {
-            postCache.grab(post); // prerenders
-          }
-          callback(self);
-        }
+          this.parseResource(responseTree);
+          this.fireHooks('load');
+        }.bind(this)
       }).get();
     }
   },
+
+  onLoad: function (callback) {
+    this.hooks.load.push(callback);
+    return this;
+  },
+
 });
 
 
-function Thread(thread) {
-  if (typeOf(thread) === 'string') {
-    this.id = thread;
-    this.element = $('thread_' + thread) || null;
-  } else {
-    this.id = thread.id;
-    this.element = thread;
+var Post = new Class({
+  Extends: Resource,
+  initialize: function (post) {
+    if (typeOf(post) === 'string') {
+      this.id = post;
+      this.element = $(post) || null;
+    } else {
+      this.id = post.id;
+      this.element = post;
+    }
+    this.refs = null;
+    this.parent('post');
   }
-  this.graph = null;
-}
+});
+
+Post.implement({
+
+  isCached: function () {
+    return !!this.element;
+  },
+
+  parseResource: function (responseTree) {
+    this.element = Array.from(responseTree).filter(function (el) {
+      return el.match && el.match('article')
+    })[0];
+    postCache.grab(this.element); // prerenders
+  },
+
+  postRefs: function () {
+    if (!this.element)
+      return null;
+    if (!this.refs)
+      this.refs = refCache[this.id];
+    if (!refCache[this.id]) {
+      this.refs = refCache[this.id] = this
+        .element
+        .getElements('.post_text a[onclick^=highlightPost]')
+        .map(getTarget)
+        .sort()
+        .unique()
+    }
+    return this.refs;
+  },
+
+});
+
+
+var Thread = new Class({
+  Extends: Resource,
+  initialize: function (thread) {
+    if (typeOf(thread) === 'string') {
+      this.id = thread;
+      this.element = $('thread_' + thread) || null;
+    } else {
+      this.id = thread.id.match(/\d+/)[0];
+      this.element = thread;
+    }
+    this.graph = null;
+    this.parent('thread');
+  }
+});
 
 Thread.implement({
-  getAnd: function (callback) {
-    var self = this
-      , omitted = self.omitted()
-      , actualLength = self.posts().length
+
+  addPost: function (post) {
+    this.graph.append(
+      post.postRefs().filter(function (x) {
+        return !!$(x);
+      }), post.id);
+  },
+
+  cache: function () {
+    return this.element.getElementById('cache_' + this.id);
+  },
+
+  isCached: function () {
+    var omitted = this.omitted()
+      , actualLength = this.posts().length
       , requiredLength = omitted ? +omitted.dataset.posts + 4 : actualLength
     ;
-    
-    if (requiredLength <= actualLength) {
-      callback(self);
-    } else {
-      new Request.HTML({
-        url: '/res/' + window.boardName + '/thread/' + this.id,
-        onSuccess: function (responseTree) {
-          if (!self.element) {
-            self.element = responseTree[0];
-          } else {
-            self.cache().adopt(responseTree[0]
-              .getElements('article')
-              .filter(function (post) {
-                var id = post.id
-                  , impostor = $(id)
-                ;
-                if (impostor && !impostor.getParent().match('article')) {
-                  impostor = impostor.destroy();
-                }
-                return !impostor;
-              })
-            );
-          }
+    return requiredLength <= actualLength;
+  },
 
-          callback(self);
-        }
-      }).get();
+  omitted: function () {
+    return this.element.getElement('.omittedposts');
+  },
+
+  parseResource: function (responseTree) {
+    if (!this.element) {
+      this.element = responseTree[0];
+    } else {
+      this.cache().adopt(responseTree[0]
+        .getElements('article')
+        .filter(function (post) {
+          var id = post.id
+            , impostor = $(id)
+          ;
+          if (impostor && !impostor.getParent().match('article')) {
+            impostor = impostor.destroy();
+          }
+          return !impostor;
+        })
+      );
     }
   },
 
@@ -88,37 +168,20 @@ Thread.implement({
       });
   },
 
-  omitted: function () {
-    return this.element.getElement('.omittedposts');
-  },
-
-  cache: function () {
-    return this.element.getElementById('cache_' + this.id);
-  },
-
-  addPost: function (el) {
-    var refs = el.getElements('a[onclick^=highlightPost]');
-    this.graph.append(
-      refs.map(getTarget)
-        .sort()
-        .unique()
-        .filter(function (x) {
-          return !!$(x);
-        }),
-      el.id);
-  },
-
   postGraph: function (regenerate) {
     if (!this.graph)
       this.graph = graphCache[this.id];
     if (!this.graph || regenerate) {
       this.graph = graphCache[this.id] = new DAG(this.id);
-      this.posts().forEach(this.addPost.bind(this));
+      this.posts().forEach(function (post) {
+        this.addPost(new board.Post(post));
+      }, this);
     }
     return this.graph;
   },
 
 });
+
 
 window.addEvent('domready', function () {
   postCache.inject(document.body);
