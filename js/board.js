@@ -46,7 +46,14 @@ Resource.implement({
   },
 
   onLoad: function (callback) {
-    this.hooks.load.push(callback);
+    var hooks = this.hooks.load;
+    if (hooks.indexOf(callback) < 0)
+      hooks.push(callback);
+    return this;
+  },
+
+  removeHooks: function (eventType) {
+    this.hooks[eventType].empty();
     return this;
   },
 
@@ -69,6 +76,13 @@ var Post = new Class({
 });
 
 Post.implement({
+
+  clone: function() {
+    // possible optimisation: cache clones
+    // returns a plain element, no need to overengineer yet
+    var post = this.element.clone();
+    return post.set('id', 'c' + this.id).removeClass('hidden');
+  },
 
   isCached: function () {
     return !!this.element;

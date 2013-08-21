@@ -76,3 +76,8 @@ var scrolls = {
     }
   }
 };
+
+// util
+function getTarget (a) {
+  return a.get('href').match(/\d+/g).pop();
+}
