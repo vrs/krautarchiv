@@ -60,15 +60,15 @@ var preview = (function () {
       tgt.addClass('progress');
 
       new board.Post(id)
-        .removeHooks('load')
-        .onLoad(function (post) {
+        .onGet(function me(post) {
+          post.removeHook('get', me)
           state[id].loading = false;
           if (!state[id].hover)
             return;
           tgt.removeClass('progress');
           showOrHighlight(post, tgt)
         })
-        .load();
+        .get();
     },
 
     hide: function (ev, tgt) {

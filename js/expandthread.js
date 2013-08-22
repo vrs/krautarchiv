@@ -1,7 +1,8 @@
 window.addEvent('domready', function () {
   function expand(num, callback) {
     new board.Thread(num)
-      .onLoad(function (thread) {
+      .onGet(function me(thread) {
+        thread.removeHook('get', me);
         var cached = $('cache_' + num).getChildren('article')
         thread.omitted().addClass('shown');
         thread.element.adopt(
@@ -9,7 +10,7 @@ window.addEvent('domready', function () {
             thread.posts().slice(1).invoke('dispose')));
         callback();
       })
-      .load();
+      .get();
   }
 
   function condense(num, callback) {

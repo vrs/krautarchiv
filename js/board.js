@@ -1,7 +1,7 @@
 var board = (function () {
-  var postCache = new Element('div.cache#post_cache')
-    , resourceCache = {}
-  ;
+var postCache = new Element('div.cache#post_cache')
+  , resourceCache = {}
+;
 
 
 var Resource = new Class({
@@ -12,7 +12,10 @@ var Resource = new Class({
       type,
       this.id
     ].join('/');
-    this.hooks = { 'load': [] };
+    this.hooks = {
+      'load': [],
+      'get': []
+    };
     return resourceCache[this.url] || (resourceCache[this.url] = this);
   }
 });
@@ -25,14 +28,14 @@ Resource.implement({
     }, this);
   },
 
-  load: function (forceAsync) {
+  get: function (forceAsync) {
     if (this.isCached()) {
       if (forceAsync) {
         setTimeout(function () {
-          this.fireHooks('load');
+          this.fireHooks('get');
         }.bind(this));
       } else {
-        this.fireHooks('load');
+        this.fireHooks('get');
       }
     } else {
       new Request.HTML({
@@ -40,20 +43,24 @@ Resource.implement({
         onSuccess: function (responseTree) {
           this.parseResource(responseTree);
           this.fireHooks('load');
+          this.fireHooks('get');
         }.bind(this)
       }).get();
     }
   },
 
-  onLoad: function (callback) {
-    var hooks = this.hooks.load;
-    if (hooks.indexOf(callback) < 0)
-      hooks.push(callback);
+  onGet: function (hook) {
+    this.hooks.get.push(hook);
     return this;
   },
 
-  removeHooks: function (eventType) {
-    this.hooks[eventType].empty();
+  onLoad: function (hook) {
+    this.hooks.load.push(hook);
+    return this;
+  },
+
+  removeHook: function (eventType, hook) {
+    this.hooks[eventType].erase(hook);
     return this;
   },
 
