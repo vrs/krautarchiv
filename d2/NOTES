@@ -16,7 +16,6 @@ thread expansion
 
 
 Interface:
-floating buttons break in chrome
 what about countryballs?
 setting: hide names/subjects/images
 
@@ -25,24 +24,19 @@ JS:
 infrastructure:
     settings panel
 small and useful:
-    mark text -> quote
-    load quote link: add >>, then rewrite url
     vad är detta
-    flush out stale hide/kill entries
     rebind f5
-    refresh -> highlight changes (catalog & board)
-    thread stats, page a thread is on
+    ;flush out stale hide/kill entries
+    ;refresh -> highlight changes (catalog & board)
+    ;thread stats, page a thread is on
 recursive hiding:
     some usable way to get killed posts back
-    support for loaded posts
+    ;support for loaded posts
 context.js:
-    support for loaded posts
-    support in board?
+    ;support for loaded posts
 postloading:
-    thread loading:
-        interface with context
-    post expansion
     endless scroll?
+    ;post expansion
 thread watcher
 Quickreply?
 Spells?
@@ -50,7 +44,6 @@ Spells?
     hide by: OP/name/trip/words/filenames/hashes/detectors
 custom CSS
 keyboard navigation (n/p threads, j/k posts, ctrl+return = open, etc)?
-shipainter replacement?
 
 
 Postform:
@@ -58,26 +51,28 @@ validation
 captcha
 file preview
 show posts being replied to
+mark text -> quote
+load quote link: add >>, then rewrite url
 
 
 Modform:
 show all posts by ip in current view
 validation
-post search
+;post search
 
 
-backend:
-board overview
-overboard
-overboard catalog?
+;backend:
+;board overview
+;overboard
+;overboard catalog?
 
 
-improvements to the parser:
--absolute links
--links with nofollow+noreferrer
--class for external links
--subsections divided by >>123 <=> paragraphs instead of <br>
--refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
--and give people subheadings (h2)
--:focus for spoilers
--replylinks
+;improvements to the parser:
+;absolute links
+;links with nofollow+noreferrer
+;class for external links
+;subsections divided by >>123 <=> paragraphs instead of <br>
+;refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
+;and give people subheadings (h2)
+;:focus for spoilers
+;replylinks
