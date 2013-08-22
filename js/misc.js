@@ -63,6 +63,7 @@ var scrolls = {
       scroll = el.retrieve('scroll')
     ;
     window.scrollTo(0, pos.y - scroll);
+    return pos.y;
   },
   intoview: function (el) {
     var coords = el.getCoordinates()

@@ -95,10 +95,13 @@ Post.implement({
   },
 
   parseResource: function (responseTree) {
-    this.element = Array.from(responseTree).filter(function (el) {
+    var element = Array.from(responseTree).filter(function (el) {
       return el.match && el.match('article')
     })[0];
-    postCache.grab(this.element); // prerenders
+    if (!$(element.id)) {
+      postCache.grab(element); // prerenders
+    }
+    this.element = $(element.id);
   },
 
   postRefs: function () {
@@ -133,6 +136,7 @@ var Thread = new Class({
 
 Thread.implement({
 
+  // TODO links need to point to their respective threads too, no way to know that yet
   addPost: function (post) {
     this.graph.append(
       post.postRefs().filter(function (x) {
@@ -157,19 +161,24 @@ Thread.implement({
   },
 
   parseResource: function (responseTree) {
+    var cache = this.cache();
     if (!this.element) {
       this.element = responseTree[0];
     } else {
-      this.cache().adopt(responseTree[0]
+      cache.adopt(responseTree[0]
         .getElements('article')
-        .filter(function (post) {
+        .map(function (post) {
           var id = post.id
             , impostor = $(id)
           ;
-          if (impostor && !impostor.getParent().match('article')) {
-            impostor = impostor.destroy();
+          if (impostor) {
+            if (!impostor.getParent().match('article'))
+              return impostor;
+            else
+              return false;
+          } else {
+            return post;
           }
-          return !impostor;
         })
       );
     }

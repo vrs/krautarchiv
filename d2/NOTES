@@ -75,6 +75,7 @@ overboard catalog?
 improvements to the parser:
 -absolute links
 -links with nofollow+noreferrer
+-class for external links
 -subsections divided by >>123 <=> paragraphs instead of <br>
 -refer to posts via >>123#2 or >>123#heading or >>uniquetitle#heading (but with numbers in the background)
 -and give people subheadings (h2)

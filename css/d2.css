@@ -271,17 +271,17 @@ span.icon::before {
 
 input[name=posts] {
     display: none;
-    position: absolute;
-    top: 2.5em;
-    z-index: 1;
+    float: left;
+    margin-top: 0.5em;
 }
 .thread_OP input[name=posts] {
-    position: static;
-    float: left;
-    margin: 0.5em 0.5em 0;
+    position: absolute;
 }
 input[name=posts]:checked {
     display: block;
+}
+input[name=posts]:checked + .bullet {
+    display: none;
 }
 .post label, .thread_head label {
     cursor: pointer;
@@ -648,24 +648,46 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 }
 
 /* context */
-#ancbox {
-    margin-top: 2em;
+.ancbox {
+    border-width: 1px 0 0 1px;
 }
-#desbox {
-    margin-bottom: 2em;
+.desbox {
+    border-width: 0 0 1px 1px;
 }
 .context {
     position: relative;
     margin-left: 2em;
+    border-color: lightgray;
+    border-style: solid;
 }
-.context > div {
+.context:empty {
+    height: 1em;
 }
-.context .thread_reply {
+.context article {
     margin: 0.5em;
+}
+.context .thread_OP {
 }
 .context .thread_OP .postername::after {
     content: " (OP)";
 }
+.thread_head + .replaced {
+    display: none;
+}
+
+.context .post {
+    display: table;
+    margin-left: 2em;
+}
+.context .bullet {
+    display: block;
+}
+/*
+.thread_OP .post {
+    margin-left: 0;
+    display: block;
+}
+*/
 
 .replaced {
     color: gray;

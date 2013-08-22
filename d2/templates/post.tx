@@ -15,10 +15,10 @@
     data-location="Antarctica, New Swabia, Underground Base"
     data-geo="0;0"
 >
+    <input type="checkbox" form="mngform" name="posts" id="<: $label :>" value="<: $p.post_id :>">
     <div class="bullet">
         <a href="/board/l/thread/<: $p.thread_id :>#<: $p.post_id :>">&gt;&gt;</a>
     </div>
-    <input type="checkbox" form="mngform" name="posts" id="<: $label :>" value="<: $p.post_id :>">
     <div class="post">
         <header>
 :# perhaps make a distinction between thread topic and post topic
