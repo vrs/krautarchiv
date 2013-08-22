@@ -1,8 +1,4 @@
             <span class="post_tools<: $isop && " thread_tools" :>">
-: if $isop {
-                <span class="link_reply text"><a href="/board/<: $board_name :>/thread/<: $p.thread_id :>">Antworten</a></span>
-                <span class="link_watch js icon"><a title="Verfolgen" href="#watch_<:$p.thread_id:>"><img src="/static/button-watch.gif" alt=""></a></span>
-: }
                 <span class="link_translate icon js"><a title="VAD &Auml;R DETTA" href="#translate_<:$p.post_id:>"><img src="/static/button-question.gif" alt=""></a></span>
 : if $isop {
                 <span class="link_show js icon"><a title="Einblenden" href="#show_<:$p.post_id:>"><img src="/static/button-open.gif" alt=""></a></span>
@@ -22,4 +18,11 @@
 : if !$isop {
                 <span class="link_kill_recursive js icon"><a title="Ausblenden mitsamt Antworten" href="#kill_recursive_<:$p.post_id:>"><img src="/static/button-kill.gif" alt=""></a></span>
 : }
+: if $isop {
+                <span class="link_watch js icon"><a title="Verfolgen" href="#watch_<:$p.thread_id:>"><img src="/static/button-watch.gif" alt=""></a></span>
+: }
             </span>
+: if $isop {
+            <span class="link_reply text"><a href="/board/<: $board_name :>/thread/<: $p.thread_id :>">Antworten</a></span>
+: }
+            <span class="reason"></span>

@@ -216,9 +216,9 @@ nav a {
     display: block;
 }
 .post_tools {
-    display: block;
-    float: right;
-    margin-left: 1em;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0.5em;
 }
 .post_tools span {
     display: inline-block;
@@ -578,14 +578,9 @@ footer {
     background: none;
 }
 .hidden .postername {
-    font-weight: normal;
 }
-.thread.hidden .thread_reply, .thread.hidden .omittedposts, .hidden input[name="posts"] {
+.thread.hidden .thread_reply, .thread.hidden .omittedposts, .hidden input[name="posts"], .hidden .post_body {
     display: none;
-}
-.hidden .post_body {
-    height: 0;
-    overflow: hidden;
 }
 .reason:not(:empty)::before {
     content: "[hidden: "
