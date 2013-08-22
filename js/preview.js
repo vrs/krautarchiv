@@ -4,10 +4,10 @@ var preview = (function () {
   ;
 
   function hoverNear(el, ref) {
-    var coords = ref.getCoordinates()
-      , fixed = ref.getOffsetParent().getStyle('position') === "fixed"
+    var fixed = ref.getOffsetParent().getStyle('position') === "fixed"
       , pv = previewBox.empty().grab(el).inject(document.body)
     ;
+    pv.store('pin:_pinned', false); // reset state to avoid expensive .unpin()
     if (fixed) {
       pv.position({
         relativeTo: ref,
@@ -21,16 +21,35 @@ var preview = (function () {
         edge: 'centerLeft',
         position: 'centerRight',
         offset: { x: 5, y: 0 },
-        minimum: { y: window.scrollY + 5 },
+        minimum: { y: window.pageYOffset + 5 },
         // neasures too early. doesn't seem to be a problem?
-        maximum: { y: window.scrollY + window.getSize().y - pv.getSize().y - 5 },
+        maximum: { y: window.pageYOffset + window.getSize().y - pv.getSize().y - 5 },
       });
     }
     pv.removeClass('invisible');
   }
 
+  function showOrHighlight (post, ref) {
+    var p = post.element
+      , size = window.getSize()
+      , rect = p.getBoundingClientRect()
+      , isVisible = rect.bottom > 0 && rect.top < size.y
+      , isEntirelyVisible = rect.top > 0 && rect.bottom < size.y
+    ;
+
+    if (isVisible && !ref.getParent().getParent('.postdata')) {
+      p.addClass('highlight');
+    }
+    if (!isEntirelyVisible || p.hasClass('hidden') ) {
+      p.addClass('highlight');
+      hoverNear(post.clone(), ref);
+    }
+  }
+
   return {
-    show: function (id, ref, callback) {
+    show: function (ev, tgt) { 
+      var id = getTarget(tgt);
+
       if (!state[id]) {
         state[id] = { hover: true, loading: true };
       } else {
@@ -38,6 +57,7 @@ var preview = (function () {
         if (state[id].loading)
           return;
       }
+      tgt.addClass('progress');
 
       new board.Post(id)
         .removeHooks('load')
@@ -45,53 +65,32 @@ var preview = (function () {
           state[id].loading = false;
           if (!state[id].hover)
             return;
-
-          var p = post.element
-            , size = window.getSize()
-            , coords = p.getCoordinates()
-            , isVisible = coords.bottom > window.scrollY &&
-              window.scrollY + size.y > coords.top
-            , isEntirelyVisible = coords.top > window.scrollY &&
-              window.scrollY + size.y > coords.bottom
-          ;
-
-          if (isVisible && !ref.getParent().getParent('.postdata')) {
-            p.addClass('highlight');
-          }
-          if (!isEntirelyVisible || p.hasClass('hidden') ) {
-            p.addClass('highlight');
-            hoverNear(post.clone(), ref);
-          }
-          callback();
+          tgt.removeClass('progress');
+          showOrHighlight(post, tgt)
         })
         .load();
     },
-    hide: function (id) {
+
+    hide: function (ev, tgt) {
+      var id = getTarget(tgt)
+        , p = $(id)
+      ;
       state[id].hover = false;
-      var p = $(id);
       if (!p)
         return;
+      tgt.removeClass('progress');
       p.removeClass('highlight');
       previewBox.addClass('invisible').empty();
     }
   };
 })()
+
 window.addEvent('domready', function() {
   var main = $$('main')[0];
 
-  if (main)
-    main.addEvents({
-      'mouseenter:relay(a[onclick^=highlightPost], span.reflink a)': function (ev, tgt) {
-        tgt.addClass('progress');
-        preview.show(getTarget(tgt), tgt, tgt.removeClass.bind(tgt, 'progress'));
-      },
-      'mouseleave:relay(a[onclick^=highlightPost], span.reflink a)': function (ev, tgt) {
-        tgt.removeClass('progress');
-        preview.hide(getTarget(tgt));
-      },
-      'click:relay(a[onclick^=highlightPost], span.reflink > a)': function (ev, tgt) {
-        tgt.removeClass('progress');
-        preview.hide(getTarget(tgt));
-      },
+  if (main) main.addEvents({
+      'mouseenter:relay(a[onclick^=highlightPost], span.reflink a)': preview.show,
+      'mouseleave:relay(a[onclick^=highlightPost], span.reflink a)': preview.hide,
+      'click:relay(a[onclick^=highlightPost], span.reflink > a)': preview.hide,
     });
 })

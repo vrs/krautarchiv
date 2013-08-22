@@ -78,7 +78,6 @@ var Post = new Class({
 Post.implement({
 
   clone: function() {
-    // possible optimisation: cache clones
     // returns a plain element, no need to overengineer yet
     var post = this.element.clone();
     return post.set('id', 'c' + this.id).removeClass('hidden');
