@@ -82,3 +82,6 @@ var scrolls = {
 function getTarget (a) {
   return a.get('href').match(/\d+/g).pop();
 }
+
+// datatypes
+var board = {};

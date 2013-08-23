@@ -14,7 +14,9 @@
 : block scripts -> { }
 <script type="text/javascript" src="/js/misc.js"></script>
 <script type="text/javascript" src="/js/DAG.js"></script>
-<script type="text/javascript" src="/js/board.js"></script>
+<script type="text/javascript" src="/js/Resource.js"></script>
+<script type="text/javascript" src="/js/Post.js"></script>
+<script type="text/javascript" src="/js/Thread.js"></script>
 <script type="text/javascript" src="/js/toolbox.js"></script>
 <script type="text/javascript" src="/js/preview.js"></script>
 <script type="text/javascript" src="/js/context.js"></script>
