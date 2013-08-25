@@ -1,3 +1,15 @@
+settings.register({
+  name: "hiding",
+  group: "browsing",
+  options: [{
+    name: "enable",
+    description: "Enable thread hiding",
+    defaultValue: true,
+  }],
+});
+
+if (settings.store.hiding.enable) {
+
 storage.load('hidden', {});
 storage.load('killed', {});
 
@@ -91,3 +103,11 @@ window.addEvent('domready', function () {
       });
     });
 });
+
+} else {
+document.head.appendChild(new Element('style[type=text/css]', {
+  text: ['show', 'hide', 'kill'].map(function (s) {
+    return 'span.link_' + s + ', span.link_' + s + '_recursive';
+  }).join(', ') + '{ display: none; }'
+}));
+}

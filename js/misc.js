@@ -52,6 +52,7 @@ window.addEvent('domready', function () {
   document.body.addClass('jsenabled');
 });
 
+
 // scroll preserver for various features
 var scrolls = {
   save: function (el) {
@@ -78,10 +79,12 @@ var scrolls = {
   }
 };
 
+
 // util
 function getTarget (a) {
   return a.get('href').match(/\d+/g).pop();
 }
+
 
 // datatypes
 var board = {};

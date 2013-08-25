@@ -1,4 +1,14 @@
-window.addEvent('domready', function () {
+settings.register({
+  name: "replies",
+  group: "browsing",
+  options: [{
+    name: "enable",
+    description: "Show replies to posts",
+    defaultValue: true,
+  }],
+});
+
+if (settings.store.replies.enable) window.addEvent('domready', function () {
   function linkFromId(id) {
     return new Element('span.reflink', {
       html: "<a href=\"#" + id + "\">&gt;&gt;" + id + "</a>"

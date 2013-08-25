@@ -13,16 +13,17 @@ errors for missing cookies (because localstorage)
 inline image expansion
 show replies to post
 thread expansion
+settings panel
 
 
 Interface:
 what about countryballs?
 setting: hide names/subjects/images
+captcha as background
+context: ancestors/descendants/both depending on link clicked, also OP handling
 
 
 JS:
-infrastructure:
-    settings panel
 small and useful:
     vad är detta
     rebind f5
@@ -37,7 +38,7 @@ context.js:
 postloading:
     endless scroll?
     ;post expansion
-thread watcher
+;thread watcher
 Quickreply?
 Spells?
     filter: kill, hide, highlight, remove images, assign custom class, custom JS

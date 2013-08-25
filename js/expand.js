@@ -1,4 +1,14 @@
-window.addEvent('domready', function () {
+settings.register({
+  name: "expand",
+  group: "browsing",
+  options: [{
+    name: "enable",
+    description: "Enable inline image expansion",
+    defaultValue: true,
+  }],
+});
+
+if (settings.store.expand.enable) window.addEvent('domready', function () {
   function updateContainer(tgt) {
     var parent = tgt.getParent('.post');
 

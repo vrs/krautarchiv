@@ -809,3 +809,13 @@ figure.expanded {
 .omittedposts.shown .link_expandthread, .omittedposts.shown .omitted_text {
     display: none;
 }
+
+/* settings */
+#settings {
+    position: absolute;
+    right: 0.5em;
+    padding: 0.5em;
+    overflow: auto;
+    background: #BBBBDD;
+    z-index: 9;
+}

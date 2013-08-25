@@ -1,5 +1,17 @@
 window.highlightPost = function highlightPost(){} // TODO sigh
 
+settings.register({
+  name: "context",
+  group: "browsing",
+  options: [{
+    name: "enable",
+    description: "Show ancestor/descendant posts when clicking post links",
+    defaultValue: true,
+  }],
+});
+
+if (settings.store.context.enable) { (function () {
+
 function grabPost(original) {
   var id = original.get('id');
 
@@ -96,3 +108,4 @@ window.addEvent('domready', function() {
       }
   });
 })
+})() }

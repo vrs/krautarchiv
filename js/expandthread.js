@@ -1,3 +1,14 @@
+settings.register({
+  name: "expandthreads",
+  group: "browsing",
+  options: [{
+    name: "enable",
+    description: "Enable inline thread expansion",
+    defaultValue: true,
+  }],
+});
+
+if (settings.store.expandthreads.enable) {
 window.addEvent('domready', function () {
   function expand(num, callback) {
     new board.Thread(num)
@@ -39,3 +50,8 @@ window.addEvent('domready', function () {
     }
   );
 });
+} else {
+  document.head.appendChild(new Element('style[type=text/css]', {
+    text: 'span.link_expandthread {display: none;}'
+  }));
+}

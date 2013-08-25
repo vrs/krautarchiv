@@ -1,3 +1,14 @@
+settings.register({
+  name: "preview",
+  group: "browsing",
+  options: [{
+    name: "enable",
+    description: "Show previews of posts while hovering over post links",
+    defaultValue: true,
+  }],
+});
+
+if (settings.store.preview.enable) { (function () {
 var preview = (function () {
   var previewBox = new Element('div.invisible#preview')
     , state = {}
@@ -94,3 +105,4 @@ window.addEvent('domready', function() {
       'click:relay(a[onclick^=highlightPost], span.reflink > a)': preview.hide,
     });
 })
+})() }

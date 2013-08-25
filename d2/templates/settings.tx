@@ -1,0 +1,9 @@
+<section id=settings class=invisible>
+<form id=settings_form>
+<h1>Browsing</h1>
+<table id=settings_group_browsing></table>
+<h1>Third party (require external scripts)</h1>
+<table id=settings_group_thirdparty></table>
+</form>
+<p><a href="javascript:void(localStorage.clear(),location.reload())">reset settings and data</a>
+</section>
