@@ -217,35 +217,22 @@ nav a {
 }
 .post_tools {
     display: inline-block;
-    vertical-align: top;
     margin: 0 0.5em;
 }
 .post_tools span {
     display: inline-block;
 }
-span.text {
+.post_tools .text {
     margin-right: 1em;
 }
 .full .link_reply {
     display: none;
 }
-span.link_reply::before {
+.link_reply::before {
     content: "» "
 }
-span.js::before {
-    content: "÷ "
-}
-span.icon {
-    margin: 0;
-}
-span.icon * {
-    display: block;
-}
-span.icon::before {
-    content: "";
-}
-.icon a:hover {
-    background: none;
+.icon a:link {
+    font-weight: bold;
 }
 
 .thread_reply {

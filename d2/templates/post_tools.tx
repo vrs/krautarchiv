@@ -1,25 +1,26 @@
+:# we'll want unicode icons here eventually.
             <span class="post_tools<: $isop && " thread_tools" :>">
-                <span class="link_translate icon js"><a title="VAD &Auml;R DETTA" href="#translate_<:$p.post_id:>"><img src="/static/button-question.gif" alt=""></a></span>
+                <span class="link_translate icon js"><a title="VAD &Auml;R DETTA" href="#translate_<:$p.post_id:>">[?]</a></span>
 : if $isop {
-                <span class="link_show js icon"><a title="Einblenden" href="#show_<:$p.post_id:>"><img src="/static/button-open.gif" alt=""></a></span>
+                <span class="link_show js icon"><a title="Einblenden" href="#show_<:$p.post_id:>">[+]</a></span>
 : }
 : if !$isop {
-                <span class="link_show_recursive js icon"><a title="Einblenden mitsamt Antworten" href="#show_recursive_<:$p.post_id:>"><img src="/static/button-open.gif" alt=""></a></span>
+                <span class="link_show_recursive js icon"><a title="Einblenden mitsamt Antworten" href="#show_recursive_<:$p.post_id:>">[++]</a></span>
 : }
 : if $isop {
-                <span class="link_hide js icon"><a title="Minimieren" href="#hide_<:$p.post_id:>"><img src="/static/button-close.gif" alt=""></a></span>
+                <span class="link_hide js icon"><a title="Minimieren" href="#hide_<:$p.post_id:>">[-]</a></span>
 : }
 : if !$isop {
-                <span class="link_hide_recursive js icon"><a title="Minimieren mitsamt Antworten" href="#hide_recursive_<:$p.post_id:>"><img src="/static/button-close.gif" alt=""></a></span>
+                <span class="link_hide_recursive js icon"><a title="Minimieren mitsamt Antworten" href="#hide_recursive_<:$p.post_id:>">[--]</a></span>
 : }
 : if $isop {
-                <span class="link_kill js icon"><a title="Ausblenden (komplett)" href="#kill_<:$p.post_id:>"><img src="/static/button-kill.gif" alt=""></a></span>
+                <span class="link_kill js icon"><a title="Ausblenden (komplett)" href="#kill_<:$p.post_id:>">[x]</a></span>
 : }
 : if !$isop {
-                <span class="link_kill_recursive js icon"><a title="Ausblenden mitsamt Antworten" href="#kill_recursive_<:$p.post_id:>"><img src="/static/button-kill.gif" alt=""></a></span>
+                <span class="link_kill_recursive js icon"><a title="Ausblenden mitsamt Antworten" href="#kill_recursive_<:$p.post_id:>">[xx]</a></span>
 : }
 : if $isop {
-                <span class="link_watch js icon"><a title="Verfolgen" href="#watch_<:$p.thread_id:>"><img src="/static/button-watch.gif" alt=""></a></span>
+                <span class="link_watch js icon"><a title="Verfolgen" href="#watch_<:$p.thread_id:>">[w]</a></span>
 : }
             </span>
 : if $isop {
