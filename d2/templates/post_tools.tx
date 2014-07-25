@@ -25,4 +25,4 @@
 : if $isop {
             <span class="link_reply text"><a href="/board/<: $board_name :>/thread/<: $p.thread_id :>">Antworten</a></span>
 : }
-            <span class="reason"></span>
+            <span class="hide_reason"></span>

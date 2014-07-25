@@ -27,7 +27,7 @@ window.addEvent('domready', function () {
   function hide(post, reason) {
     var num = post.get('id')
       , thread = post.hasClass('thread_OP') ? post.getParent('article') : null
-      , reasonEl = post.getElement('.reason')
+      , reasonEl = post.getElement('.hide_reason')
     ;
     reason = reason || "";
     post.addClass('hidden');
@@ -41,7 +41,7 @@ window.addEvent('domready', function () {
   function show(post) {
     var num = post.get('id')
       , thread = post.hasClass('thread_OP') ? post.getParent('article') : null
-      , reasonEl = post.getElement('.reason')
+      , reasonEl = post.getElement('.hide_reason')
     ;
     new Elements([post, thread]).removeClass('hidden').removeClass('killed');
     if (reasonEl)

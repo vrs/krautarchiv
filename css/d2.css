@@ -582,10 +582,10 @@ footer {
 .thread.hidden .thread_reply, .thread.hidden .omittedposts, .hidden input[name="posts"], .hidden .post_body {
     display: none;
 }
-.reason:not(:empty)::before {
+.hide_reason:not(:empty)::before {
     content: "[hidden: "
 }
-.reason:not(:empty)::after {
+.hide_reason:not(:empty)::after {
     content: "]";
 }
 
