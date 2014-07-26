@@ -30,15 +30,18 @@ function restorePost(replacement) {
 }
 
 board.Thread.implement({
-  focusPost: function (id) {
-    this.focus = new board.Post(id);
-    var foc = this.focus.element
+  showContext: function (lensId, focusId) {
+    this.focus = new board.Post(focusId);
+    this.lens = new board.Post(lensId);
+    var lns = this.lens.element
+      , foc = this.focus.element
       , graph = this.postGraph()
       , ancbox = new Element('div.ancbox.context')
       , desbox = new Element('div.desbox.context')
       , ancestors
       , descendants
     ;
+    lns.getElement('.bullet a').set('text', "<<");
     foc.getElement('.bullet a').set('text', "<<");
     if (foc.getParent('.cache')) {
       this.element
@@ -46,21 +49,26 @@ board.Thread.implement({
         .grab(grabPost(foc), 'after');
     }
 
-    ancestors = graph.ancestors(id).flatten().erase(id);
-    descendants = graph.descendants(id).flatten().erase(id);
+    ancestors = graph.ancestors(lensId).flatten().erase(lensId);
+    descendants = graph.descendants(lensId).flatten().erase(lensId);
 
     ancbox.adopt(ancestors.map($).map(grabPost));
     desbox.adopt(descendants.map($).map(grabPost));
 
-    foc.grab(ancbox, 'before');
-    foc.grab(desbox, 'after');
+    lns.grab(ancbox, 'before');
+    if (+focusId < +lensId)
+        lns.grab(foc, 'before');
+    lns.grab(desbox, 'after');
+    if (+focusId > +lensId)
+        lns.grab(foc, 'after');
   },
-  defocusPost: function () {
+  flatten: function () {
     this.element.getElements('.replaced').forEach(restorePost);
     this.element.getElements('.ancbox, .desbox').dispose()
-    if (this.focus) {
+    if (this.lens && this.focus) {
+      this.lens.element.getElement('.bullet a').set('text', ">>");
       this.focus.element.getElement('.bullet a').set('text', ">>");
-      this.focus = null;
+      this.focus = this.lens = null;
     }
   },
 });
@@ -69,18 +77,25 @@ board.Thread.implement({
 window.addEvent('domready', function() {
   $$('main').addEvent('click:relay(a[onclick^=highlightPost], span.reflink > a, .bullet > a)',
     function (ev, tgt) {
-      var id = getTarget(tgt)
+      var focusId = getTarget(tgt)
         , post = tgt.getParent('article')
+        , lensId = post.get('id')
         , thread = new board.Thread(post.getParent('article'))
       ;
 
       function focus() {
-        var tempfocus = thread.focus;
+        var oldfocus = thread.focus
+          , oldlens = thread.lens;
         scrolls.save(tgt);
         scrolls.save(thread.element);
-        thread.defocusPost();
-        if (!tempfocus || tempfocus.id !== id)
-          thread.focusPost(id);
+        thread.flatten();
+        if (!oldfocus && !oldlens) { // no context is shown already
+          thread.showContext(lensId, focusId);
+        } else if (oldlens.id === focusId && oldlens.id === lensId) { // "<<"
+        } else if (oldfocus.id !== focusId) {
+          thread.showContext(lensId, focusId);
+        } else { // same link and post
+        }
         if (scrolls.restore(tgt) < 0) {
           scrolls.restore(thread.element);
           scrolls.intoview(thread.element);
@@ -93,7 +108,7 @@ window.addEvent('domready', function() {
         return;
       ev.preventDefault();
       // TODO check parent of post
-      if ($(id) && $(id).getParent('article')) {
+      if ($(focusId) && $(focusId).getParent('article')) {
         focus()
       } else {
         tgt.addClass('progress');

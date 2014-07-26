@@ -20,7 +20,7 @@ Interface:
 what about countryballs?
 setting: hide names/subjects/images
 captcha as background
-context: ancestors/descendants/both depending on link clicked, also OP handling
+context: OP handling, better ancbox/desbox
 
 
 JS:
@@ -34,7 +34,7 @@ recursive hiding:
     some usable way to get killed posts back
     ;support for loaded posts
 context.js:
-    ;support for loaded posts
+    load everything relevant as soon as there's a gap
 postloading:
     endless scroll?
     ;post expansion
