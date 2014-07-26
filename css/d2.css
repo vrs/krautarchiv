@@ -228,11 +228,20 @@ nav a {
 .full .link_reply {
     display: none;
 }
-.link_reply::before {
-    content: "» "
+.link_reply {
+    margin-left: 0.5em;
 }
 .icon a:link {
     font-weight: bold;
+}
+span.js::before {
+    content: "÷ ";
+}
+span.link_reply::before {
+    content: "» ";
+}
+span.icon::before {
+    content: "";
 }
 
 .thread_reply {

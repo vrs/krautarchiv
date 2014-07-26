@@ -44,6 +44,7 @@ Spells?
     filter: kill, hide, highlight, remove images, assign custom class, custom JS
     hide by: OP/name/trip/words/filenames/hashes/detectors
 custom CSS
+CSS theme support
 keyboard navigation (n/p threads, j/k posts, ctrl+return = open, etc)?
 
 
