@@ -17,10 +17,10 @@ board.Thread.implement({
 
   // TODO links need to point to their respective threads too, no way to know that yet
   addPost: function (post) {
-    this.graph.append(
-      post.postRefs().filter(function (x) {
-        return !!$(x);
-      }), post.id);
+    var ids = post.postRefs().filter(function (x) {
+      return !!$(x);
+    });
+    this.graph.append(ids.length ? ids : [this.id] , post.id);
   },
 
   cache: function () {

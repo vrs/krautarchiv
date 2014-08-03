@@ -611,6 +611,9 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     cursor: progress;
 }
 
+a.thread_OP::after {
+    content: " (OP)";
+}
 #preview {
     margin-right: 0.5em;
     box-shadow: 1px 2px 2px 1px gray;
@@ -662,9 +665,6 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
 .context .thread_OP .postername::after {
     content: " (OP)";
 }
-.thread_head + .replaced {
-    display: none;
-}
 
 .context .post {
     display: table;
@@ -684,6 +684,9 @@ span.link_show, span.link_show_recursive, span.link_kill, span.link_kill_recursi
     color: gray;
     background: none;
     padding: 0 1em;
+}
+.context .replaced {
+    margin-left: 0;
 }
 .replaced a:hover, .replaced a:focus {
     background: #FFFFFF;

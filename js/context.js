@@ -12,27 +12,36 @@ settings.register({
 
 if (settings.store.context.enable) { (function () {
 
-function grabPost(original) {
-  var id = original.get('id');
-
-  new Element('div.post.thread_reply.replaced#replaced_' + id)
-    .grab(new Element('span.reflink', {
-      html: "[<a href=\"#" + id + "\">&gt;&gt;" + id + "</a>]"
-    }))
-    .replaces(original);
-
-  return original;
-}
-
-function restorePost(replacement) {
-  var id = getTarget(replacement.getElement('span.reflink a'));
-  $(id).replaces(replacement);
-}
-
 board.Thread.implement({
+  pullPost: function (original) {
+    var id = original.get('id')
+      , placeholder = new Element('div.post.thread_reply.replaced#replaced_' + id)
+        .grab(new Element('span.reflink', {
+          html: "[<a href=\"#" + id + "\">&gt;&gt;" + id + "</a>]"
+        }))
+      ;
+    if (id === this.id) { // OP is immovable
+      placeholder.getElement('span.reflink a').addClass('thread_OP');
+      return placeholder;
+    } else {
+      placeholder.replaces(original);
+      return original;
+    }
+  },
+
+  restorePost: function (placeholder) {
+    var id = getTarget(placeholder.getElement('span.reflink a'));
+    if (id === this.id) {
+      placeholder.dispose();
+    } else {
+      $(id).replaces(placeholder);
+    }
+  },
+
+
   showContext: function (lensId, focusId) {
-    this.focus = new board.Post(focusId);
-    this.lens = new board.Post(lensId);
+    this.focus = new board.Post(focusId); // referenced post
+    this.lens = new board.Post(lensId); // "source" post
     var lns = this.lens.element
       , foc = this.focus.element
       , graph = this.postGraph()
@@ -40,30 +49,32 @@ board.Thread.implement({
       , desbox = new Element('div.desbox.context')
       , ancestors
       , descendants
+      , pullPost = this.pullPost.bind(this)
     ;
     lns.getElement('.bullet a').set('text', "<<");
     foc.getElement('.bullet a').set('text', "<<");
     if (foc.getParent('.cache')) {
       this.element
         .getElement('.omittedposts')
-        .grab(grabPost(foc), 'after');
+        .grab(pullPost, 'after');
     }
 
-    ancestors = graph.ancestors(lensId).flatten().erase(lensId);
-    descendants = graph.descendants(lensId).flatten().erase(lensId);
+    ancestors = graph.ancestors(focusId).flatten().erase(focusId).erase(lensId);
+    descendants = graph.descendants(focusId).flatten().erase(focusId).erase(lensId);
 
-    ancbox.adopt(ancestors.map($).map(grabPost));
-    desbox.adopt(descendants.map($).map(grabPost));
+    ancbox.adopt(ancestors.map($).map(pullPost));
+    desbox.adopt(descendants.map($).map(pullPost));
 
     lns.grab(ancbox, 'before');
-    if (+focusId < +lensId)
-        lns.grab(foc, 'before');
+    if (focusId <+ lensId)
+      lns.grab(pullPost(foc), 'before');
     lns.grab(desbox, 'after');
-    if (+focusId > +lensId)
-        lns.grab(foc, 'after');
+    if (focusId >+ lensId)
+      lns.grab(pullPost(foc), 'after');
   },
+
   flatten: function () {
-    this.element.getElements('.replaced').forEach(restorePost);
+    this.element.getElements('.replaced').forEach(this.restorePost.bind(this));
     this.element.getElements('.ancbox, .desbox').dispose()
     if (this.lens && this.focus) {
       this.lens.element.getElement('.bullet a').set('text', ">>");

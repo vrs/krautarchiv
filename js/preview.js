@@ -33,7 +33,7 @@ var preview = (function () {
         position: 'centerRight',
         offset: { x: 5, y: 0 },
         minimum: { y: window.pageYOffset + 5 },
-        // neasures too early. doesn't seem to be a problem?
+        // measures too early. doesn't seem to be a problem?
         maximum: { y: window.pageYOffset + window.getSize().y - pv.getSize().y - 5 },
       });
     }

@@ -27,6 +27,10 @@ if (settings.store.replies.enable) window.addEvent('domready', function () {
       , articles = thread.element.getElements('article')
     ;
 
+    // TODO sane selectors
+    thread.element.getElements('a[onclick^=highlightPost]').filter(function (a) {
+      return thread.id === getTarget(a);
+    }).invoke('addClass', 'thread_OP');
     thread.element.getElements('.post_replies').forEach(function (replies, i) {
       var id = new board.Post(articles[i]).id
         , children = (id in graph.nodes) && graph.nodes[id].children
