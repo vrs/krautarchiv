@@ -8,9 +8,9 @@
 <link rel="stylesheet" type="text/css" href="/css/d2.css">
 
 <!-- http://mootools.net/core/ccd5922c7bc9aade7b74398c6e5e5e7a -->
-<script type="text/javascript" src="/js/lib/mootools-core-1.4.5.js"></script>
+<script type="text/javascript" src="/js/lib/mootools-core-1.5.0.js"></script>
 <!-- http://mootools.net/more/86ad1a02d30e60265fce7cd3ec480d99 -->
-<script type="text/javascript" src="/js/lib/mootools-more-1.4.0.1.js"></script>
+<script type="text/javascript" src="/js/lib/mootools-more-1.5.0.js"></script>
 : block scripts -> { }
 <script type="text/javascript" src="/js/misc.js"></script>
 <script type="text/javascript" src="/js/DAG.js"></script>
