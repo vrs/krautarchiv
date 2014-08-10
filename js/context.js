@@ -56,7 +56,7 @@ board.Thread.implement({
     if (foc.getParent('.cache')) {
       this.element
         .getElement('.omittedposts')
-        .grab(pullPost, 'after');
+        .grab(pullPost(foc), 'after');
     }
 
     ancestors = graph.ancestors(focusId).flatten().erase(focusId).erase(lensId);

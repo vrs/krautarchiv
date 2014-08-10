@@ -21,6 +21,7 @@ what about countryballs?
 setting: hide names/subjects/images
 captcha as background
 context: better ancbox/desbox
+weird interactions between expandthread and context.js -> smooth out surface
 
 
 JS:
